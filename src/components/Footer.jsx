@@ -47,7 +47,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-800 text-white">
+    <footer className="bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer */}
         <div className="py-16">
@@ -56,41 +56,41 @@ export const Footer = () => {
             <div className="lg:col-span-1">
               <div className="mb-6">
                 <Logo className="h-10 mb-4" />
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                   {companyInfo.tagline}
                 </p>
               </div>
 
-              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
                 We specialize in comprehensive digital marketing solutions for USA-based businesses, helping them build brands, convert leads, and grow faster.
               </p>
 
               {/* Social Proof */}
               <div className="flex items-center space-x-6 text-sm">
                 <div>
-                  <div className="text-2xl font-bold text-teal-400">150+</div>
-                  <div className="text-slate-400">Clients</div>
+                  <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">150+</div>
+                  <div className="text-slate-600 dark:text-slate-400">Clients</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-emerald-400">180%</div>
-                  <div className="text-slate-400">Avg Growth</div>
+                  <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">180%</div>
+                  <div className="text-slate-600 dark:text-slate-400">Avg Growth</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-white">98%</div>
-                  <div className="text-slate-400">Success Rate</div>
+                  <div className="text-2xl font-bold text-slate-900 dark:text-white">98%</div>
+                  <div className="text-slate-600 dark:text-slate-400">Success Rate</div>
                 </div>
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-semibold text-white mb-6">Quick Links</h4>
+              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Quick Links</h4>
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
                     <button
                       onClick={() => handleNavClick(link.href)}
-                      className="text-slate-300 hover:text-teal-400 transition-colors duration-200 text-left"
+                      className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200 text-left"
                     >
                       {link.name}
                     </button>
@@ -101,11 +101,11 @@ export const Footer = () => {
 
             {/* Services */}
             <div>
-              <h4 className="text-lg font-semibold text-white mb-6">Our Services</h4>
+              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Our Services</h4>
               <ul className="space-y-3">
                 {services.map((service, index) => (
                   <li key={index}>
-                    <span className="text-slate-300 text-sm">
+                    <span className="text-slate-600 dark:text-slate-300 text-sm">
                       {service}
                     </span>
                   </li>
@@ -115,21 +115,21 @@ export const Footer = () => {
 
             {/* Contact & CTA */}
             <div>
-              <h4 className="text-lg font-semibold text-white mb-6">Get Started</h4>
+              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Get Started</h4>
 
               {/* Contact Info */}
               <div className="space-y-4 mb-6">
                 <div className="flex items-center space-x-3">
-                  <Mail className="w-4 h-4 text-teal-400 flex-shrink-0" />
-                  <span className="text-slate-300 text-sm">{contactInfo.email}</span>
+                  <Mail className="w-4 h-4 text-teal-600 dark:text-teal-400 flex-shrink-0" />
+                  <span className="text-slate-600 dark:text-slate-300 text-sm">{contactInfo.email}</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Phone className="w-4 h-4 text-teal-400 flex-shrink-0" />
-                  <span className="text-slate-300 text-sm">{contactInfo.phone}</span>
+                  <Phone className="w-4 h-4 text-teal-600 dark:text-teal-400 flex-shrink-0" />
+                  <span className="text-slate-600 dark:text-slate-300 text-sm">{contactInfo.phone}</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <MapPin className="w-4 h-4 text-teal-400 flex-shrink-0" />
-                  <span className="text-slate-300 text-sm">{contactInfo.address}</span>
+                  <MapPin className="w-4 h-4 text-teal-600 dark:text-teal-400 flex-shrink-0" />
+                  <span className="text-slate-600 dark:text-slate-300 text-sm">{contactInfo.address}</span>
                 </div>
               </div>
 
@@ -146,20 +146,20 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-slate-700 py-6">
+        <div className="border-t border-slate-200 dark:border-slate-700 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-slate-400 text-sm">
+            <div className="text-slate-500 dark:text-slate-400 text-sm">
               © {currentYear} AssuredPixel Digital. All rights reserved.
             </div>
 
-            <div className="flex items-center space-x-6 text-sm text-slate-400">
-              <a href="#" className="hover:text-teal-400 transition-colors duration-200">
+            <div className="flex items-center space-x-6 text-sm text-slate-500 dark:text-slate-400">
+              <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
                 Privacy Policy
               </a>
-              <a href="#" className="hover:text-teal-400 transition-colors duration-200">
+              <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
                 Terms of Service
               </a>
-              <a href="#" className="hover:text-teal-400 transition-colors duration-200">
+              <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
                 Cookie Policy
               </a>
             </div>
