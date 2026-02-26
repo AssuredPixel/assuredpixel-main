@@ -1,14 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Logo } from "./Logo";
 
+// Sections that get active-highlight treatment
+const SCROLL_SECTIONS = ["home", "services", "testimonials"];
+
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Scroll-based active-section tracking
+  // Uses a scroll listener instead of IntersectionObserver so it works
+  // even though ServicesSection / TestimonialsSection are lazy-loaded.
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
+    const getActive = () => {
+      const offset = 100; // account for fixed header height
+      let current = "home";
+
+      SCROLL_SECTIONS.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const top = el.getBoundingClientRect().top;
+        if (top - offset <= 0) {
+          current = id;
+        }
+      });
+
+      setActiveSection(current);
+    };
+
+    // Run immediately so the initial state is correct
+    getActive();
+
+    window.addEventListener("scroll", getActive, { passive: true });
+    return () => window.removeEventListener("scroll", getActive);
+  }, [location.pathname]);
 
   // Scroll to hash on load/location change
   useEffect(() => {
@@ -48,14 +84,20 @@ export const Header = () => {
   };
 
   const navigation = [
-    { name: "Home", href: "/", isExternal: true },
-    { name: "Services", href: "/#services", isExternal: true },
-    { name: "Testimonials", href: "/#testimonials", isExternal: true },
-    { name: "About", href: "/about", isExternal: true },
-    { name: "Case Studies", href: "/case-studies", isExternal: true },
-    { name: "Blog", href: "/blog", isExternal: true },
-    { name: "Contact", href: "/contact", isExternal: true },
+    { name: "Home", href: "/", sectionId: "home" },
+    { name: "Services", href: "/#services", sectionId: "services" },
+    { name: "Testimonials", href: "/#testimonials", sectionId: "testimonials" },
+    { name: "About", href: "/about" },
+    { name: "Case Studies", href: "/case-studies" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
   ];
+
+  // Returns true when this nav item should be highlighted
+  const isActive = (item) => {
+    if (location.pathname !== "/") return false;
+    return item.sectionId === activeSection;
+  };
 
   const handleNavClick = (href) => {
     if (href.startsWith("/#") || href === "/") {
@@ -88,15 +130,27 @@ export const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              {navigation.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavClick(item.href)}
-                  className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
-                >
-                  {item.name}
-                </button>
-              ))}
+              {navigation.map((item) => {
+                const active = isActive(item);
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => handleNavClick(item.href)}
+                    className={`relative px-3 py-2 text-sm font-medium transition-all duration-200
+                      ${active
+                        ? "text-teal-600 dark:text-teal-400"
+                        : "text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400"
+                      }`}
+                  >
+                    {item.name}
+                    {/* Active underline indicator */}
+                    <span
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-teal-500 transition-all duration-300"
+                      style={{ width: active ? "80%" : "0%" }}
+                    />
+                  </button>
+                );
+              })}
             </div>
           </nav>
 
@@ -145,15 +199,22 @@ export const Header = () => {
         {isMenuOpen && (
           <div className="lg:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-700">
-              {navigation.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavClick(item.href)}
-                  className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 block px-3 py-2 text-base font-medium w-full text-left transition-colors duration-200"
-                >
-                  {item.name}
-                </button>
-              ))}
+              {navigation.map((item) => {
+                const active = isActive(item);
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => handleNavClick(item.href)}
+                    className={`block px-3 py-2 text-base font-medium w-full text-left transition-all duration-200 rounded-md
+                      ${active
+                        ? "text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 border-l-2 border-teal-500 pl-4"
+                        : "text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400"
+                      }`}
+                  >
+                    {item.name}
+                  </button>
+                );
+              })}
               <div className="pt-4">
                 <Button
                   onClick={() => handleNavClick("/#book-call")}

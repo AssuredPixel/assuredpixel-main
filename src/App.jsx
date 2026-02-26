@@ -7,6 +7,7 @@ import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
 import { Toaster } from "./components/ui/sonner";
 import { ServiceDetail } from "./components/ServiceDetail";
+import { BackToTop } from "./components/BackToTop";
 
 // Lazy load below-the-fold components
 const AboutPage = lazy(() => import("./components/AboutPage").then(module => ({ default: module.AboutPage })));
@@ -35,6 +36,7 @@ const Home = () => {
       </main>
       <Footer />
       <Toaster />
+      <BackToTop />
     </div>
   );
 };
