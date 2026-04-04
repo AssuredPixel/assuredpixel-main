@@ -7,11 +7,11 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 // Mock data for demo
 const mockData = {
   heroContent: {
-    headline: "Results-First Growth Partners for Modern Businesses",
+    headline: "We Build Websites That Win Business",
     subheadline:
-      "Stop paying for shared leads. Own your market with a custom-built growth engine that delivers exclusive calls and high-intent customers directly to your business.",
-    ctaText: "Get Your Free Strategy Session",
-    ctaSubtext: "✨ No pressure • Triple your lead volume • Practical recommendations",
+      "AssuredPixel designs and develops high-converting websites for ambitious businesses. Clean code, strong design, real results.",
+    ctaText: "Book a Free Strategy Call",
+    ctaSubtext: "✨ No contracts • Fast turnaround • Built to convert",
   },
 };
 

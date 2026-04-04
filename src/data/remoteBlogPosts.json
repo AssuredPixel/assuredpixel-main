@@ -1,115 +1,98 @@
 [
   {
-    "id": 3432613,
-    "title": "Join our April Fools Challenge for a chance at TEA-RRIFIC prizes!!!",
-    "description": "Hello, and let’s get this out of the way right now: this is no joke!!  Tired of building...",
-    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fi4t3ch1ql6fivzf981w8.png",
-    "url": "https://dev.to/devteam/join-our-april-fools-challenge-for-a-chance-at-tea-rrific-prizes-1ofa",
-    "readTime": "3 min read",
-    "publishedAt": "2026-04-01T15:32:19Z",
+    "id": 3455104,
+    "title": "Multi-Agent Teams for Business with OpenClaw",
+    "description": "Multi-Agent Teams for Business with OpenClaw: How ClawBud Scales Execution   Most businesses...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F25yq7eh8d0qm7fe8xxcx.png",
+    "url": "https://dev.to/aibuddy_il/multi-agent-teams-for-business-with-openclaw-525n",
+    "readTime": "2 min read",
+    "publishedAt": "2026-04-04T23:14:29Z",
     "author": {
-      "name": "Jess Lee",
-      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F264%2Fb75f6edf-df7b-406e-a56b-43facafb352c.jpg"
+      "name": "AIbuddy_il",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3798813%2F68122dec-62a3-4a8d-bcfe-10d71fd43b71.png"
     },
     "tags": [
-      "devchallenge",
-      "418challenge",
-      "jokes"
+      "Business Growth"
     ]
   },
   {
-    "id": 3453326,
-    "title": "Deploy Gemma 4 on Cloud Run: Pay Only When You Actually Use It",
-    "description": "Last year, Google flew me to Paris for the announcement of Gemma 3. It was an exciting event. The...",
-    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fpaa9lx5j1mf8lbazntjf.png",
-    "url": "https://dev.to/gde/deploy-gemma-4-on-cloud-run-pay-only-when-you-actually-use-it-9ln",
-    "readTime": "18 min read",
-    "publishedAt": "2026-04-04T10:42:37Z",
+    "id": 3454972,
+    "title": "WordPress Alternative Analysis: When Hybrid Visual Builders Outperform Pure Headless CMS Architectures",
+    "description": "Analysis of when hybrid visual builders outperform pure headless CMS architectures. Compare React component workflows, content preview latency, and to",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F95qsjjey3lj0a3o313bv.png",
+    "url": "https://dev.to/jasonbiondo/wordpress-alternative-analysis-when-hybrid-visual-builders-outperform-pure-headless-cms-aep",
+    "readTime": "11 min read",
+    "publishedAt": "2026-04-04T22:05:47Z",
     "author": {
-      "name": "Daniel Gwerzman",
-      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3700947%2F9cbf0498-ff26-48a2-b5f6-bf03ce467f94.webp"
+      "name": "Jason Biondo",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3759945%2F7bb29f81-6684-4977-9259-140820f39245.png"
     },
     "tags": [
-      "gemma",
-      "cloudrun",
-      "cloud",
-      "ai"
+      "Marketing"
     ]
   },
   {
-    "id": 3454130,
-    "title": "LoreKit - AI That GMs Full TTRPG Campaigns",
-    "description": "An open-source engine that turns AI into a real Game Master - with deterministic dice, persistent NPCs, and full campaign tracking.",
-    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fimqw4xub80f093i2okxr.png",
-    "url": "https://dev.to/matluz/i-built-an-ai-that-gms-full-ttrpg-campaigns-774",
+    "id": 3454972,
+    "title": "WordPress Alternative Analysis: When Hybrid Visual Builders Outperform Pure Headless CMS Architectures",
+    "description": "Analysis of when hybrid visual builders outperform pure headless CMS architectures. Compare React component workflows, content preview latency, and to",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F95qsjjey3lj0a3o313bv.png",
+    "url": "https://dev.to/jasonbiondo/wordpress-alternative-analysis-when-hybrid-visual-builders-outperform-pure-headless-cms-aep",
+    "readTime": "11 min read",
+    "publishedAt": "2026-04-04T22:05:47Z",
+    "author": {
+      "name": "Jason Biondo",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3759945%2F7bb29f81-6684-4977-9259-140820f39245.png"
+    },
+    "tags": [
+      "SEO"
+    ]
+  },
+  {
+    "id": 3454960,
+    "title": "How to Write an Elevator Pitch for Your Startup",
+    "description": "How to Write an Elevator Pitch for Your Startup   You've got 30 seconds. Someone asks what...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Flsm0zqhgxiiksj9na78d.png",
+    "url": "https://dev.to/sclaydon/how-to-write-an-elevator-pitch-for-your-startup-6g0",
+    "readTime": "8 min read",
+    "publishedAt": "2026-04-04T22:00:30Z",
+    "author": {
+      "name": "Spencer Claydon",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3830262%2Fe1cb435b-b8e4-4fde-bd50-80d9a7306d80.png"
+    },
+    "tags": [
+      "Business Growth"
+    ]
+  },
+  {
+    "id": 3454785,
+    "title": "I Gave an AI $0 and Asked It to Get My First Customer",
+    "description": "I'm a non-technical founder who builds things with AI. A few months ago I shipped ChainMail, a...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F36tpyjfdapodr5r2wkqp.png",
+    "url": "https://dev.to/admin_chainmail_6cfeeb3e6/i-gave-an-ai-0-and-asked-it-to-get-my-first-customer-4eef",
+    "readTime": "5 min read",
+    "publishedAt": "2026-04-04T20:17:23Z",
+    "author": {
+      "name": "Admin Chainmail",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3861482%2F55393c29-21d3-404d-9d17-2303fabdf679.png"
+    },
+    "tags": [
+      "Marketing"
+    ]
+  },
+  {
+    "id": 3454647,
+    "title": "Best SEO Tools in 2026: I Ranked 3 Sites to #1 Using These Tools",
+    "description": "Last updated: April 2026  I've been doing SEO for over 8 years. In that time, I've used probably...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2qthpb4flh9hwc51d0gx.png",
+    "url": "https://dev.to/alexdevson/best-seo-tools-in-2026-i-ranked-3-sites-to-1-using-these-tools-338l",
     "readTime": "4 min read",
-    "publishedAt": "2026-04-04T15:01:52Z",
+    "publishedAt": "2026-04-04T18:42:23Z",
     "author": {
-      "name": "Matheus Luz",
-      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F116286%2F02f37cb5-3309-414e-930d-7b64be231a4b.jpeg"
+      "name": "Alex Devson",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3860182%2Fb4b92847-3a40-4331-9003-1d4f714fd076.png"
     },
     "tags": [
-      "opensource",
-      "python",
-      "ai",
-      "gamedev"
-    ]
-  },
-  {
-    "id": 3448337,
-    "title": "Deploying ADK Agents on Azure ACI",
-    "description": "Leveraging the Google Agent Development Kit (ADK) and the underlying Gemini LLM to build Agents in...",
-    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F6g3krpxi8yetfcdf5aay.png",
-    "url": "https://dev.to/gde/deploying-adk-agents-on-azure-aci-2jk6",
-    "readTime": "9 min read",
-    "publishedAt": "2026-04-02T17:00:19Z",
-    "author": {
-      "name": "xbill",
-      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3490099%2Fc6a975d0-cd94-485d-82b1-14ed5b344fcf.jpg"
-    },
-    "tags": [
-      "geminillm",
-      "agents",
-      "python",
-      "azureaci"
-    ]
-  },
-  {
-    "id": 3441625,
-    "title": "I built a machine-readable UK Chart of Accounts for Python (because one didn't exist)",
-    "description": "Table Of Contents    What it does Quick example Why VAT treatments matter The LLM use...",
-    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2oazzxppk9mbvywrqpuv.png",
-    "url": "https://dev.to/billkhiz/i-built-a-machine-readable-uk-chart-of-accounts-for-python-because-one-didnt-exist-30m6",
-    "readTime": "3 min read",
-    "publishedAt": "2026-04-01T16:19:39Z",
-    "author": {
-      "name": "billkhiz",
-      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3690195%2Ffe7480cb-0a1b-48fb-9f3c-0b12f86d7bbb.jpg"
-    },
-    "tags": [
-      "python",
-      "accounting",
-      "opensource",
-      "fintech"
-    ]
-  },
-  {
-    "id": 3447746,
-    "title": "Observability from Day One: What We Got Wrong in v1 and How We Fixed It in v2",
-    "description": "The worst kind of production incident is the one where you're staring at a broken system and you have...",
-    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fqmlx50f1qk5pdq9sj4y6.png",
-    "url": "https://dev.to/oliverke/observability-from-day-one-what-we-got-wrong-in-v1-and-how-we-fixed-it-in-v2-36lc",
-    "readTime": "6 min read",
-    "publishedAt": "2026-04-03T05:49:12Z",
-    "author": {
-      "name": "Kelechi Oliver A.",
-      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F167456%2F79658f2b-93b7-48be-b147-f96b252db18d.png"
-    },
-    "tags": [
-      "webdev",
-      "productivity",
-      "devops",
-      "architecture"
+      "SEO"
     ]
   }
 ]
