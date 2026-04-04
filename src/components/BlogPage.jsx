@@ -10,7 +10,7 @@ import {
     Search,
     Filter
 } from "lucide-react";
-import { blogPosts } from "../data/blogPosts";
+import blogPosts from "../data/remoteBlogPosts.json";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 
@@ -18,12 +18,15 @@ export const BlogPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
 
-    const categories = ["All", ...new Set(blogPosts.map(post => post.category))];
+    // Extract all unique tags to act as categories
+    const allTags = blogPosts.flatMap(post => post.tags || []);
+    const uniqueTags = [...new Set(allTags)].slice(0, 6); // Limit to top 6 tags
+    const categories = ["All", ...uniqueTags];
 
     const filteredPosts = blogPosts.filter(post => {
         const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
+            (post.description && post.description.toLowerCase().includes(searchTerm.toLowerCase()));
+        const matchesCategory = selectedCategory === "All" || (post.tags && post.tags.includes(selectedCategory));
         return matchesSearch && matchesCategory;
     });
 
@@ -54,7 +57,7 @@ export const BlogPage = () => {
                         </h1>
                         <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl">
                             Actionable strategies, deep-dive guides, and the latest trends
-                            to help your business scale in the digital age.
+                            pulled directly from our Dev.to engineering pipeline.
                         </p>
                     </div>
 
@@ -91,20 +94,26 @@ export const BlogPage = () => {
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredPosts.length > 0 ? (
                             filteredPosts.map((post) => (
-                                <Link key={post.id} to={`/blog/${post.slug}`} className="group">
+                                <a key={post.id} href={post.url} target="_blank" rel="noopener noreferrer" className="group block">
                                     <Card className="h-full hover:shadow-2xl dark:hover:shadow-teal-900/10 transition-all duration-500 hover:-translate-y-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 overflow-hidden">
-                                        <div className="relative h-56 overflow-hidden">
-                                            <img
-                                                src={post.image}
-                                                alt={post.title}
-                                                loading="lazy"
-                                                className="w-full h-full object-cover group-hover:scale-110 group-hover:brightness-110 transition-all duration-700"
-                                            />
-                                            <div className="absolute top-4 left-4">
-                                                <span className="bg-teal-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
-                                                    {post.category}
-                                                </span>
-                                            </div>
+                                        <div className="relative h-56 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                            {post.coverImage ? (
+                                                <img
+                                                    src={post.coverImage}
+                                                    alt={post.title}
+                                                    loading="lazy"
+                                                    className="w-full h-full object-cover group-hover:scale-110 group-hover:brightness-110 transition-all duration-700"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full bg-gradient-to-br from-teal-500/20 to-slate-800/20 group-hover:scale-110 transition-all duration-700" />
+                                            )}
+                                            {post.tags && post.tags[0] && (
+                                                <div className="absolute top-4 left-4">
+                                                    <span className="bg-teal-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg uppercase tracking-wide">
+                                                        {post.tags[0]}
+                                                    </span>
+                                                </div>
+                                            )}
                                         </div>
 
                                         <CardHeader className="p-8 pb-4">
@@ -112,7 +121,7 @@ export const BlogPage = () => {
                                                 {post.title}
                                             </CardTitle>
                                             <CardDescription className="text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 mt-4 text-base">
-                                                {post.excerpt}
+                                                {post.description}
                                             </CardDescription>
                                         </CardHeader>
 
@@ -120,8 +129,12 @@ export const BlogPage = () => {
                                             <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-500 pt-6 border-t border-slate-100 dark:border-slate-800">
                                                 <div className="flex items-center gap-6">
                                                     <span className="flex items-center gap-1.5 font-medium">
-                                                        <User className="w-4 h-4 text-teal-600/50" />
-                                                        {post.author.split(' ')[0]}
+                                                        {post.author?.profileImage ? (
+                                                            <img src={post.author.profileImage} alt={post.author.name} className="w-5 h-5 rounded-full" />
+                                                        ) : (
+                                                            <User className="w-4 h-4 text-teal-600/50" />
+                                                        )}
+                                                        {post.author?.name ? post.author.name.split(' ')[0] : 'Author'}
                                                     </span>
                                                     <span className="flex items-center gap-1.5 font-medium">
                                                         <Clock className="w-4 h-4 text-teal-600/50" />
@@ -129,12 +142,12 @@ export const BlogPage = () => {
                                                     </span>
                                                 </div>
                                                 <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-teal-600 dark:text-teal-400 group-hover:bg-teal-600 group-hover:text-white transition-all duration-300">
-                                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5" />
+                                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-rotate-45 transition-transform" />
                                                 </div>
                                             </div>
                                         </CardContent>
                                     </Card>
-                                </Link>
+                                </a>
                             ))
                         ) : (
                             <div className="col-span-full py-20 text-center">

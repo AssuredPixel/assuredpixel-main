@@ -1,0 +1,115 @@
+[
+  {
+    "id": 3432613,
+    "title": "Join our April Fools Challenge for a chance at TEA-RRIFIC prizes!!!",
+    "description": "Hello, and let’s get this out of the way right now: this is no joke!!  Tired of building...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fi4t3ch1ql6fivzf981w8.png",
+    "url": "https://dev.to/devteam/join-our-april-fools-challenge-for-a-chance-at-tea-rrific-prizes-1ofa",
+    "readTime": "3 min read",
+    "publishedAt": "2026-04-01T15:32:19Z",
+    "author": {
+      "name": "Jess Lee",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F264%2Fb75f6edf-df7b-406e-a56b-43facafb352c.jpg"
+    },
+    "tags": [
+      "devchallenge",
+      "418challenge",
+      "jokes"
+    ]
+  },
+  {
+    "id": 3453326,
+    "title": "Deploy Gemma 4 on Cloud Run: Pay Only When You Actually Use It",
+    "description": "Last year, Google flew me to Paris for the announcement of Gemma 3. It was an exciting event. The...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fpaa9lx5j1mf8lbazntjf.png",
+    "url": "https://dev.to/gde/deploy-gemma-4-on-cloud-run-pay-only-when-you-actually-use-it-9ln",
+    "readTime": "18 min read",
+    "publishedAt": "2026-04-04T10:42:37Z",
+    "author": {
+      "name": "Daniel Gwerzman",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3700947%2F9cbf0498-ff26-48a2-b5f6-bf03ce467f94.webp"
+    },
+    "tags": [
+      "gemma",
+      "cloudrun",
+      "cloud",
+      "ai"
+    ]
+  },
+  {
+    "id": 3454130,
+    "title": "LoreKit - AI That GMs Full TTRPG Campaigns",
+    "description": "An open-source engine that turns AI into a real Game Master - with deterministic dice, persistent NPCs, and full campaign tracking.",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fimqw4xub80f093i2okxr.png",
+    "url": "https://dev.to/matluz/i-built-an-ai-that-gms-full-ttrpg-campaigns-774",
+    "readTime": "4 min read",
+    "publishedAt": "2026-04-04T15:01:52Z",
+    "author": {
+      "name": "Matheus Luz",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F116286%2F02f37cb5-3309-414e-930d-7b64be231a4b.jpeg"
+    },
+    "tags": [
+      "opensource",
+      "python",
+      "ai",
+      "gamedev"
+    ]
+  },
+  {
+    "id": 3448337,
+    "title": "Deploying ADK Agents on Azure ACI",
+    "description": "Leveraging the Google Agent Development Kit (ADK) and the underlying Gemini LLM to build Agents in...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F6g3krpxi8yetfcdf5aay.png",
+    "url": "https://dev.to/gde/deploying-adk-agents-on-azure-aci-2jk6",
+    "readTime": "9 min read",
+    "publishedAt": "2026-04-02T17:00:19Z",
+    "author": {
+      "name": "xbill",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3490099%2Fc6a975d0-cd94-485d-82b1-14ed5b344fcf.jpg"
+    },
+    "tags": [
+      "geminillm",
+      "agents",
+      "python",
+      "azureaci"
+    ]
+  },
+  {
+    "id": 3441625,
+    "title": "I built a machine-readable UK Chart of Accounts for Python (because one didn't exist)",
+    "description": "Table Of Contents    What it does Quick example Why VAT treatments matter The LLM use...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2oazzxppk9mbvywrqpuv.png",
+    "url": "https://dev.to/billkhiz/i-built-a-machine-readable-uk-chart-of-accounts-for-python-because-one-didnt-exist-30m6",
+    "readTime": "3 min read",
+    "publishedAt": "2026-04-01T16:19:39Z",
+    "author": {
+      "name": "billkhiz",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3690195%2Ffe7480cb-0a1b-48fb-9f3c-0b12f86d7bbb.jpg"
+    },
+    "tags": [
+      "python",
+      "accounting",
+      "opensource",
+      "fintech"
+    ]
+  },
+  {
+    "id": 3447746,
+    "title": "Observability from Day One: What We Got Wrong in v1 and How We Fixed It in v2",
+    "description": "The worst kind of production incident is the one where you're staring at a broken system and you have...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fqmlx50f1qk5pdq9sj4y6.png",
+    "url": "https://dev.to/oliverke/observability-from-day-one-what-we-got-wrong-in-v1-and-how-we-fixed-it-in-v2-36lc",
+    "readTime": "6 min read",
+    "publishedAt": "2026-04-03T05:49:12Z",
+    "author": {
+      "name": "Kelechi Oliver A.",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F167456%2F79658f2b-93b7-48be-b147-f96b252db18d.png"
+    },
+    "tags": [
+      "webdev",
+      "productivity",
+      "devops",
+      "architecture"
+    ]
+  }
+]

@@ -14,9 +14,7 @@ const routes = [
   '/blog',
 ]
 
-// We use regex to extract dynamic routes safely without running Vite's JSX compiler natively
 const servicesFile = fs.readFileSync(toAbsolute('../src/data/services.js'), 'utf-8')
-const blogFile = fs.readFileSync(toAbsolute('../src/data/blogPosts.js'), 'utf-8')
 
 const extractSlugs = (fileContent) => {
   const slugs = []
@@ -29,10 +27,8 @@ const extractSlugs = (fileContent) => {
 }
 
 const servicesSlugs = extractSlugs(servicesFile)
-const blogSlugs = extractSlugs(blogFile)
 
 servicesSlugs.forEach(slug => routes.push(`/services/${slug}`))
-blogSlugs.forEach(slug => routes.push(`/blog/${slug}`))
 
 async function prerender() {
   console.log('Generating Static Pages...')

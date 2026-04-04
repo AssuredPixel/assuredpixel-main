@@ -13,7 +13,6 @@ import { AboutPage } from "./components/AboutPage";
 import { CaseStudiesPage } from "./components/CaseStudiesPage";
 import { ContactPage } from "./components/ContactPage";
 import { BlogPage } from "./components/BlogPage";
-import { BlogPostDetail } from "./components/BlogPostDetail";
 import { CalendlyForm } from "./components/CalendlyForm";
 import { ServicesSection } from "./components/ServicesSection";
 import { TestimonialsSection } from "./components/TestimonialSection";
@@ -60,16 +59,6 @@ export function AppRoutes() {
           <Header />
           <Suspense fallback={<div className="py-20 text-center">Loading Blog...</div>}>
             <BlogPage />
-          </Suspense>
-          <Footer />
-          <Toaster />
-        </>
-      } />
-      <Route path="/blog/:slug" element={
-        <>
-          <Header />
-          <Suspense fallback={<div className="py-20 text-center">Loading Article...</div>}>
-            <BlogPostDetail />
           </Suspense>
           <Footer />
           <Toaster />
