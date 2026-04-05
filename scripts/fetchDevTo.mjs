@@ -2,11 +2,14 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import axios from 'axios'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const dataFilePath = path.resolve(__dirname, '../src/data/remoteBlogPosts.json')
 
-const API_KEY = 'NUZXxX9ynzigj7q9hLXdXWyn'
+const API_KEY = process.env.DEVTO_API_KEY;
 
 // Strict professional categories we want to pull
 const TARGET_TAGS = [

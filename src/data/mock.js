@@ -215,19 +215,19 @@ export const mockData = {
   // Company Info
   companyInfo: {
     name: "AssuredPixel",
-    tagline: "Transform Your Online Presence",
+    tagline: "Your Digital Presence, Done Right",
     description:
-      "We specialize in branding, web design, SEO, content strategy, and full-funnel digital marketing for USA-based businesses looking for measurable growth.",
-    founded: "2020",
-    clientsServed: "150+",
-    averageGrowth: "180%",
+      "AssuredPixel is a remote-first digital studio building high-quality websites and digital experiences for ambitious businesses worldwide.",
+    founded: "2024",
+    clientsServed: "4",
+    averageGrowth: "100%",
   },
 
   // Contact Info
   contactInfo: {
-    email: "hello@assuredpixel.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Digital Avenue, Austin, TX 78701",
-    hours: "Monday – Friday: 9:00 AM – 6:00 PM CST",
+    email: "support@assuredpixel.com",
+    phone: "+234 903 097 7669", // replace with real number
+    address: "Remote Studio — Serving clients globally",
+    hours: "Monday – Friday: 9:00 AM – 6:00 PM WAT",
   },
 };

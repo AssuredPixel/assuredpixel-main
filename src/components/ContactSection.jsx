@@ -11,10 +11,10 @@ import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
 // Mock data (replace with your actual import)
 const mockData = {
   contactInfo: {
-    email: "hello@assuredpixel.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Digital Ave, Suite 100, San Francisco, CA 94105",
-    hours: "Mon-Fri: 9AM-6PM PST",
+    email: "support@assuredpixel.com",
+    phone: "+234 903 097 7669", // replace with your real WhatsApp number
+    address: "Remote Studio — Serving clients globally",
+    hours: "Mon-Fri: 9AM-6PM WAT",
   },
 };
 
@@ -34,17 +34,13 @@ export const ContactSection = () => {
   const observerRef = useRef(null);
 
   const services = [
-    { value: "Business Branding", label: "Business Branding" },
-    { value: "Website Creation", label: "Website Creation" },
-    {
-      value: "Search Engine Optimization(SEO)",
-      label: "Search Engine Optimization(SEO)",
-    },
-    { value: "Content Writing", label: "Content Writing" },
-    { value: "Social Media Management", label: "Social Media Management" },
-    { value: "Cloud Integration", label: "Cloud Integration" },
+    { value: "Website Design & Development", label: "Website Design & Development" },
+    { value: "Brand Identity Design", label: "Brand Identity Design" },
+    { value: "SEO & Search Visibility", label: "SEO & Search Visibility" },
+    { value: "Paid Advertising", label: "Paid Advertising (Google & Meta)" },
+    { value: "Content & Copywriting", label: "Content & Copywriting" },
+    { value: "Digital Strategy & Consulting", label: "Digital Strategy & Consulting" },
   ];
-
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -154,11 +150,10 @@ export const ContactSection = () => {
             Get Started Today
           </div>
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-6 transition-colors duration-300">
-            Ready to Dominate Your Local Market?
+            Let's Build Something Great
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed transition-colors duration-300">
-            Book your free session and discover how to stop paying for shared leads and
-            start generating exclusive, high-intent results for your business.
+            Tell us about your project and we'll get back to you within 24 hours with a clear plan forward.
           </p>
         </div>
 
@@ -177,11 +172,10 @@ export const ContactSection = () => {
             <Card className="bg-white dark:bg-slate-800 shadow-xl dark:shadow-teal-900/10 border-slate-200 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl dark:hover:shadow-teal-900/20 hover:scale-[1.01]">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-50 transition-colors duration-300">
-                  Book Your Free Strategy Session
+                  Start a Project
                 </CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                  Fill out the form below and we'll analyze your digital
-                  presence and provide actionable recommendations at no cost.
+                  Fill out the form below and we'll reach out to discuss your project, timeline, and budget.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -263,24 +257,7 @@ export const ContactSection = () => {
                     </div>
                   </div>
 
-                  <div className="transform hover:scale-105 transition-transform duration-300">
-                    <label
-                      htmlFor="website"
-                      className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300"
-                    >
-                      Website URL *
-                    </label>
-                    <input
-                      type="url"
-                      id="website"
-                      name="website"
-                      required
-                      value={formData.website}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400 focus:border-transparent transition-all duration-300"
-                      placeholder="https://yourwebsite.com"
-                    />
-                  </div>
+
 
                   <div className="transform hover:scale-105 transition-transform duration-300">
                     <label
@@ -332,16 +309,14 @@ export const ContactSection = () => {
                       <span className="animate-pulse">Sending...</span>
                     ) : (
                       <>
-                        <span>Get My Free Strategy Session</span>
+                        <span>Send Message</span>
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                       </>
                     )}
                   </button>
 
                   <p className="text-xs text-slate-500 dark:text-slate-500 text-center transition-colors duration-300">
-                    By submitting this form, you agree to receive communications
-                    from AssuredPixel Digital. We respect your privacy and will
-                    never share your information.
+                    We respond to every inquiry within 24 hours. Your information is never shared with third parties
                   </p>
                 </div>
               </CardContent>
@@ -452,10 +427,10 @@ export const ContactSection = () => {
                     </div>
                     <div>
                       <div className="font-semibold text-slate-900 dark:text-slate-100 transition-colors duration-300">
-                        Quick Response
+                        We Review Your Request
                       </div>
                       <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                        We'll contact you within 24 hours to schedule your session
+                        We read every submission carefully and respond within 24 hours
                       </div>
                     </div>
                   </div>
@@ -465,10 +440,10 @@ export const ContactSection = () => {
                     </div>
                     <div>
                       <div className="font-semibold text-slate-900 dark:text-slate-100 transition-colors duration-300">
-                        Digital Audit
+                        Discovery Call
                       </div>
                       <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                        Comprehensive analysis of your brand's online performance
+                        A short call to understand your goals, timeline, and budget
                       </div>
                     </div>
                   </div>
@@ -478,10 +453,10 @@ export const ContactSection = () => {
                     </div>
                     <div>
                       <div className="font-semibold text-slate-900 dark:text-slate-100 transition-colors duration-300">
-                        Strategy Session
+                        Proposal & Kickoff
                       </div>
                       <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                        Custom roadmap to scale your brand and revenue
+                        We send a clear proposal. Once approved, we get to work immediately
                       </div>
                     </div>
                   </div>

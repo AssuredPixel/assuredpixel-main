@@ -24,9 +24,9 @@ export const HeroSection = () => {
   };
 
   const features = [
-    "Comprehensive strategies that drive real business growth",
-    "High-converting websites and brand identities",
-    "Data-driven insights and measurable results, no guesswork",
+    "Custom websites built for your specific business goals",
+    "Fast delivery without compromising on quality",
+    "Ongoing support after launch — we don't disappear",
   ];
 
   // Animation variants
@@ -198,18 +198,18 @@ export const HeroSection = () => {
               >
                 {[
                   {
-                    value: "150+",
-                    label: "Clients Served",
-                    color: "text-teal-600 dark:text-teal-400",
+                    value: "4+",
+                    label: "Projects Delivered",
+                    color: "text-teal-600 dark:text-teal-400"
                   },
                   {
-                    value: "180%",
-                    label: "Avg Growth",
-                    color: "text-slate-800 dark:text-white",
+                    value: "2",
+                    label: "Countries Served",
+                    color: "text-slate-800 dark:text-white"
                   },
                   {
-                    value: "98%",
-                    label: "Success Rate",
+                    value: "100%",
+                    label: "Client Retention",
                     color: "text-emerald-600 dark:text-emerald-400",
                   },
                 ].map((stat, index) => (
@@ -251,18 +251,18 @@ export const HeroSection = () => {
               >
                 {[
                   {
-                    label: "Conversion Rate",
-                    value: "+187%",
+                    label: "Seasteel Marine",
+                    value: "Live ✓",
                     color: "text-emerald-600 dark:text-emerald-400",
                   },
                   {
-                    label: "Brand Visibility",
-                    value: "+150%",
+                    label: "Adar Limited",
+                    value: "Live ✓",
                     color: "text-teal-600 dark:text-teal-400",
                   },
                   {
-                    label: "Revenue Growth",
-                    value: "+234%",
+                    label: "RekrutKlin",
+                    value: "Live ✓",
                     color: "text-emerald-600 dark:text-emerald-400",
                   },
                 ].map((item, index) => (

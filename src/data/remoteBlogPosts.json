@@ -1,5 +1,37 @@
 [
   {
+    "id": 3457153,
+    "title": "Has the Product Hunt Era Ended?",
+    "description": "There was a time when launching on Product Hunt felt like a rite of passage.  You’d spend weeks...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F55su19ezr9v98ltm2oy8.png",
+    "url": "https://dev.to/phithanh1230/has-the-product-hunt-era-ended-11b4",
+    "readTime": "2 min read",
+    "publishedAt": "2026-04-05T16:22:05Z",
+    "author": {
+      "name": "Phi Thành",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F975935%2Fe25e3601-30bc-465f-853d-e53e44f08f24.jpg"
+    },
+    "tags": [
+      "Marketing"
+    ]
+  },
+  {
+    "id": 3453490,
+    "title": "I let Claude Code run marketing workflows for brands",
+    "description": "I got tired of context-switching between Figma, Buffer, Instagram, analytics, random downloads...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F6vpunocsedutepeedijn.png",
+    "url": "https://dev.to/tgdn/i-let-claude-code-run-marketing-workflows-for-brands-3n0e",
+    "readTime": "8 min read",
+    "publishedAt": "2026-04-05T08:41:43Z",
+    "author": {
+      "name": "Thomas Gak-Deluen",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F248960%2F061e2846-b566-4744-bfdf-47fa473adbdd.jpeg"
+    },
+    "tags": [
+      "Marketing"
+    ]
+  },
+  {
     "id": 3455104,
     "title": "Multi-Agent Teams for Business with OpenClaw",
     "description": "Multi-Agent Teams for Business with OpenClaw: How ClawBud Scales Execution   Most businesses...",
@@ -13,22 +45,6 @@
     },
     "tags": [
       "Business Growth"
-    ]
-  },
-  {
-    "id": 3454972,
-    "title": "WordPress Alternative Analysis: When Hybrid Visual Builders Outperform Pure Headless CMS Architectures",
-    "description": "Analysis of when hybrid visual builders outperform pure headless CMS architectures. Compare React component workflows, content preview latency, and to",
-    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F95qsjjey3lj0a3o313bv.png",
-    "url": "https://dev.to/jasonbiondo/wordpress-alternative-analysis-when-hybrid-visual-builders-outperform-pure-headless-cms-aep",
-    "readTime": "11 min read",
-    "publishedAt": "2026-04-04T22:05:47Z",
-    "author": {
-      "name": "Jason Biondo",
-      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3759945%2F7bb29f81-6684-4977-9259-140820f39245.png"
-    },
-    "tags": [
-      "Marketing"
     ]
   },
   {
@@ -61,22 +77,6 @@
     },
     "tags": [
       "Business Growth"
-    ]
-  },
-  {
-    "id": 3454785,
-    "title": "I Gave an AI $0 and Asked It to Get My First Customer",
-    "description": "I'm a non-technical founder who builds things with AI. A few months ago I shipped ChainMail, a...",
-    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F36tpyjfdapodr5r2wkqp.png",
-    "url": "https://dev.to/admin_chainmail_6cfeeb3e6/i-gave-an-ai-0-and-asked-it-to-get-my-first-customer-4eef",
-    "readTime": "5 min read",
-    "publishedAt": "2026-04-04T20:17:23Z",
-    "author": {
-      "name": "Admin Chainmail",
-      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3861482%2F55393c29-21d3-404d-9d17-2303fabdf679.png"
-    },
-    "tags": [
-      "Marketing"
     ]
   },
   {

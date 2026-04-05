@@ -12,20 +12,19 @@ export const Footer = () => {
   const quickLinks = [
     { name: 'Home', href: '/' },
     { name: 'Services', href: '/#services' },
-    { name: 'Testimonials', href: '/#testimonials' },
+    { name: 'Our Work', href: '/case-studies' },
     { name: 'About', href: '/about' },
-    { name: 'Case Studies', href: '/case-studies' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'Contact', href: '/contact' },
   ];
 
   const services = [
-    'Business Branding',
-    'Website Construction',
-    'Search Engine Optimization',
-    'Content Writing',
-    'Social Media Management',
-    'Cloud Integration'
+    'Website Design & Development',
+    'Brand Identity Design',
+    'SEO & Search Visibility',
+    'Paid Advertising',
+    'Content & Copywriting',
+    'Digital Strategy & Consulting',
   ];
 
   const handleNavClick = (href) => {
@@ -68,18 +67,19 @@ export const Footer = () => {
               {/* Social Proof */}
               <div className="flex items-center space-x-6 text-sm">
                 <div>
-                  <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">150+</div>
-                  <div className="text-slate-600 dark:text-slate-400">Clients</div>
+                  <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">4+</div>
+                  <div className="text-slate-600 dark:text-slate-400">Projects</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">180%</div>
-                  <div className="text-slate-600 dark:text-slate-400">Avg Growth</div>
+                  <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">2</div>
+                  <div className="text-slate-600 dark:text-slate-400">Countries</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-white">98%</div>
-                  <div className="text-slate-600 dark:text-slate-400">Success Rate</div>
+                  <div className="text-2xl font-bold text-slate-900 dark:text-white">100%</div>
+                  <div className="text-slate-600 dark:text-slate-400">Retention</div>
                 </div>
               </div>
+
             </div>
 
             {/* Quick Links */}
@@ -138,7 +138,7 @@ export const Footer = () => {
                 onClick={() => handleNavClick('/#book-call')}
                 className="w-full bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg group flex items-center justify-center space-x-2"
               >
-                <span>Get Strategy Session</span>
+                <span>Start a Project</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
             </div>
@@ -149,7 +149,7 @@ export const Footer = () => {
         <div className="border-t border-slate-200 dark:border-slate-700 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-slate-500 dark:text-slate-400 text-sm">
-              © {currentYear} AssuredPixel Digital. All rights reserved.
+              © {currentYear} AssuredPixel. All rights reserved.
             </div>
 
             <div className="flex items-center space-x-6 text-sm text-slate-500 dark:text-slate-400">

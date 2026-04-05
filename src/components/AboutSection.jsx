@@ -7,9 +7,9 @@ import { CheckCircle, Target, Users, Award } from "lucide-react";
 const mockData = {
   companyInfo: {
     description:
-      "AssuredPixel transforms underperforming websites into high-converting digital assets, giving USA businesses a competitive advantage through exclusive lead generation and search dominance.",
-    founded: "2020",
-    clientsServed: "150+",
+      "AssuredPixel is a remote-first digital studio that designs and builds high-quality websites and digital experiences for ambitious businesses. We combine strong design with clean development to deliver work that performs.",
+    founded: "2024",
+    clientsServed: "4",
   },
 };
 
@@ -20,29 +20,29 @@ export const AboutSection = () => {
   const values = [
     {
       icon: Target,
-      title: "Results-Driven",
+      title: "Quality Over Volume",
       description:
-        "We prioritize measurable outcomes that directly drive your business growth and ROI.",
+        "We take on a limited number of projects each month so every client gets our full attention and best work.",
     },
     {
       icon: Users,
-      title: "Client-Centric",
+      title: "Direct Partnership",
       description:
-        "Your success is our mission. We build long-term partnerships based on transparency and trust.",
+        "You work directly with the people building your product. No handoffs, no miscommunication, no surprises.",
     },
     {
       icon: Award,
-      title: "Proven Expertise",
+      title: "Built to Last",
       description:
-        "Years of experience helping USA businesses increase visibility, traffic, and revenue online.",
+        "We build with clean code, solid architecture, and proper deployment — so your site holds up long after launch.",
     },
   ];
 
   const achievements = [
-    "150+ successful digital campaigns",
-    "180% average ROI growth",
-    "98% client retention rate",
-    "4+ years of proven results",
+    "Real projects delivered for real businesses",
+    "Clients across Nigeria and the United States",
+    "Full-stack delivery — design, development, and deployment",
+    "Direct communication — no account managers, no middlemen",
   ];
 
   // Animation variants
@@ -121,7 +121,7 @@ export const AboutSection = () => {
                 variants={fadeInUp}
                 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6"
               >
-                Your Competitive Advantage
+                Your Digital Presence, Done Right
               </motion.h2>
 
               <motion.p
@@ -135,11 +135,10 @@ export const AboutSection = () => {
                 variants={fadeInUp}
                 className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed"
               >
-                Founded in {companyInfo.founded}, we've helped over{" "}
-                {companyInfo.clientsServed} businesses dominate their local
-                markets through integrated branding, conversion-focused design, and
-                results-driven SEO. On average, our clients experience{" "}
-                {companyInfo.averageGrowth} and online visibility.
+                Founded in {companyInfo.founded}, we are a lean, focused studio
+                built around one principle: every client gets our best work.
+                We don't take on more than we can deliver, and we don't
+                disappear after launch.
               </motion.p>
             </div>
 
