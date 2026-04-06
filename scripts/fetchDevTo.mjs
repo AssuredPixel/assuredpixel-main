@@ -22,7 +22,7 @@ const PER_TAG_COUNT = 2
 
 async function fetchDevToArticles() {
   try {
-    console.log('Fetching business-focused Dev.to posts...')
+    // Fetching business-focused Dev.to posts...
     
     // Fetch specifically from our target tags in parallel to guarantee professional relevance
     const requests = TARGET_TAGS.map(t => {
@@ -77,7 +77,7 @@ async function fetchDevToArticles() {
     }
 
     fs.writeFileSync(dataFilePath, JSON.stringify(articles, null, 2))
-    console.log(`✅ successfully pulled and saved ${articles.length} strictly professional posts`)
+    // successfully pulled and saved ${articles.length} strictly professional posts
   } catch (error) {
     console.error('❌ Failed to fetch Dev.to articles:', error.message)
     // If we fail, ensure we still have a valid JSON file at least

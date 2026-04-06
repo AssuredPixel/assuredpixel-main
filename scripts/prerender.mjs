@@ -31,7 +31,7 @@ const servicesSlugs = extractSlugs(servicesFile)
 servicesSlugs.forEach(slug => routes.push(`/services/${slug}`))
 
 async function prerender() {
-  console.log('Generating Static Pages...')
+  // Generating Static Pages...
   // Vite builds the client bundle to `dist/client` and SSR bundle to `dist/server` if we passed correct outDirs
   // In our package.json we did: `vite build` (which defaults to dist) then `vite build --ssr ... --outDir dist/server`. 
   // So client is in `dist`, server is in `dist/server`.
@@ -88,10 +88,10 @@ async function prerender() {
 
     const outFile = path.resolve(outDir, 'index.html')
     fs.writeFileSync(outFile, html)
-    console.log(`pre-rendered: ${outFile}`)
+    // pre-rendered: ${outFile}
   }
 
-  console.log('Done generating SSG pages.')
+  // Done generating SSG pages.
 }
 
 prerender().catch(e => {

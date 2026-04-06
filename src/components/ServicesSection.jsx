@@ -113,10 +113,7 @@ export const ServicesSection = () => {
             variants={headerVariants}
             className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed"
           >
-            At AssuredPixel, we deliver more than just SEO — we offer a complete
-            suite of digital marketing services.Every service is designed to
-            increase visibility, attract qualified leads, and turn visitors into
-            loyal customers.
+            From websites to branding to search visibility — every service we offer is designed to help your business make a stronger impression and win more clients online.
           </motion.p>
         </motion.div>
 
@@ -242,7 +239,7 @@ export const ServicesSection = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              Get Your Free SEO Audit
+              Start a Project
             </motion.button>
           </motion.div>
         </motion.div>

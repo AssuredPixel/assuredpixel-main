@@ -61,7 +61,7 @@ export const Footer = () => {
               </div>
 
               <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                We specialize in comprehensive digital marketing solutions for USA-based businesses, helping them build brands, convert leads, and grow faster.
+                We design and build high-quality websites and digital experiences for ambitious businesses worldwide.
               </p>
 
               {/* Social Proof */}

@@ -110,7 +110,7 @@ export const HeroSection = () => {
                 variants={itemVariants}
                 className="inline-flex items-center px-4 py-2 bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300 rounded-full text-sm font-medium mx-auto lg:mx-0"
               >
-                🚀 Growth Partner for Modern Businesses
+                Remote Digital Studio
               </motion.div>
 
               <h1
