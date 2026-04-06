@@ -1,0 +1,14 @@
+name: Daily Blog Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Midnight UTC every day
+  workflow_dispatch: # Allows you to manually click "Run workflow" in GitHub to test it immediately
+
+jobs:
+  ping_vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel Build
+        run: |
+          curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
