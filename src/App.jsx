@@ -14,8 +14,14 @@ import { CaseStudiesPage } from "./components/CaseStudiesPage";
 import { ContactPage } from "./components/ContactPage";
 import { BlogPage } from "./components/BlogPage";
 import { CalendlyForm } from "./components/CalendlyForm";
+
 import { ServicesSection } from "./components/ServicesSection";
 import { TestimonialsSection } from "./components/TestimonialSection";
+
+import { ScrollToTop } from "./components/ScrollToTop";
+import { PrivacyPolicy } from "./components/PrivacyPolicy";
+import { TermsAndConditions } from "./components/TermsAndConditions";
+import { CookiePolicy } from "./components/CookiePolicy";
 
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL || 'http://localhost:8001';
 
@@ -63,6 +69,30 @@ export function AppRoutes() {
           <Toaster />
         </>
       } />
+      <Route path="/privacy" element={
+        <>
+          <Header />
+          <PrivacyPolicy />
+          <Footer />
+          <Toaster />
+        </>
+      } />
+      <Route path="/terms" element={
+        <>
+          <Header />
+          <TermsAndConditions />
+          <Footer />
+          <Toaster />
+        </>
+      } />
+      <Route path="/cookies" element={
+        <>
+          <Header />
+          <CookiePolicy />
+          <Footer />
+          <Toaster />
+        </>
+      } />
     </Routes>
   );
 }
@@ -72,6 +102,7 @@ function App() {
     <HelmetProvider>
       <div className="App">
         <BrowserRouter>
+          <ScrollToTop />
           <AppRoutes />
         </BrowserRouter>
       </div>

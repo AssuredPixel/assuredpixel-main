@@ -25,15 +25,26 @@ async function fetchDevToArticles() {
     console.log('Fetching business-focused Dev.to posts...')
     
     // Fetch specifically from our target tags in parallel to guarantee professional relevance
-    // This entirely avoids random "devchallenge" or "jokes" popular articles that just happen to use a webdev tag
-    const requests = TARGET_TAGS.map(t => 
-      axios.get(`https://dev.to/api/articles?tag=${t.tag}&per_page=${PER_TAG_COUNT}`, {
+    const requests = TARGET_TAGS.map(t => {
+      const config = {
+        timeout: 10000, // 10s timeout
         headers: {
-          'api-key': API_KEY,
           'User-Agent': 'AssuredPixel-Build-Script/1.0'
         }
-      }).then(res => ({ data: res.data, category: t.display }))
-    )
+      }
+      
+      // Only add the api-key header if it exists and isn't "undefined" or empty
+      if (API_KEY && API_KEY !== 'undefined' && API_KEY.trim() !== '') {
+        config.headers['api-key'] = API_KEY
+      }
+
+      return axios.get(`https://dev.to/api/articles?tag=${t.tag}&per_page=${PER_TAG_COUNT}`, config)
+        .then(res => ({ data: res.data, category: t.display }))
+        .catch(err => {
+          console.error(`⚠️ Failed to fetch tag "${t.tag}":`, err.message);
+          return { data: [], category: t.display };
+        })
+    })
 
     const responses = await Promise.all(requests)
     
@@ -52,7 +63,6 @@ async function fetchDevToArticles() {
           name: article.user.name,
           profileImage: article.user.profile_image
         },
-        // We override the author's messy tags with our clean, strict business category!
         tags: [response.category]
       }))
       articles = [...articles, ...formattedPosts]
@@ -70,10 +80,15 @@ async function fetchDevToArticles() {
     console.log(`✅ successfully pulled and saved ${articles.length} strictly professional posts`)
   } catch (error) {
     console.error('❌ Failed to fetch Dev.to articles:', error.message)
+    // If we fail, ensure we still have a valid JSON file at least
     if (!fs.existsSync(dataFilePath)) {
       fs.writeFileSync(dataFilePath, JSON.stringify([], null, 2))
     }
   }
 }
 
-fetchDevToArticles()
+// Ensure we await the fetch process before exiting
+(async () => {
+  await fetchDevToArticles()
+  process.exit(0) // Explicitly exit with 0 to never block build
+})()

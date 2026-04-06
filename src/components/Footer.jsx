@@ -153,15 +153,15 @@ export const Footer = () => {
             </div>
 
             <div className="flex items-center space-x-6 text-sm text-slate-500 dark:text-slate-400">
-              <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
+              <Link to="/privacy" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
+              </Link>
+              <Link to="/terms" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
                 Terms of Service
-              </a>
-              <a href="#" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
+              </Link>
+              <Link to="/cookies" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>
