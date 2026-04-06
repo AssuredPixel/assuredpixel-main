@@ -11,7 +11,7 @@ const projects = [
       "Full website design and development for Nigeria's premier marine and offshore services company. Built to establish credibility with major oil sector clients including ExxonMobil, Chevron, and NLNG.",
     stack: ["Next.js", "Tailwind CSS", "Framer Motion", "Vercel"],
     url: "https://www.seasteelsmarine.com",
-    image: "/portfolio/seasteel.jpg",
+    image: "/portfolio/seasteelmarin-homepage.JPG",
     accent: "#00AEEF",
   },
   {
@@ -22,8 +22,8 @@ const projects = [
     description:
       "Conversion-focused landing page for a career coaching startup targeting young African professionals. Designed to drive waitlist signups for their quarterly Mastery Pod cohort.",
     stack: ["Next.js", "Tailwind CSS", "Vercel"],
-    url: "https://ada-limited.vercel.app",
-    image: "/portfolio/adar.jpg",
+    url: "https://adar-limited.vercel.app",
+    image: "/portfolio/Adar-landing-page.JPG",
     accent: "#10B981",
   },
   {
@@ -33,9 +33,9 @@ const projects = [
     country: "United States",
     description:
       "Clinical trial recruitment platform for a US-based doctor. Built for both web and mobile with a focus on professional credibility and clean UX for medical industry users.",
-    stack: ["Next.js", "Tailwind CSS", "MongoDB", "Vercel"],
+    stack: ["Next.js", "Tailwind CSS", "MongoDB", "Vercel", "AWS", "Cloudflare", "Twilio", "AGORA"],
     url: "https://rekrutklin.com",
-    image: "/portfolio/rekrutklin.jpg",
+    image: "/portfolio/Rekrutklin-home.JPG",
     accent: "#6366F1",
   },
 ];
@@ -90,8 +90,8 @@ export const CaseStudiesSection = () => {
               data-animate
               data-index={`card-${index}`}
               className={`group transition-all duration-700 ${visibleItems.has(`card-${index}`)
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
                 }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
@@ -165,19 +165,19 @@ export const CaseStudiesSection = () => {
                     View Live Site
                     <ExternalLink className="w-4 h-4" />
                   </a>
+                </div>
               </div>
             </div>
-            </div>
           ))}
-      </div>
+        </div>
 
-      {/* Bottom note */}
-      <div className="text-center mt-12">
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
-          More projects coming soon. We take on a limited number of clients each month to ensure quality.
-        </p>
+        {/* Bottom note */}
+        <div className="text-center mt-12">
+          <p className="text-slate-500 dark:text-slate-400 text-sm">
+            More projects coming soon. We take on a limited number of clients each month to ensure quality.
+          </p>
+        </div>
       </div>
-    </div>
     </section >
   );
 };
