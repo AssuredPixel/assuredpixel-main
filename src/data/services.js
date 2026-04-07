@@ -5,6 +5,8 @@ import {
     FileText,
     TrendingUp,
     Target,
+    CloudUpload,
+    ShieldCheck,
 } from "lucide-react";
 
 export const services = [
@@ -79,5 +81,33 @@ Our copywriters craft content that speaks directly to your target audience's rea
 
 We start with a thorough audit of your current website, search visibility, brand, and competitive landscape. From there we build a prioritised digital strategy that fits your budget and goals — no fluff, no unnecessary services pushed on you. You walk away with a clear roadmap of exactly what to do, in what order, and why. Whether you implement it with us or take it in-house, you'll have the clarity to move forward with confidence.`,
         icon: Target,
+    },
+    {
+        id: 7,
+        title: "Cloud Migration",
+        slug: "cloud-migration",
+        image: "/service-images/cloud-migration.jpg",
+        description:
+            "Move your infrastructure, applications, and data to the cloud seamlessly. We plan and execute end-to-end cloud migrations that minimise downtime and maximise performance.",
+        longDescription: `Migrating to the cloud is one of the most significant investments a business can make — and getting it wrong is expensive. We take the complexity off your plate and handle every stage of the migration with precision and care.
+
+Our process starts with a full audit of your existing infrastructure to understand what you have, what needs to move, and in what order. We then design a tailored migration roadmap that minimises disruption to your operations. Whether you're moving from on-premises servers, a legacy hosting provider, or consolidating multiple systems, we ensure your applications, databases, and workflows perform better in the cloud than they ever did before.
+
+We work with all major cloud platforms — AWS, Google Cloud, and Microsoft Azure — and select the right environment based on your technical needs, growth plans, and budget. The result is a lean, scalable cloud infrastructure that cuts costs, improves reliability, and positions your business for long-term growth.`,
+        icon: CloudUpload,
+    },
+    {
+        id: 8,
+        title: "Cloud Security",
+        slug: "cloud-security",
+        image: "/service-images/cloud-security.jpg",
+        description:
+            "Protect your cloud environment from threats, breaches, and compliance risks. We audit, harden, and continuously monitor your infrastructure so your business and data stay safe.",
+        longDescription: `The cloud introduces tremendous flexibility — but also new attack surfaces that, if left unmanaged, can expose your business to devastating breaches and compliance penalties. Cloud security is not optional; it's the foundation everything else rests on.
+
+We begin with a thorough security audit of your cloud environment, identifying misconfigurations, access control gaps, unencrypted data, and outdated policies. From there, we implement a hardened security posture: properly scoped IAM roles, network segmentation, encrypted storage, audit logging, and automated threat detection.
+
+We also help you achieve and maintain compliance with frameworks like ISO 27001, SOC 2, GDPR, and NDPR depending on your industry and region. Our team sets up continuous monitoring and alerting so that any suspicious activity is caught instantly — not days or weeks later after the damage is done. Security isn't a one-time fix; it's an ongoing practice, and we make sure yours keeps pace with an evolving threat landscape.`,
+        icon: ShieldCheck,
     },
 ];

@@ -40,6 +40,8 @@ export const ContactSection = () => {
     { value: "Paid Advertising", label: "Paid Advertising (Google & Meta)" },
     { value: "Content & Copywriting", label: "Content & Copywriting" },
     { value: "Digital Strategy & Consulting", label: "Digital Strategy & Consulting" },
+    { value: "Cloud Migration", label: "Cloud Migration" },
+    { value: "Cloud Security", label: "Cloud Security" },
   ];
   useEffect(() => {
     observerRef.current = new IntersectionObserver(

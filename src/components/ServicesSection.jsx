@@ -16,6 +16,8 @@ import {
   MessageCircle,
   Cloud,
   CheckCircle,
+  CloudUpload,
+  ShieldCheck,
 } from "lucide-react";
 
 const iconMap = {
@@ -25,6 +27,8 @@ const iconMap = {
   FileText,
   MessageCircle,
   Cloud,
+  CloudUpload,
+  ShieldCheck,
 };
 
 import { Link, useNavigate } from "react-router-dom";
