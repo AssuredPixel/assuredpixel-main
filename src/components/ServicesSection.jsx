@@ -8,28 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import {
-  Brush,
-  Globe,
-  Search,
-  FileText,
-  MessageCircle,
-  Cloud,
-  CheckCircle,
-  CloudUpload,
-  ShieldCheck,
-} from "lucide-react";
-
-const iconMap = {
-  Brush,
-  Globe,
-  Search,
-  FileText,
-  MessageCircle,
-  Cloud,
-  CloudUpload,
-  ShieldCheck,
-};
 
 import { Link, useNavigate } from "react-router-dom";
 import { services } from "../data/services";

@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
@@ -23,7 +23,7 @@ import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { TermsAndConditions } from "./components/TermsAndConditions";
 import { CookiePolicy } from "./components/CookiePolicy";
 
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL || 'http://localhost:8001';
+
 
 const Home = () => {
   return (

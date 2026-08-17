@@ -3,7 +3,6 @@ import { ChevronUp } from "lucide-react";
 
 export const BackToTop = () => {
   const [visible, setVisible] = useState(false);
-  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     const servicesSection = document.getElementById("services");
@@ -100,8 +99,6 @@ export const BackToTop = () => {
       <button
         className={`btt-btn${visible ? " visible" : ""}`}
         onClick={scrollToTop}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
         aria-label="Back to top"
         title="Back to top"
       >

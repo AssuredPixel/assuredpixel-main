@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import {
-    Calendar,
     Clock,
     User,
     ArrowRight,
     ChevronRight,
     Search,
-    Filter
 } from "lucide-react";
 import blogPosts from "../data/remoteBlogPosts.json";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/card";
