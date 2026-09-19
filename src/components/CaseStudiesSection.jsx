@@ -22,7 +22,7 @@ const projects = [
     description:
       "Conversion-focused landing page for a career coaching startup targeting young African professionals. Designed to drive waitlist signups for their quarterly Mastery Pod cohort.",
     stack: ["Next.js", "Tailwind CSS", "Vercel"],
-    url: "https://adar-limited.vercel.app",
+    url: "https://ada-limited.vercel.app",
     image: "/portfolio/Adar-landing-page.JPG",
     accent: "#10B981",
   },

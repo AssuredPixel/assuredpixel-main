@@ -1,1 +1,98 @@
-[]
+[
+  {
+    "id": 4684633,
+    "title": "How Professional Cleaning Businesses Can Use Technology to Improve Customer Service",
+    "description": "Technology is changing how service businesses communicate with customers, manage bookings, assign...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fbcva2ncidzv4913wsrrw.png",
+    "url": "https://dev.to/v3care_2b19e80468631a8ad9/how-professional-cleaning-businesses-can-use-technology-to-improve-customer-service-3jh3",
+    "readTime": "6 min read",
+    "publishedAt": "2026-09-18T10:51:22Z",
+    "author": {
+      "name": "V3care",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F4093635%2F0239fda3-6e96-481b-b44c-51bf2251fdb7.png"
+    },
+    "tags": [
+      "Business Growth"
+    ]
+  },
+  {
+    "id": 4684431,
+    "title": "10 Benefits of Hiring a Digital Marketing Agency for Your Business",
+    "description": "When you're the owner of a small or medium-sized company, you will often come across the following...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2F7bssjslln080m8dk4vey.png",
+    "url": "https://dev.to/chaitra_clixhora_4c6864cf/10-benefits-of-hiring-a-digital-marketing-agency-for-your-business-5f1b",
+    "readTime": "9 min read",
+    "publishedAt": "2026-09-18T10:26:18Z",
+    "author": {
+      "name": "chaitra clixhora",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F4129352%2Fec7a684c-1e5f-4829-a3ca-eda69dd3be31.png"
+    },
+    "tags": [
+      "Marketing"
+    ]
+  },
+  {
+    "id": 4683893,
+    "title": "Why Selling Your Dormant UK Limited Company Beats Dissolving It",
+    "description": "If you've got a UK limited company sitting dormant — maybe a side project that never took off, an old...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2F0sndofdzmu6bm4d9lcyk.png",
+    "url": "https://dev.to/tanvi_khanna_23267f5a7b0f/why-selling-your-dormant-uk-limited-company-beats-dissolving-it-41el",
+    "readTime": "2 min read",
+    "publishedAt": "2026-09-18T09:48:05Z",
+    "author": {
+      "name": "Tanvi Khanna",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F4130050%2F34f1b4e1-108d-4480-8c76-0e52a86cff9e.png"
+    },
+    "tags": [
+      "Business Growth"
+    ]
+  },
+  {
+    "id": 4680413,
+    "title": "Meta ออกแบบ MCP tool ดีแค่ไหน เมื่อเทียบ 6 หลักที่ Anthropic สอน",
+    "description": "Meta ออกแบบ MCP tool ดีแค่ไหน เมื่อเทียบ 6 หลักที่ Anthropic สอน   โดย Nokka (นก-กา) | 18...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2F05tf4kwd5a5n5kj4uufg.png",
+    "url": "https://dev.to/sarantoon/meta-kaebb-mcp-tool-diiaekhaihn-emuueethiiyb-6-hlakthii-anthropic-sn-9ok",
+    "readTime": "4 min read",
+    "publishedAt": "2026-09-18T04:57:15Z",
+    "author": {
+      "name": "Nokka",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F1405691%2F8c035863-4b8c-40d2-9d93-600d6816bc53.jpg"
+    },
+    "tags": [
+      "Marketing"
+    ]
+  },
+  {
+    "id": 4676268,
+    "title": "Your SEO and Accessibility Problems Can Share the Same Root Cause",
+    "description": "DOM Structural Ambiguity Fix. How a product comparison table's relationships lived in layout instead of markup, and what broke when three different systems tried to read it.",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fpkt4w3hc6d1oe62zaejs.png",
+    "url": "https://dev.to/ortizfranklindev/your-seo-and-accessibility-problems-have-the-same-root-cause-75j",
+    "readTime": "4 min read",
+    "publishedAt": "2026-09-17T12:00:15Z",
+    "author": {
+      "name": "Franklin",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F2493878%2F8821e986-c182-499a-92e4-d91e7e960256.png"
+    },
+    "tags": [
+      "SEO"
+    ]
+  },
+  {
+    "id": 4673790,
+    "title": "I almost started a Medium column about getting cited by LLMs. Then I read Medium's robots.txt",
+    "description": "I was about to start a monthly column about AI search visibility — how to get your pages cited by...",
+    "coverImage": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fscw89lepoklohfox9n0d.png",
+    "url": "https://dev.to/juanauriti/i-almost-started-a-medium-column-about-getting-cited-by-llms-then-i-read-mediums-robotstxt-1ak3",
+    "readTime": "4 min read",
+    "publishedAt": "2026-09-17T07:48:21Z",
+    "author": {
+      "name": "Juan Camilo Auriti",
+      "profileImage": "https://media2.dev.to/dynamic/image/width=640,height=640,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F3279930%2F4faa1f38-8049-4b7d-a93f-a217cf7eaefa.jpg"
+    },
+    "tags": [
+      "SEO"
+    ]
+  }
+]
