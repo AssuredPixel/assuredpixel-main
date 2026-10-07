@@ -12,6 +12,13 @@ export const ScrollToTop = () => {
       left: 0,
       behavior: "auto" // "auto" is cleaner for page transitions than "smooth"
     });
+
+    // Send pageview to Google Analytics 4 on client-side route change
+    if (typeof window.gtag === 'function') {
+      window.gtag('config', 'G-8FTQ4FHCPS', {
+        page_path: pathname + window.location.search,
+      });
+    }
   }, [pathname]);
 
   return null;
