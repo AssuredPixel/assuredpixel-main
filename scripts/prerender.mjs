@@ -12,6 +12,9 @@ const routes = [
   '/case-studies',
   '/contact',
   '/blog',
+  '/privacy',
+  '/terms',
+  '/cookies',
 ]
 
 const servicesFile = fs.readFileSync(toAbsolute('../src/data/services.js'), 'utf-8')

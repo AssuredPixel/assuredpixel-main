@@ -4,5 +4,4 @@ Disallow: /node_modules
 Disallow: /private
 Allow: /
 
-
-Sitemap: https://assuredpixel-main.vercel.app/sitemap.xml
+Sitemap: https://assuredpixel.com/sitemap.xml
