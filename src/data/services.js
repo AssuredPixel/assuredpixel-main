@@ -13,10 +13,11 @@ export const services = [
     {
         id: 1,
         title: "Website Design & Development",
+        seoTitle: "Custom Website Design for Small Businesses & B2B Web Development | AssuredPixel",
         slug: "web-design",
         image: "/service-images/responsive-web-design.jpg",
         description:
-            "We build fast, beautiful, conversion-focused websites that represent your business professionally and turn visitors into paying customers.",
+            "Custom website design for small businesses and B2B web development. As a high-converting web design agency, we build fast, responsive websites that turn USA traffic into paying clients.",
         longDescription: `Your website is your hardest-working team member — available 24/7, representing your brand to every potential client. We design and develop custom websites that are built to convert, not just impress.
 
 Every project starts with understanding your business goals and your customers. We then build a site that guides visitors naturally toward taking action — whether that's booking a call, filling a form, or making a purchase. We focus on mobile-first design, fast load speeds, and clean code that holds up long-term. From landing pages to full multi-page sites, we deliver work that makes your business look world-class online.`,
@@ -25,10 +26,11 @@ Every project starts with understanding your business goals and your customers. 
     {
         id: 2,
         title: "Brand Identity Design",
+        seoTitle: "Brand Identity Design Agency for Growing USA Businesses | AssuredPixel",
         slug: "branding-strategy",
         image: "/service-images/business-branding-strategy.jpg",
         description:
-            "A strong brand makes you the obvious choice. We craft visual identities that communicate trust, professionalism, and authority from first glance.",
+            "A full-service brand identity design agency crafting logos, visual systems, and brand guidelines that build authority, trust, and distinction for businesses across the USA.",
         longDescription: `Before a client reads a single word on your website, they've already formed an opinion based on how you look. A weak brand loses business silently — clients move on without ever telling you why.
 
 We build brand identities that command respect. This includes logo design, color systems, typography, and brand guidelines that keep your visual communication consistent across every touchpoint. Whether you're starting from scratch or refreshing an existing brand, we make sure your business looks like the premium option in your market.`,
@@ -37,10 +39,11 @@ We build brand identities that command respect. This includes logo design, color
     {
         id: 3,
         title: "SEO & Search Visibility",
+        seoTitle: "Technical SEO Audit and Ranking Services | Organic Search Visibility Agency",
         slug: "seo-ranking",
         image: "/service-images/technical-seo-audit.jpg",
         description:
-            "We optimize your website so the right people find you on Google — without paid ads. Sustainable visibility built on solid technical foundations.",
+            "Technical SEO audit and ranking services from a proven organic search visibility agency. We optimize site architecture, speed, and content to rank USA businesses on Google page one.",
         longDescription: `If your business isn't showing up on Google, you're leaving money on the table every single day. SEO is the long-term investment that keeps paying dividends long after the work is done.
 
 We handle both technical SEO — site speed, structure, crawlability — and content SEO, ensuring your pages rank for the terms your customers are actually searching. We don't use shortcuts or black-hat tactics that get sites penalized. We build sustainable search visibility that grows your organic traffic month over month and puts your business in front of high-intent customers at exactly the right moment.`,
@@ -49,10 +52,11 @@ We handle both technical SEO — site speed, structure, crawlability — and con
     {
         id: 4,
         title: "Paid Advertising (Google & Meta)",
+        seoTitle: "Google and Meta Ads Management for Businesses | AssuredPixel",
         slug: "google-facebook-ads",
         image: "/service-images/cloud-integration.jpg",
         description:
-            "Get in front of your ideal customers today. We run data-driven ad campaigns on Google and Meta that maximize your budget and deliver measurable ROI.",
+            "Expert Google and Meta ads management for businesses looking to scale ROI. Data-driven PPC search ads, social retargeting, and high-converting campaign management.",
         longDescription: `Organic growth takes time. Paid advertising gets you results now. We design and manage performance-driven campaigns on Google and Meta (Facebook/Instagram) that connect your business with people actively looking for what you offer.
 
 Every campaign we run is built around your specific goals — leads, sales, or brand awareness. We handle everything from audience research and ad creative to budget management and performance reporting. No guesswork, no wasted spend. You get full transparency on what's working, what's not, and exactly where your money is going.`,

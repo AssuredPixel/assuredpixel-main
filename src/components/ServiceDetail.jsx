@@ -53,7 +53,7 @@ export const ServiceDetail = () => {
     return (
         <>
             <Helmet>
-                <title>{service.title} | AssuredPixel Services</title>
+                <title>{service.seoTitle || `${service.title} | AssuredPixel Services`}</title>
                 <meta name="description" content={service.description} />
                 <link rel="canonical" href={`https://assuredpixel.com/services/${service.slug}`} />
             </Helmet>
