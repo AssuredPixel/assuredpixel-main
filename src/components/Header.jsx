@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Logo } from "./Logo";
+import { trackCtaClick } from "../lib/analytics";
 
 // Sections that get active-highlight treatment
 const SCROLL_SECTIONS = ["home", "services", "testimonials"];
@@ -98,7 +99,8 @@ export const Header = () => {
     return item.sectionId === activeSection;
   };
 
-  const handleNavClick = (href) => {
+  const handleNavClick = (href, label) => {
+    trackCtaClick(label || href, "Header");
     if (href.startsWith("/#") || href === "/") {
       if (window.location.pathname === "/") {
         const id = href.replace("/", "");
@@ -166,7 +168,7 @@ export const Header = () => {
 
             {/* CTA Button */}
             <Button
-              onClick={() => handleNavClick("/#book-call")}
+              onClick={() => handleNavClick("/#book-call", "Book Free Audit")}
               className="bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white px-6 py-2 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
             >
               Book Free Audit
@@ -216,7 +218,7 @@ export const Header = () => {
               })}
               <div className="pt-4">
                 <Button
-                  onClick={() => handleNavClick("/#book-call")}
+                  onClick={() => handleNavClick("/#book-call", "Book Free Audit (Mobile)")}
                   className="bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white px-6 py-2 rounded-lg w-full transition-all duration-300"
                 >
                   Book Free Audit

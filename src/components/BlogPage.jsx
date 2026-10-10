@@ -11,6 +11,7 @@ import {
 import blogPosts from "../data/remoteBlogPosts.json";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
+import { trackBlogPostClick } from "../lib/analytics";
 
 export const BlogPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -92,7 +93,7 @@ export const BlogPage = () => {
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredPosts.length > 0 ? (
                             filteredPosts.map((post) => (
-                                <a key={post.id} href={post.url} target="_blank" rel="noopener noreferrer" className="group block">
+                                <a key={post.id} href={post.url} target="_blank" rel="noopener noreferrer" className="group block" onClick={() => trackBlogPostClick(post)}>
                                     <Card className="h-full hover:shadow-2xl dark:hover:shadow-teal-900/10 transition-all duration-500 hover:-translate-y-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 overflow-hidden">
                                         <div className="relative h-56 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                                             {post.coverImage ? (

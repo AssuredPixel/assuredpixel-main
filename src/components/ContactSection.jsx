@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
+import { trackLeadSubmission, trackContactMethod, trackCtaClick } from "../lib/analytics";
 
 const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_pgdttgj";
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_1kclwha";
@@ -183,6 +184,7 @@ export const ContactSection = () => {
     }
 
     if (sentSuccessfully) {
+      trackLeadSubmission(formData.service);
       toast.success("Thank you! We've received your message and will respond within 24 hours.", {
         duration: 6000,
       });
@@ -347,14 +349,18 @@ export const ContactSection = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {[
-                    { icon: Mail,   label: "Email",          value: contactInfo.email },
-                    { icon: Phone,  label: "Phone",          value: contactInfo.phone },
-                    { icon: MapPin, label: "Address",        value: contactInfo.address },
-                    { icon: Clock,  label: "Business Hours", value: contactInfo.hours },
+                    { icon: Mail,   label: "Email",          value: contactInfo.email, type: "email" },
+                    { icon: Phone,  label: "Phone",          value: contactInfo.phone, type: "phone" },
+                    { icon: MapPin, label: "Address",        value: contactInfo.address, type: null },
+                    { icon: Clock,  label: "Business Hours", value: contactInfo.hours, type: null },
                   ].map((item) => {
                     const ItemIcon = item.icon;
                     return (
-                      <div key={item.label} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all duration-300 hover:translate-x-2 cursor-pointer group">
+                      <div
+                        key={item.label}
+                        onClick={() => item.type && trackContactMethod(item.type, item.value)}
+                        className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all duration-300 hover:translate-x-2 cursor-pointer group"
+                      >
                         <div className="p-2 bg-teal-100 dark:bg-teal-900/30 rounded-lg group-hover:scale-110 transition-transform duration-300">
                           <ItemIcon className="w-5 h-5 text-teal-600 dark:text-teal-400" />
                         </div>

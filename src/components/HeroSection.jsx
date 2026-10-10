@@ -16,11 +16,14 @@ const mockData = {
   },
 };
 
+import { trackCtaClick } from "../lib/analytics";
+
 export const HeroSection = () => {
   const { heroContent } = mockData;
   const navigate = useNavigate();
 
   const scrollToContact = () => {
+    trackCtaClick("Book a Free Strategy Call", "Hero Section");
     navigate("/#book-call");
   };
 
@@ -160,7 +163,10 @@ export const HeroSection = () => {
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => navigate("/case-studies")}
+                onClick={() => {
+                  trackCtaClick("See How We Drive Results", "Hero Section");
+                  navigate("/case-studies");
+                }}
                 className="border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:border-teal-600 dark:hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300"
               >
                 See How We Drive Results

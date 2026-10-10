@@ -2,8 +2,8 @@
 import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { mockData } from '../data/mock';
-
 import { Logo } from './Logo';
+import { trackCtaClick } from '../lib/analytics';
 
 export const Footer = () => {
   const { contactInfo, companyInfo } = mockData;
@@ -28,6 +28,7 @@ export const Footer = () => {
   ];
 
   const handleNavClick = (href) => {
+    trackCtaClick(href, 'Footer Navigation');
     if (href.startsWith("/#") || href === "/") {
       if (window.location.pathname === "/") {
         const id = href.replace("/", "");
@@ -135,7 +136,7 @@ export const Footer = () => {
 
               {/* CTA Button */}
               <button
-                onClick={() => handleNavClick('/#book-call')}
+                onClick={() => handleNavClick('/#book-call', 'Start a Project')}
                 className="w-full bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg group flex items-center justify-center space-x-2"
               >
                 <span>Start a Project</span>
