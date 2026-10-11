@@ -148,10 +148,9 @@ export const ServicesSection = () => {
                     </div>
 
                     <CardHeader className="pb-4">
-
-                      <CardTitle className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-teal-900 dark:group-hover:text-teal-300 transition-colors duration-300">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-teal-900 dark:group-hover:text-teal-300 transition-colors duration-300">
                         {service.title}
-                      </CardTitle>
+                      </h3>
 
                       <CardDescription className="text-slate-600 dark:text-slate-400 leading-relaxed">
                         {service.description}

@@ -175,7 +175,7 @@ export const HeroSection = () => {
 
             <motion.p
               variants={fadeIn}
-              className="text-sm text-slate-500 dark:text-slate-400"
+              className="text-sm text-slate-600 dark:text-slate-300 font-medium"
             >
               {heroContent.ctaSubtext}
             </motion.p>

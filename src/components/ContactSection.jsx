@@ -311,6 +311,7 @@ export const ContactSection = () => {
                   <button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
+                    aria-label="Send contact message"
                     className="w-full bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-teal-500/30 dark:hover:shadow-teal-400/30 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                   >
                     {isSubmitting ? (
@@ -323,7 +324,7 @@ export const ContactSection = () => {
                     )}
                   </button>
 
-                  <p className="text-xs text-slate-500 dark:text-slate-500 text-center transition-colors duration-300">
+                  <p className="text-xs text-slate-600 dark:text-slate-400 text-center transition-colors duration-300">
                     We respond to every inquiry within 24 hours. Your information is never shared with third parties.
                   </p>
                 </div>

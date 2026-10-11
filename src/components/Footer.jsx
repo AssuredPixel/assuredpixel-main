@@ -85,7 +85,7 @@ export const Footer = () => {
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Quick Links</h4>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Quick Links</h3>
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
@@ -102,7 +102,7 @@ export const Footer = () => {
 
             {/* Services */}
             <div>
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Our Services</h4>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Our Services</h3>
               <ul className="space-y-3">
                 {services.map((service, index) => (
                   <li key={index}>
@@ -116,7 +116,7 @@ export const Footer = () => {
 
             {/* Contact & CTA */}
             <div>
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Get Started</h4>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Get Started</h3>
 
               {/* Contact Info */}
               <div className="space-y-4 mb-6">
@@ -149,18 +149,18 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-slate-200 dark:border-slate-700 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-slate-500 dark:text-slate-400 text-sm">
+            <div className="text-slate-600 dark:text-slate-400 text-sm">
               © {currentYear} AssuredPixel. All rights reserved.
             </div>
 
-            <div className="flex items-center space-x-6 text-sm text-slate-500 dark:text-slate-400">
-              <Link to="/privacy" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
+            <div className="flex items-center space-x-6 text-sm text-slate-600 dark:text-slate-400">
+              <Link to="/privacy" className="hover:text-teal-700 dark:hover:text-teal-300 transition-colors duration-200">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
+              <Link to="/terms" className="hover:text-teal-700 dark:hover:text-teal-300 transition-colors duration-200">
                 Terms of Service
               </Link>
-              <Link to="/cookies" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200">
+              <Link to="/cookies" className="hover:text-teal-700 dark:hover:text-teal-300 transition-colors duration-200">
                 Cookie Policy
               </Link>
             </div>
