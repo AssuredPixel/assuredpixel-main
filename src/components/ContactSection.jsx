@@ -28,9 +28,14 @@ const EMPTY_FORM = {
   phone: "",
   message: "",
   service: "Website Design & Development",
+  website_hp: "", // Honeypot field for bot spam detection
 };
 
 function validate(data) {
+  // If the honeypot field is filled, it's a bot submission
+  if (data.website_hp && data.website_hp.trim() !== "") {
+    return "Bot submission detected.";
+  }
   if (!data.name.trim())    return "Please enter your full name.";
   if (!data.email.trim())   return "Please enter your email address.";
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -152,6 +157,13 @@ export const ContactSection = () => {
   };
 
   const handleSubmit = async () => {
+    // Silent discard for bots
+    if (formData.website_hp && formData.website_hp.trim() !== "") {
+      setFormData(EMPTY_FORM);
+      toast.success("Thank you! We've received your message and will respond within 24 hours.");
+      return;
+    }
+
     const error = validate(formData);
     if (error) { toast.error(error); return; }
 
@@ -260,6 +272,32 @@ export const ContactSection = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
+                  {/* Honeypot field for bot spam detection — invisible to real users */}
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      opacity: 0,
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      height: 0,
+                      width: 0,
+                      zIndex: -1,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <label htmlFor="website_hp">Do not fill this field</label>
+                    <input
+                      type="text"
+                      id="website_hp"
+                      name="website_hp"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.website_hp}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="transform hover:scale-105 transition-transform duration-300">
                       <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300">
