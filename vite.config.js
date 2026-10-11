@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [react()],
   resolve: {
     alias: {
@@ -25,14 +25,25 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
-    target: 'esnext' // 1. Fix: Modern target prevents unnecessary polyfills
+    sourcemap: false,
+    target: 'esnext',
+    cssCodeSplit: true,
+    rollupOptions: isSsrBuild
+      ? {}
+      : {
+          output: {
+            manualChunks: {
+              'vendor-react': ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+              'vendor-motion': ['framer-motion'],
+              'vendor-icons': ['lucide-react'],
+            },
+          },
+        },
   },
   ssr: {
     noExternal: ['react-helmet-async']
   },
   define: {
-    // For compatibility with existing environment variable usage
     'process.env': {},
   },
-})
+}))

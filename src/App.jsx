@@ -1,27 +1,25 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
 import { Toaster } from "./components/ui/sonner";
-import { ServiceDetail } from "./components/ServiceDetail";
 import { BackToTop } from "./components/BackToTop";
-
-import { AboutPage } from "./components/AboutPage";
-import { CaseStudiesPage } from "./components/CaseStudiesPage";
-import { ContactPage } from "./components/ContactPage";
-import { BlogPage } from "./components/BlogPage";
-import { CalendlyForm } from "./components/CalendlyForm";
-
-import { ServicesSection } from "./components/ServicesSection";
-import { TestimonialsSection } from "./components/TestimonialSection";
-
 import { ScrollToTop } from "./components/ScrollToTop";
-import { PrivacyPolicy } from "./components/PrivacyPolicy";
-import { TermsAndConditions } from "./components/TermsAndConditions";
-import { CookiePolicy } from "./components/CookiePolicy";
+
+// Lazy-load below-the-fold & non-home page routes to keep the initial JS bundle minimal
+const ServicesSection = lazy(() => import("./components/ServicesSection").then(m => ({ default: m.ServicesSection })));
+const CalendlyForm = lazy(() => import("./components/CalendlyForm").then(m => ({ default: m.CalendlyForm })));
+const ServiceDetail = lazy(() => import("./components/ServiceDetail").then(m => ({ default: m.ServiceDetail })));
+const AboutPage = lazy(() => import("./components/AboutPage").then(m => ({ default: m.AboutPage })));
+const CaseStudiesPage = lazy(() => import("./components/CaseStudiesPage").then(m => ({ default: m.CaseStudiesPage })));
+const ContactPage = lazy(() => import("./components/ContactPage").then(m => ({ default: m.ContactPage })));
+const BlogPage = lazy(() => import("./components/BlogPage").then(m => ({ default: m.BlogPage })));
+const PrivacyPolicy = lazy(() => import("./components/PrivacyPolicy").then(m => ({ default: m.PrivacyPolicy })));
+const TermsAndConditions = lazy(() => import("./components/TermsAndConditions").then(m => ({ default: m.TermsAndConditions })));
+const CookiePolicy = lazy(() => import("./components/CookiePolicy").then(m => ({ default: m.CookiePolicy })));
 
 
 
@@ -54,7 +52,9 @@ export function AppRoutes() {
       <Route path="/services/:slug" element={
         <>
           <Header />
-          <ServiceDetail />
+          <Suspense fallback={<div className="py-20 text-center">Loading Service...</div>}>
+            <ServiceDetail />
+          </Suspense>
           <Footer />
           <Toaster />
         </>
@@ -72,7 +72,9 @@ export function AppRoutes() {
       <Route path="/privacy" element={
         <>
           <Header />
-          <PrivacyPolicy />
+          <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+            <PrivacyPolicy />
+          </Suspense>
           <Footer />
           <Toaster />
         </>
@@ -80,7 +82,9 @@ export function AppRoutes() {
       <Route path="/terms" element={
         <>
           <Header />
-          <TermsAndConditions />
+          <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+            <TermsAndConditions />
+          </Suspense>
           <Footer />
           <Toaster />
         </>
@@ -88,7 +92,9 @@ export function AppRoutes() {
       <Route path="/cookies" element={
         <>
           <Header />
-          <CookiePolicy />
+          <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+            <CookiePolicy />
+          </Suspense>
           <Footer />
           <Toaster />
         </>
