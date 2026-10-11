@@ -71,16 +71,17 @@ async function fetchDevToArticles() {
     // Sort by most recently published across all three categories
     articles.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
 
-    const dir = path.dirname(dataFilePath)
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
+    // Only overwrite existing file if we actually got articles, or if file doesn't exist yet
+    if (articles.length > 0 || !fs.existsSync(dataFilePath)) {
+      const dir = path.dirname(dataFilePath)
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true })
+      }
+      fs.writeFileSync(dataFilePath, JSON.stringify(articles, null, 2))
     }
-
-    fs.writeFileSync(dataFilePath, JSON.stringify(articles, null, 2))
-    // successfully pulled and saved ${articles.length} strictly professional posts
   } catch (error) {
-    console.error('❌ Failed to fetch Dev.to articles:', error.message)
-    // If we fail, ensure we still have a valid JSON file at least
+    console.error('⚠️ Failed to fetch Dev.to articles, keeping existing cache:', error.message)
+    // If no cache file exists at all, write an empty array to prevent build failure
     if (!fs.existsSync(dataFilePath)) {
       fs.writeFileSync(dataFilePath, JSON.stringify([], null, 2))
     }

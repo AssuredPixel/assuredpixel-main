@@ -17,12 +17,16 @@ export const BlogPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
 
+    // Ensure posts is always a valid array even if fetch returned empty
+    const posts = Array.isArray(blogPosts) ? blogPosts : [];
+
     // Extract all unique tags to act as categories
-    const allTags = blogPosts.flatMap(post => post.tags || []);
+    const allTags = posts.flatMap(post => post?.tags || []);
     const uniqueTags = [...new Set(allTags)].slice(0, 6); // Limit to top 6 tags
     const categories = ["All", ...uniqueTags];
 
-    const filteredPosts = blogPosts.filter(post => {
+    const filteredPosts = posts.filter(post => {
+        if (!post || !post.title) return false;
         const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             (post.description && post.description.toLowerCase().includes(searchTerm.toLowerCase()));
         const matchesCategory = selectedCategory === "All" || (post.tags && post.tags.includes(selectedCategory));
