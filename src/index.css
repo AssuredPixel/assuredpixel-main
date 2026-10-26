@@ -4,16 +4,15 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0C0C0B;
+  color: #F3F1EC;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+code, kbd, samp, pre {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 
@@ -84,5 +83,66 @@ code {
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* AssuredPixel Redesign Foundations */
+.ap-marquee {
+  display: flex;
+  width: max-content;
+  animation: ap-scroll 32s linear infinite;
+}
+.ap-marquee:hover {
+  animation-play-state: paused;
+}
+@keyframes ap-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ap-marquee {
+    animation: none;
+  }
+}
+
+.ap-card {
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.ap-card:hover {
+  transform: translateY(-4px);
+  border-color: #3B3A37;
+}
+
+.ap-arrow {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.ap-card:hover .ap-arrow {
+  transform: translate(3px, -3px);
+  color: #2CC3A5;
+}
+
+.ap-scroll img {
+  transition: transform 7s ease;
+}
+.ap-scroll:hover img {
+  transform: translateY(calc(-100% + 440px));
+}
+@media (prefers-reduced-motion: reduce) {
+  .ap-card,
+  .ap-arrow {
+    transition: none;
+  }
+  .ap-card:hover {
+    transform: none;
+  }
+  .ap-scroll img {
+    transition: none;
+  }
+  .ap-scroll:hover img {
+    transform: none;
   }
 }

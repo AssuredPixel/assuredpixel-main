@@ -10,12 +10,32 @@ export default {
   // ... (rest of file)
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        tight: ['"Inter Tight"', 'Inter', 'sans-serif'],
+        serif: ['Newsreader', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       },
       colors: {
+        ap: {
+          bg: '#0C0C0B',
+          card: '#141413',
+          'card-muted': '#181816',
+          border: '#262523',
+          'border-hover': '#3B3A37',
+          text: '#F3F1EC',
+          muted: '#8E8D8A',
+          teal: '#2CC3A5',
+          'teal-hover': '#24A88E',
+          amber: '#F59E0B',
+          green: '#10B981',
+          red: '#EF4444'
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -73,11 +93,16 @@ export default {
           to: {
             height: '0'
           }
+        },
+        'ap-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'ap-marquee': 'ap-scroll 32s linear infinite'
       }
     }
   },

@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+upgrade-design/unpacked/
 # Environment Variables
 .env
 .env.local
