@@ -141,12 +141,21 @@ export const HeroSection = () => {
           Booking new projects for {currentMonth}
         </div>
 
-        {/* High-Impact Editorial Heading with Apple-style progressive glow sweep */}
-        <h1 className="font-tight font-medium text-[42px] sm:text-[62px] lg:text-[88px] leading-[1.05] tracking-[-0.035em] max-w-[1180px] text-[#F3F1EC]">
-          <span className="glow-phrase-1">We build</span> websites{" "}
-          <span className="glow-phrase-2">and</span> cloud systems{" "}
-          <span className="glow-phrase-3">that keep</span> your business moving.
-        </h1>
+        {/* High-Impact Editorial Heading with single-sweep mirror light reflection on load */}
+        <div className="relative inline-block max-w-[1180px]">
+          <h1 className="font-tight font-medium text-[42px] sm:text-[62px] lg:text-[88px] leading-[1.05] tracking-[-0.035em] text-[#F3F1EC]">
+            <span className="text-[#6F6D69]">We build</span> websites{" "}
+            <span className="text-[#6F6D69]">and</span> cloud systems{" "}
+            <span className="text-[#6F6D69]">that keep</span> your business moving.
+          </h1>
+          {/* Unified mirror reflection sweep running once across all text on load */}
+          <div
+            aria-hidden="true"
+            className="headline-shine-overlay font-tight font-medium text-[42px] sm:text-[62px] lg:text-[88px] leading-[1.05] tracking-[-0.035em]"
+          >
+            We build websites and cloud systems that keep your business moving.
+          </div>
+        </div>
 
         {/* Subtitle & Dual Action Buttons */}
         <div className="mt-12 sm:mt-14 flex flex-col md:flex-row gap-8 items-start md:items-end justify-between">

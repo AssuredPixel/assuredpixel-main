@@ -147,87 +147,58 @@ code, kbd, samp, pre {
   }
 }
 
-/* Apple-style progressive luminous text sweep for hero headline */
-@keyframes apple-glow-phrase-1 {
-  0%, 100% {
-    color: #6F6D69;
-    text-shadow: none;
-    opacity: 0.65;
+/* Single-sweep metallic mirror light reflection across entire headline */
+.headline-shine-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(255, 255, 255, 0.45) 44%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(44, 195, 165, 0.95) 53%,
+    rgba(255, 255, 255, 0.5) 58%,
+    transparent 70%,
+    transparent 100%
+  );
+  background-size: 320% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: mirror-sweep 2.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s 1 forwards;
+  background-position: 160% 0;
+  filter: drop-shadow(0 0 16px rgba(44, 195, 165, 0.5));
+}
+
+@keyframes mirror-sweep {
+  0% {
+    background-position: 160% 0;
+    opacity: 0;
   }
-  8%, 28% {
-    color: #F3F1EC;
-    text-shadow: 0 0 22px rgba(44, 195, 165, 0.45), 0 0 36px rgba(243, 241, 236, 0.25);
+  15% {
     opacity: 1;
   }
-  38% {
-    color: #6F6D69;
-    text-shadow: none;
-    opacity: 0.65;
-  }
-}
-
-@keyframes apple-glow-phrase-2 {
-  0%, 28%, 100% {
-    color: #6F6D69;
-    text-shadow: none;
-    opacity: 0.65;
-  }
-  36%, 56% {
-    color: #F3F1EC;
-    text-shadow: 0 0 22px rgba(44, 195, 165, 0.45), 0 0 36px rgba(243, 241, 236, 0.25);
+  85% {
     opacity: 1;
   }
-  66% {
-    color: #6F6D69;
-    text-shadow: none;
-    opacity: 0.65;
+  100% {
+    background-position: -160% 0;
+    opacity: 0;
   }
-}
-
-@keyframes apple-glow-phrase-3 {
-  0%, 56%, 100% {
-    color: #6F6D69;
-    text-shadow: none;
-    opacity: 0.65;
-  }
-  64%, 84% {
-    color: #F3F1EC;
-    text-shadow: 0 0 22px rgba(44, 195, 165, 0.45), 0 0 36px rgba(243, 241, 236, 0.25);
-    opacity: 1;
-  }
-  94% {
-    color: #6F6D69;
-    text-shadow: none;
-    opacity: 0.65;
-  }
-}
-
-.glow-phrase-1 {
-  display: inline-block;
-  animation: apple-glow-phrase-1 5.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  transition: color 0.5s ease, text-shadow 0.5s ease;
-}
-
-.glow-phrase-2 {
-  display: inline-block;
-  animation: apple-glow-phrase-2 5.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  transition: color 0.5s ease, text-shadow 0.5s ease;
-}
-
-.glow-phrase-3 {
-  display: inline-block;
-  animation: apple-glow-phrase-3 5.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  transition: color 0.5s ease, text-shadow 0.5s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glow-phrase-1,
-  .glow-phrase-2,
-  .glow-phrase-3 {
-    animation: none;
-    color: #6F6D69;
-    text-shadow: none;
-    opacity: 0.8;
+  .headline-shine-overlay {
+    display: none;
   }
 }
+
 
