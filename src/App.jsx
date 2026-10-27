@@ -29,6 +29,7 @@ const BlogPage = lazy(() => import("./components/BlogPage").then(m => ({ default
 const PrivacyPolicy = lazy(() => import("./components/PrivacyPolicy").then(m => ({ default: m.PrivacyPolicy })));
 const TermsAndConditions = lazy(() => import("./components/TermsAndConditions").then(m => ({ default: m.TermsAndConditions })));
 const CookiePolicy = lazy(() => import("./components/CookiePolicy").then(m => ({ default: m.CookiePolicy })));
+const CloudPage = lazy(() => import("./components/CloudPage").then(m => ({ default: m.CloudPage })));
 
 
 
@@ -63,6 +64,8 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/cloud" element={<Suspense fallback={<div className="py-20 text-center">Loading Cloud &amp; DevOps...</div>}><CloudPage /></Suspense>} />
+      <Route path="/cloud-devops" element={<Suspense fallback={<div className="py-20 text-center">Loading Cloud &amp; DevOps...</div>}><CloudPage /></Suspense>} />
       <Route path="/about" element={<Suspense fallback={<div>Loading...</div>}><AboutPage /></Suspense>} />
       <Route path="/case-studies" element={<Suspense fallback={<div>Loading...</div>}><CaseStudiesPage /></Suspense>} />
       <Route path="/contact" element={<Suspense fallback={<div>Loading...</div>}><ContactPage /></Suspense>} />
