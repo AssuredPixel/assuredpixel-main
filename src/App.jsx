@@ -25,7 +25,7 @@ const CookiePolicy = lazy(() => import("./components/CookiePolicy").then(m => ({
 
 const Home = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0C0C0B] text-[#F3F1EC]">
       <Header />
       <main>
         <HeroSection />

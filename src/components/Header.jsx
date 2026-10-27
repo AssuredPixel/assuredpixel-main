@@ -1,51 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Button } from "./ui/button";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { trackCtaClick } from "../lib/analytics";
 
-// Sections that get active-highlight treatment
-const SCROLL_SECTIONS = ["home", "services", "testimonials"];
-
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Scroll-based active-section tracking
-  // Uses a scroll listener instead of IntersectionObserver so it works
-  // even though ServicesSection / TestimonialsSection are lazy-loaded.
-  useEffect(() => {
-    if (location.pathname !== "/") {
-      setActiveSection("");
-      return;
-    }
-
-    const getActive = () => {
-      const offset = 100; // account for fixed header height
-      let current = "home";
-
-      SCROLL_SECTIONS.forEach((id) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const top = el.getBoundingClientRect().top;
-        if (top - offset <= 0) {
-          current = id;
-        }
-      });
-
-      setActiveSection(current);
-    };
-
-    // Run immediately so the initial state is correct
-    getActive();
-
-    window.addEventListener("scroll", getActive, { passive: true });
-    return () => window.removeEventListener("scroll", getActive);
-  }, [location.pathname]);
 
   // Scroll to hash on load/location change
   useEffect(() => {
@@ -59,177 +21,129 @@ export const Header = () => {
     }
   }, [location]);
 
-  // Check for saved theme preference or default to light mode
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
     } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      document.body.style.overflow = "unset";
     }
-  };
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
 
-  const navigation = [
-    { name: "Home", href: "/", sectionId: "home" },
-    { name: "Services", href: "/#services", sectionId: "services" },
+  const navLinks = [
+    { name: "Work", href: "/#work" },
+    { name: "Services", href: "/#services" },
+    { name: "Cloud & DevOps", href: "/cloud-devops" },
     { name: "About", href: "/about" },
-    { name: "Our Work", href: "/case-studies" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
   ];
-
-  // Returns true when this nav item should be highlighted
-  const isActive = (item) => {
-    if (location.pathname !== "/") return false;
-    return item.sectionId === activeSection;
-  };
 
   const handleNavClick = (href, label) => {
     trackCtaClick(label || href, "Header");
-    if (href.startsWith("/#") || href === "/") {
-      if (window.location.pathname === "/") {
-        const id = href.replace("/", "");
-        const element = document.querySelector(id || "#home");
+    setIsMenuOpen(false);
+
+    if (href.startsWith("/#")) {
+      const id = href.replace("/", "");
+      if (location.pathname === "/") {
+        const element = document.querySelector(id);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
+          return;
         }
-      } else {
-        navigate(href);
       }
-    } else {
-      navigate(href);
     }
-    setIsMenuOpen(false);
+    navigate(href);
   };
 
   return (
-    <header className="fixed top-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-gray-200 dark:border-slate-700 z-50 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" onClick={() => handleNavClick("/")} className="flex-shrink-0">
-              <Logo className="h-9" />
-            </Link>
-          </div>
+    <div className="w-full bg-[#0C0C0B] text-[#F3F1EC] z-50">
+      {/* 1.1 Top Announcement Bar */}
+      <div className="border-b border-[#21201E] px-6 py-2.5 text-center text-[13px] text-[#A8A6A0]">
+        Remote studio, working with clients globally.{" "}
+        <Link
+          to="/cloud-devops"
+          onClick={() => trackCtaClick("Announcement: Cloud & DevOps", "AnnouncementBar")}
+          className="text-[#F3F1EC] underline underline-offset-[3px] hover:text-[#2CC3A5] transition-colors"
+        >
+          See our new Cloud &amp; DevOps practice →
+        </Link>
+      </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navigation.map((item) => {
-                const active = isActive(item);
-                return (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavClick(item.href)}
-                    className={`relative px-3 py-2 text-sm font-medium transition-all duration-200
-                      ${active
-                        ? "text-teal-600 dark:text-teal-400"
-                        : "text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400"
-                      }`}
-                  >
-                    {item.name}
-                    {/* Active underline indicator */}
-                    <span
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-teal-500 transition-all duration-300"
-                      style={{ width: active ? "80%" : "0%" }}
-                    />
-                  </button>
-                );
-              })}
-            </div>
+      {/* Main Navigation Header */}
+      <header className="max-w-[1360px] mx-auto px-6 sm:px-10 py-6 sm:py-7 flex items-center justify-between gap-5">
+        {/* Brand Logo */}
+        <Link
+          to="/"
+          onClick={() => handleNavClick("/", "Logo Home")}
+          className="flex items-center text-decoration-none"
+          aria-label="AssuredPixel Home"
+        >
+          <Logo className="h-8" />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav aria-label="Main" className="hidden md:flex items-center gap-8 lg:gap-10 text-[15px] font-normal text-[#F3F1EC]">
+          {navLinks.map((item) => (
+            <button
+              key={item.name}
+              onClick={() => handleNavClick(item.href, item.name)}
+              className="py-2.5 hover:text-[#2CC3A5] transition-colors bg-transparent border-0 cursor-pointer text-[15px]"
+            >
+              {item.name}
+            </button>
+          ))}
+        </nav>
+
+        {/* Right CTA - Let's Talk */}
+        <div className="hidden md:flex items-center">
+          <button
+            onClick={() => handleNavClick("/#contact", "Let's Talk")}
+            className="text-[15px] font-medium text-[#F3F1EC] underline underline-offset-[6px] hover:text-[#2CC3A5] transition-colors bg-transparent border-0 cursor-pointer p-0"
+          >
+            Let's Talk
+          </button>
+        </div>
+
+        {/* Mobile Hamburger Toggle */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 text-[#F3F1EC] hover:text-[#2CC3A5] focus:outline-none"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu Drawer */}
+      {isMenuOpen && (
+        <div className="md:hidden fixed inset-x-0 top-[105px] bottom-0 bg-[#0C0C0B]/98 backdrop-blur-xl border-t border-[#21201E] z-50 flex flex-col justify-between p-8 animate-in fade-in duration-200">
+          <nav className="flex flex-col gap-6 text-xl font-tight text-[#F3F1EC]">
+            {navLinks.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => handleNavClick(item.href, item.name)}
+                className="text-left py-2 hover:text-[#2CC3A5] transition-colors border-b border-[#1E1E1C]"
+              >
+                {item.name}
+              </button>
+            ))}
           </nav>
 
-          {/* Desktop Actions - Dark Mode Toggle + CTA */}
-          <div className="hidden lg:flex items-center gap-4">
-            {/* Dark Mode Toggle */}
+          <div className="pt-6 border-t border-[#21201E]">
             <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200"
-              aria-label="Toggle dark mode"
+              onClick={() => handleNavClick("/#contact", "Let's Talk (Mobile)")}
+              className="w-full py-4 rounded-full bg-[#F3F1EC] text-[#0C0C0B] font-semibold text-center text-base hover:bg-white transition-all shadow-lg"
             >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-
-            {/* CTA Button */}
-            <Button
-              onClick={() => handleNavClick("/#book-call", "Book Free Audit")}
-              className="bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white px-6 py-2 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
-            >
-              Book Free Audit
-            </Button>
-          </div>
-
-          {/* Mobile menu button + Dark mode toggle */}
-          <div className="lg:hidden flex items-center gap-2">
-            {/* Dark Mode Toggle - Mobile */}
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200"
-              aria-label="Toggle dark mode"
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-
-            {/* Menu Toggle */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 p-2"
-              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-              aria-expanded={isMenuOpen}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              Let's Talk
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-700">
-              {navigation.map((item) => {
-                const active = isActive(item);
-                return (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavClick(item.href)}
-                    className={`block px-3 py-2 text-base font-medium w-full text-left transition-all duration-200 rounded-md
-                      ${active
-                        ? "text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 border-l-2 border-teal-500 pl-4"
-                        : "text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400"
-                      }`}
-                  >
-                    {item.name}
-                  </button>
-                );
-              })}
-              <div className="pt-4">
-                <Button
-                  onClick={() => handleNavClick("/#book-call", "Book Free Audit (Mobile)")}
-                  className="bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white px-6 py-2 rounded-lg w-full transition-all duration-300"
-                >
-                  Book Free Audit
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </header>
+      )}
+    </div>
   );
 };

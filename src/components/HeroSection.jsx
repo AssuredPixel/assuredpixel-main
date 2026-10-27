@@ -1,325 +1,275 @@
-
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
-import { ArrowRight, CheckCircle } from "lucide-react";
-
-// Mock data for demo
-const mockData = {
-  heroContent: {
-    headline: "We Build Websites That Win Business",
-    subheadline:
-      "AssuredPixel designs and develops high-converting websites for ambitious businesses. Clean code, strong design, real results.",
-    ctaText: "Book a Free Strategy Call",
-    ctaSubtext: "✨ No contracts • Fast turnaround • Built to convert",
-  },
-};
-
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { trackCtaClick } from "../lib/analytics";
 
+const SHOWCASE_SLIDES = [
+  {
+    name: "FarashaCRP",
+    kind: "Website · Desktop",
+    alt: "FarashaCRP website shown on a laptop",
+    img: "/images/showcase/053882c4-c8ed-4b17-8f81-1a554d6e6f18.png",
+    bg: "#121211",
+  },
+  {
+    name: "FarashaCRP",
+    kind: "Website · Mobile",
+    alt: "FarashaCRP website shown on a phone",
+    img: "/images/showcase/e1d87e7f-9109-4274-9890-7370d7878904.png",
+    bg: "#121211",
+  },
+  {
+    name: "RekrutKlin",
+    kind: "Brand identity · Stationery",
+    alt: "RekrutKlin brand identity on stationery, business cards and a tablet",
+    img: "/images/showcase/a5d12104-bc29-4c5e-8eba-14e9db5f6f60.png",
+    bg: "#EDEDED",
+  },
+  {
+    name: "RekrutKlin",
+    kind: "Brand identity · App",
+    alt: "RekrutKlin logo on a phone in a clinic setting",
+    img: "/images/showcase/7fc0a12d-5eb6-4a39-a65f-0aa9a4d0e954.png",
+    bg: "#E6EEF4",
+  },
+  {
+    name: "Prime Site Academy",
+    kind: "Learning platform · Desktop",
+    alt: "Prime Site Academy website shown on a laptop",
+    img: "/images/showcase/619e486f-48d3-4ed0-8101-001f8d2556f4.png",
+    bg: "#121211",
+  },
+  {
+    name: "Prime Site Academy",
+    kind: "Learning platform · Mobile",
+    alt: "Prime Site Academy website shown on a phone",
+    img: "/images/showcase/d499fe74-2519-49a1-a28d-71fa698a1310.png",
+    bg: "#121211",
+  },
+  {
+    name: "Seasteel Marine",
+    kind: "Website · Desktop",
+    alt: "Seasteel Marine website shown on a laptop",
+    img: "/images/showcase/0e15e2ce-6926-4263-9f7e-4c1b4931c4f2.png",
+    bg: "#121211",
+  },
+  {
+    name: "Seasteel Marine",
+    kind: "Website · Mobile",
+    alt: "Seasteel Marine website shown on a phone",
+    img: "/images/showcase/cf679989-13fc-40fe-a945-60f252cc1642.png",
+    bg: "#121211",
+  },
+  {
+    name: "Adar Limited",
+    kind: "Website",
+    alt: "Adar Limited corporate website",
+    isPlaceholder: true,
+    placeholderText: "[ Adar Limited brand mockup ]",
+    bg: "#151514",
+  },
+];
+
 export const HeroSection = () => {
-  const { heroContent } = mockData;
-  const navigate = useNavigate();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isStopped, setIsStopped] = useState(false);
+  const timerRef = useRef(null);
 
-  const scrollToContact = () => {
-    trackCtaClick("Book a Free Strategy Call", "Hero Section");
-    navigate("/#book-call");
+  const totalSlides = SHOWCASE_SLIDES.length;
+  const currentSlide = SHOWCASE_SLIDES[currentIndex];
+
+  // Dynamic booking month (e.g. "November")
+  const currentMonth = new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date());
+
+  const goToSlide = useCallback((index, manual = false) => {
+    const nextIdx = ((index % totalSlides) + totalSlides) % totalSlides;
+    setCurrentIndex(nextIdx);
+    if (manual) setIsStopped(true);
+  }, [totalSlides]);
+
+  const handleNext = () => {
+    trackCtaClick("Hero Carousel Next", "HeroSection");
+    goToSlide(currentIndex + 1, true);
   };
 
-  const features = [
-    "Custom websites built for your specific business goals",
-    "Fast delivery without compromising on quality",
-    "Ongoing support after launch — we don't disappear",
-  ];
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
+  const handlePrev = () => {
+    trackCtaClick("Hero Carousel Prev", "HeroSection");
+    goToSlide(currentIndex - 1, true);
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
+  // 6-second auto rotation
+  useEffect(() => {
+    let reduceMotion = false;
+    try {
+      reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (e) {
+      // fallback
+    }
+
+    if (reduceMotion) return;
+
+    if (!isHovered && !isStopped) {
+      timerRef.current = setInterval(() => {
+        goToSlide(currentIndex + 1, false);
+      }, 6000);
+    }
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [currentIndex, isHovered, isStopped, goToSlide]);
+
+  const formatCounter = (idx, total) => {
+    const pad = (n) => (n < 10 ? `0${n}` : `${n}`);
+    return `${pad(idx + 1)} / ${pad(total)}`;
   };
 
-
-
-  const slideInRight = {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.7,
-        ease: "easeOut",
-        delay: 0.3,
-      },
-    },
-  };
-
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        delay: 0.2,
-      },
-    },
-  };
-
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
+  const handleCtaClick = (targetId, label) => {
+    trackCtaClick(label, "HeroSection");
+    const el = document.querySelector(targetId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center bg-gradient-to-br from-slate-50 via-white to-teal-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-500"
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-grid-slate-100 dark:bg-grid-slate-800 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:[mask-image:linear-gradient(0deg,rgba(0,0,0,0.9),rgba(0,0,0,0.4))] -z-10"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center text-center lg:text-left">
-          {/* Content - Left Side */}
-          <motion.div
-            className="space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <div className="space-y-6">
-              <motion.div
-                variants={itemVariants}
-                className="inline-flex items-center px-4 py-2 bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300 rounded-full text-sm font-medium mx-auto lg:mx-0"
-              >
-                Remote Digital Studio
-              </motion.div>
-
-              <h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-tight"
-              >
-                {heroContent.headline}
-              </h1>
-
-              <p
-                className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl"
-              >
-                {heroContent.subheadline}
-              </p>
-            </div>
-
-            {/* Features List */}
-            <motion.div className="space-y-3 inline-block lg:block text-left" variants={containerVariants}>
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="flex items-center space-x-3"
-                >
-                  <CheckCircle className="w-5 h-5 text-teal-600 dark:text-teal-400 flex-shrink-0" />
-                  <span className="text-slate-700 dark:text-slate-300 font-medium">
-                    {feature}
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            >
-              <Button
-                onClick={scrollToContact}
-                size="lg"
-                className="bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105 group"
-              >
-                {heroContent.ctaText}
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </Button>
-
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => {
-                  trackCtaClick("See How We Drive Results", "Hero Section");
-                  navigate("/case-studies");
-                }}
-                className="border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:border-teal-600 dark:hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300"
-              >
-                See How We Drive Results
-              </Button>
-            </motion.div>
-
-            <motion.p
-              variants={fadeIn}
-              className="text-sm text-slate-600 dark:text-slate-300 font-medium"
-            >
-              {heroContent.ctaSubtext}
-            </motion.p>
-          </motion.div>
-
-          {/* Visual Element - Right Side */}
-          <motion.div
-            className="relative"
-            initial="hidden"
-            animate="visible"
-            variants={slideInRight}
-          >
-            <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-200 dark:border-slate-700 transition-colors duration-300">
-              {/* Stats */}
-              <motion.div
-                className="grid grid-cols-3 gap-6 mb-8"
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  visible: {
-                    transition: {
-                      staggerChildren: 0.15,
-                      delayChildren: 0.5,
-                    },
-                  },
-                }}
-              >
-                {[
-                  {
-                    value: "4+",
-                    label: "Projects Delivered",
-                    color: "text-teal-600 dark:text-teal-400"
-                  },
-                  {
-                    value: "2",
-                    label: "Countries Served",
-                    color: "text-slate-800 dark:text-white"
-                  },
-                  {
-                    value: "100%",
-                    label: "Client Retention",
-                    color: "text-emerald-600 dark:text-emerald-400",
-                  },
-                ].map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    variants={{
-                      hidden: { opacity: 0, scale: 0.8 },
-                      visible: {
-                        opacity: 1,
-                        scale: 1,
-                        transition: { duration: 0.5 },
-                      },
-                    }}
-                    className="text-center"
-                  >
-                    <div className={`text-3xl font-bold ${stat.color}`}>
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-slate-600 dark:text-slate-400">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              {/* Mock Dashboard */}
-              <motion.div
-                className="space-y-4"
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  visible: {
-                    transition: {
-                      staggerChildren: 0.1,
-                      delayChildren: 0.8,
-                    },
-                  },
-                }}
-              >
-                {[
-                  {
-                    label: "Seasteel Marine",
-                    value: "Live ✓",
-                    color: "text-emerald-600 dark:text-emerald-400",
-                  },
-                  {
-                    label: "Adar Limited",
-                    value: "Live ✓",
-                    color: "text-teal-600 dark:text-teal-400",
-                  },
-                  {
-                    label: "RekrutKlin",
-                    value: "Live ✓",
-                    color: "text-emerald-600 dark:text-emerald-400",
-                  },
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    variants={{
-                      hidden: { opacity: 0, x: -20 },
-                      visible: {
-                        opacity: 1,
-                        x: 0,
-                        transition: { duration: 0.5 },
-                      },
-                    }}
-                    whileHover={{ scale: 1.02, x: 5 }}
-                    className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg transition-colors duration-300"
-                  >
-                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                      {item.label}
-                    </span>
-                    <span className={`text-sm font-bold ${item.color}`}>
-                      {item.value}
-                    </span>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Floating Elements */}
-            <motion.div
-              animate={floatingAnimation}
-              className="absolute -top-4 -right-4 w-20 h-20 bg-teal-100 dark:bg-teal-900/50 rounded-full flex items-center justify-center transition-colors duration-300"
-            >
-              <div className="w-10 h-10 bg-teal-600 dark:bg-teal-500 rounded-full"></div>
-            </motion.div>
-            <motion.div
-              animate={{
-                y: [0, 10, 0],
-                transition: {
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                },
-              }}
-              className="absolute -bottom-4 -left-4 w-16 h-16 bg-emerald-100 dark:bg-emerald-900/50 rounded-full flex items-center justify-center transition-colors duration-300"
-            >
-              <div className="w-8 h-8 bg-emerald-600 dark:bg-emerald-500 rounded-full"></div>
-            </motion.div>
-          </motion.div>
+    <div className="w-full bg-[#0C0C0B] text-[#F3F1EC]">
+      {/* 1.2 Hero Header & Value Proposition */}
+      <section id="top" className="max-w-[1360px] mx-auto px-6 sm:px-10 pt-16 sm:pt-24 pb-14 sm:pb-16">
+        {/* Availability Badge */}
+        <div className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 border border-[#2B2A27] rounded-full font-mono text-[13px] text-[#CFCDC7]">
+          <span className="w-2 h-2 rounded-full bg-[#2CC3A5] animate-pulse" />
+          Booking new projects for {currentMonth}
         </div>
-      </div>
-    </section>
+
+        {/* High-Impact Editorial Heading */}
+        <h1 className="font-tight font-medium text-[42px] sm:text-[62px] lg:text-[88px] leading-[1.05] tracking-[-0.035em] max-w-[1180px] text-[#F3F1EC]">
+          <span className="text-[#6F6D69]">We build</span> websites{" "}
+          <span className="text-[#6F6D69]">and</span> cloud systems{" "}
+          <span className="text-[#6F6D69]">that keep</span> your business moving.
+        </h1>
+
+        {/* Subtitle & Dual Action Buttons */}
+        <div className="mt-12 sm:mt-14 flex flex-col md:flex-row gap-8 items-start md:items-end justify-between">
+          <p className="max-w-[520px] text-base sm:text-[18px] leading-[1.65] text-[#BDBBB5]">
+            AssuredPixel is a remote digital studio. We design the website your customers see and build the cloud setup that keeps it running, so one team looks after everything from the first click to the last deploy.
+          </p>
+
+          <div className="flex flex-wrap gap-3.5 items-center">
+            <button
+              onClick={() => handleCtaClick("#contact", "Book a free strategy call")}
+              className="inline-flex items-center justify-center min-h-[52px] px-7 rounded-full bg-[#F3F1EC] text-[#0C0C0B] font-semibold text-base hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-sm"
+            >
+              Book a free strategy call
+            </button>
+            <button
+              onClick={() => handleCtaClick("#work", "See our work")}
+              className="inline-flex items-center justify-center min-h-[52px] px-7 rounded-full border border-[#3B3A37] text-[#F3F1EC] font-medium text-base hover:border-[#F3F1EC] hover:bg-[#181816] active:scale-[0.98] transition-all cursor-pointer"
+            >
+              See our work
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 1.2 Interactive 9-Slide Showcase Carousel */}
+      <section aria-label="Project showcase" className="max-w-[1360px] mx-auto px-6 sm:px-10 pb-20 sm:pb-24">
+        {/* Carousel Frame */}
+        <div
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="relative rounded-2xl sm:rounded-[18px] overflow-hidden border border-[#21201E] bg-[#121211] shadow-2xl"
+        >
+          <div
+            className="flex transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {SHOWCASE_SLIDES.map((slide, idx) => (
+              <div
+                key={idx}
+                className="flex-[0_0_100%] min-w-0 aspect-[16/9] flex items-center justify-center relative overflow-hidden"
+                style={{ backgroundColor: slide.bg }}
+              >
+                {slide.isPlaceholder ? (
+                  <div className="font-mono text-sm sm:text-base text-[#8E8C87] flex items-center justify-center h-full">
+                    {slide.placeholderText}
+                  </div>
+                ) : (
+                  <img
+                    src={slide.img}
+                    alt={slide.alt}
+                    loading={idx === 0 ? "eager" : "lazy"}
+                    className="w-full h-full object-cover block select-none"
+                    draggable={false}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Carousel Meta & Navigation Controls */}
+        <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-between gap-5">
+          {/* Slide Details */}
+          <div aria-live="polite" className="flex items-baseline gap-4 sm:gap-5 min-w-0">
+            <span className="font-mono text-xs sm:text-[13px] text-[#8E8C87] tracking-wider">
+              {formatCounter(currentIndex, totalSlides)}
+            </span>
+            <span className="font-tight text-lg sm:text-[22px] font-semibold text-[#F3F1EC] tracking-[-0.01em]">
+              {currentSlide.name}
+            </span>
+            <span className="text-xs sm:text-[14px] text-[#A8A6A0]">
+              {currentSlide.kind}
+            </span>
+          </div>
+
+          {/* Interactive Controls: Dots + Arrows */}
+          <div className="flex items-center gap-4 sm:gap-5">
+            {/* Slide Pill Dots */}
+            <div className="flex items-center gap-1.5" role="tablist" aria-label="Slide controls">
+              {SHOWCASE_SLIDES.map((slide, k) => {
+                const isActive = k === currentIndex;
+                return (
+                  <button
+                    key={k}
+                    type="button"
+                    onClick={() => goToSlide(k, true)}
+                    aria-label={`Go to slide ${k + 1}: ${slide.name}`}
+                    role="tab"
+                    aria-selected={isActive}
+                    className="h-9 px-1 bg-transparent border-0 cursor-pointer flex items-center justify-center focus:outline-none"
+                  >
+                    <span
+                      className={`block h-1 rounded-full transition-all duration-300 ${
+                        isActive ? "w-5 bg-[#2CC3A5]" : "w-2 bg-[#3B3A37] hover:bg-[#5A5956]"
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Prev Arrow */}
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous project slide"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-[#3B3A37] bg-transparent text-[#F3F1EC] text-lg flex items-center justify-center hover:border-[#F3F1EC] hover:bg-[#181816] active:scale-95 transition-all cursor-pointer"
+            >
+              ←
+            </button>
+
+            {/* Next Arrow */}
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next project slide"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#F3F1EC] text-[#0C0C0B] text-lg font-medium flex items-center justify-center hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-md"
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
