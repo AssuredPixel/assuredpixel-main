@@ -7,6 +7,8 @@ export function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const MARQUEE_PHRASE = "Let's build something that works.";
+
   return (
     <footer
       id="contact"
@@ -15,29 +17,79 @@ export function Footer() {
         background: '#0C0C0B',
         color: '#F3F1EC',
         overflow: 'hidden',
+        width: '100%',
+        maxWidth: '100vw',
       }}
     >
-      {/* ── 1. Big Statement Banner: 100% visible & responsive ── */}
+      {/* ── 1. Infinite Statement Marquee (smooth, seamless loop, strictly contained) ── */}
       <div
+        className="w-full overflow-hidden select-none"
         style={{
-          padding: '80px 40px 60px',
+          padding: '56px 0 48px',
           borderBottom: '1px solid #21201E',
         }}
+        aria-label="Let's build something that works marquee"
       >
-        <div style={{ maxWidth: 1360, margin: '0 auto' }}>
-          <h2
-            className="font-tight font-medium"
-            style={{
-              margin: 0,
-              fontSize: 'clamp(42px, 7.5vw, 116px)',
-              letterSpacing: '-0.04em',
-              lineHeight: 1.05,
-              color: '#F3F1EC',
-              wordBreak: 'break-word',
-            }}
-          >
-            Let's build something that works.
-          </h2>
+        <div className="ap-marquee flex items-center whitespace-nowrap">
+          {/* Track 1 */}
+          <div className="flex items-center shrink-0">
+            {[0, 1, 2].map((i) => (
+              <span
+                key={`t1-${i}`}
+                className="font-tight font-medium inline-flex items-center"
+                style={{
+                  fontSize: 'clamp(56px, 8vw, 136px)',
+                  letterSpacing: '-0.04em',
+                  lineHeight: 1,
+                  color: '#F3F1EC',
+                  paddingRight: '48px',
+                }}
+              >
+                {MARQUEE_PHRASE}
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: 14,
+                    height: 14,
+                    borderRadius: '50%',
+                    background: '#2CC3A5',
+                    marginLeft: '48px',
+                  }}
+                  aria-hidden="true"
+                />
+              </span>
+            ))}
+          </div>
+
+          {/* Track 2 (Duplicate for seamless loop) */}
+          <div className="flex items-center shrink-0" aria-hidden="true">
+            {[0, 1, 2].map((i) => (
+              <span
+                key={`t2-${i}`}
+                className="font-tight font-medium inline-flex items-center"
+                style={{
+                  fontSize: 'clamp(56px, 8vw, 136px)',
+                  letterSpacing: '-0.04em',
+                  lineHeight: 1,
+                  color: '#F3F1EC',
+                  paddingRight: '48px',
+                }}
+              >
+                {MARQUEE_PHRASE}
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: 14,
+                    height: 14,
+                    borderRadius: '50%',
+                    background: '#2CC3A5',
+                    marginLeft: '48px',
+                  }}
+                  aria-hidden="true"
+                />
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
