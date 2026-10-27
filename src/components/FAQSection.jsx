@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 const FAQS = [
   {
@@ -33,12 +33,97 @@ const FAQS = [
   },
 ];
 
-export function FAQSection() {
+function FAQItem({ item, isOpen, onToggle }) {
+  const bodyRef = useRef(null);
+
   return (
-    <section
-      id="faq"
-      style={{ borderTop: '1px solid #21201E' }}
-    >
+    <div style={{ borderBottom: '1px solid #21201E' }}>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          padding: '28px 0',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          textAlign: 'left',
+          gap: 16,
+        }}
+      >
+        <span
+          className="font-tight font-semibold"
+          style={{
+            fontSize: 21,
+            color: '#F3F1EC',
+            lineHeight: 1.25,
+          }}
+        >
+          {item.question}
+        </span>
+
+        {/* +/× icon */}
+        <span
+          aria-hidden="true"
+          style={{
+            flexShrink: 0,
+            width: 28,
+            height: 28,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%',
+            border: '1px solid #2E2D2B',
+            color: isOpen ? '#F5A524' : '#8E8C87',
+            fontSize: 20,
+            lineHeight: 1,
+            transition: 'color 0.2s, border-color 0.2s, transform 0.3s',
+            transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+          }}
+        >
+          +
+        </span>
+      </button>
+
+      {/* Collapsible body — CSS height transition via max-height */}
+      <div
+        ref={bodyRef}
+        style={{
+          overflow: 'hidden',
+          maxHeight: isOpen ? `${bodyRef.current?.scrollHeight ?? 400}px` : '0px',
+          transition: 'max-height 0.35s ease',
+        }}
+      >
+        <p
+          style={{
+            margin: '0 0 28px',
+            fontSize: 16,
+            lineHeight: 1.7,
+            color: '#A8A6A0',
+            paddingRight: 44,
+          }}
+        >
+          {item.answer}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export function FAQSection() {
+  // Track which index is open; null = all collapsed
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const handleToggle = (idx) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
+  };
+
+  return (
+    <section id="faq" style={{ borderTop: '1px solid #21201E' }}>
       <div
         className="flex flex-wrap"
         style={{
@@ -73,7 +158,7 @@ export function FAQSection() {
           </h2>
         </div>
 
-        {/* Right Q&A list */}
+        {/* Right Q&A accordion list */}
         <div
           style={{
             flex: '2 1 560px',
@@ -82,34 +167,12 @@ export function FAQSection() {
           }}
         >
           {FAQS.map((item, idx) => (
-            <div
+            <FAQItem
               key={idx}
-              style={{
-                padding: '28px 0',
-                borderBottom: '1px solid #21201E',
-              }}
-            >
-              <h3
-                className="font-tight font-semibold"
-                style={{
-                  margin: '0 0 10px',
-                  fontSize: 21,
-                  color: '#F3F1EC',
-                }}
-              >
-                {item.question}
-              </h3>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: 16,
-                  lineHeight: 1.6,
-                  color: '#A8A6A0',
-                }}
-              >
-                {item.answer}
-              </p>
-            </div>
+              item={item}
+              isOpen={openIndex === idx}
+              onToggle={() => handleToggle(idx)}
+            />
           ))}
         </div>
       </div>
