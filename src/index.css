@@ -147,60 +147,83 @@ code, kbd, samp, pre {
   }
 }
 
-/* Single-sweep metallic mirror light reflection across entire headline */
-.headline-shine-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  user-select: none;
+/* Ambient status shimmer mask for headline highlight phrases */
+.shimmer-text-mask {
   background: linear-gradient(
-    115deg,
-    transparent 0%,
-    transparent 28%,
-    rgba(255, 255, 255, 0.2) 38%,
-    rgba(255, 255, 255, 0.85) 46%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(44, 195, 165, 1) 54%,
-    rgba(255, 255, 255, 0.85) 58%,
-    rgba(255, 255, 255, 0.2) 66%,
-    transparent 76%,
-    transparent 100%
+    110deg,
+    #6F6D69 0%,
+    #6F6D69 22%,
+    #BDBBB5 38%,
+    #FFFFFF 48%,
+    #2CC3A5 52%,
+    #BDBBB5 62%,
+    #6F6D69 78%,
+    #6F6D69 100%
   );
-  background-size: 300% 100%;
-  background-repeat: no-repeat;
+  background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: mirror-sweep 4.2s cubic-bezier(0.25, 1, 0.4, 1) 0.7s 1 forwards;
-  background-position: 160% 0;
-  filter: drop-shadow(0 0 24px rgba(44, 195, 165, 0.65)) drop-shadow(0 0 45px rgba(255, 255, 255, 0.35));
+  display: inline-block;
+  will-change: background-position;
 }
 
-@keyframes mirror-sweep {
+.shimmer-phrase-1 {
+  animation: shimmer-cycle-1 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.shimmer-phrase-2 {
+  animation: shimmer-cycle-2 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.shimmer-phrase-3 {
+  animation: shimmer-cycle-3 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes shimmer-cycle-1 {
   0% {
-    background-position: 160% 0;
-    opacity: 0;
+    background-position: 150% 0;
   }
-  12% {
-    opacity: 1;
+  26% {
+    background-position: -150% 0;
   }
-  88% {
-    opacity: 1;
+  26.01%, 100% {
+    background-position: 150% 0;
   }
-  100% {
-    background-position: -160% 0;
-    opacity: 0;
+}
+
+@keyframes shimmer-cycle-2 {
+  0%, 27% {
+    background-position: 150% 0;
+  }
+  53% {
+    background-position: -150% 0;
+  }
+  53.01%, 100% {
+    background-position: 150% 0;
+  }
+}
+
+@keyframes shimmer-cycle-3 {
+  0%, 54% {
+    background-position: 150% 0;
+  }
+  80% {
+    background-position: -150% 0;
+  }
+  80.01%, 100% {
+    background-position: 150% 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .headline-shine-overlay {
-    display: none;
+  .shimmer-text-mask {
+    animation: none;
+    color: #6F6D69;
+    -webkit-text-fill-color: #6F6D69;
   }
 }
+
 
 
