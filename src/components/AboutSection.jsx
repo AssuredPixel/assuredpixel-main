@@ -44,7 +44,7 @@ export function AboutSection() {
           className="font-mono text-[14px] uppercase"
           style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
         >
-          01 · The Studio
+          The Studio
         </p>
 
         <h1
@@ -131,7 +131,7 @@ export function AboutSection() {
             className="font-mono text-[14px] uppercase"
             style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
           >
-            02 · How We Operate
+            How We Operate
           </p>
 
           <h2
@@ -214,7 +214,7 @@ export function AboutSection() {
           className="font-mono text-[14px] uppercase"
           style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
         >
-          03 · Leadership
+          Leadership
         </p>
 
         <h2
@@ -395,7 +395,7 @@ export function AboutSection() {
             className="font-mono text-[14px] uppercase"
             style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
           >
-            04 · Track Record
+            Track Record
           </p>
 
           <h2

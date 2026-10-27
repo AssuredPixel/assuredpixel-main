@@ -86,7 +86,7 @@ export function HowWeWorkSection() {
             className="font-mono text-[14px] uppercase"
             style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
           >
-            05 · How we work
+            How we work
           </p>
 
           {/* headline */}

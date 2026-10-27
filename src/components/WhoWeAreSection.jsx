@@ -19,7 +19,7 @@ export const WhoWeAreSection = () => {
       {/* Left Column: Heading and section label */}
       <div className="flex-1 min-w-0 max-w-[640px]">
         <p className="font-mono text-xs sm:text-[14px] text-[#8E8C87] uppercase tracking-[0.12em] mb-5">
-          01 · Who we are
+          Who we are
         </p>
         <h2 className="font-tight font-medium text-[28px] sm:text-[38px] lg:text-[48px] leading-[1.15] tracking-[-0.025em] text-[#F3F1EC]">
           We work with founders, B2B teams and growing companies who want a site that brings in business and a setup that doesn't fall over when it does.

@@ -58,7 +58,7 @@ export function FAQSection() {
               letterSpacing: '0.12em',
             }}
           >
-            07 · Questions
+            Questions
           </p>
           <h2
             className="font-tight font-medium"

@@ -282,7 +282,7 @@ export function SelectedWorkSection() {
         className="font-mono text-[14px] uppercase"
         style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
       >
-        02 · Work
+        Work
       </p>
 
       {/* heading row */}

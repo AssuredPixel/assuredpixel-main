@@ -39,7 +39,7 @@ export function CloudDevOpsTeaser() {
               color: '#F5A524',
             }}
           >
-            04 // Cloud &amp; DevOps
+            Cloud &amp; DevOps
           </p>
 
           {/* headline */}
