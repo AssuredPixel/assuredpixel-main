@@ -1,450 +1,547 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { toast } from "sonner";
-import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
-import { trackLeadSubmission, trackContactMethod, trackCtaClick } from "../lib/analytics";
+import { trackLeadSubmission, trackContactMethod } from "../lib/analytics";
 
-const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_pgdttgj";
+/* ── EmailJS config ─────────────────────────────────────────── */
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || "service_pgdttgj";
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_1kclwha";
-const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "6sC60wquFbDoBmEAr";
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || "6sC60wquFbDoBmEAr";
 
-const contactInfo = {
-  email: "admin@assuredpixel.com",
-  phone: "+234 903 097 7669",
-  address: "Remote Studio — Serving clients globally",
-  hours: "Mon-Fri: 9AM-6PM WAT",
-};
+const CONTACT_INFO = [
+  { label: "Email",          value: "admin@assuredpixel.com",          href: "mailto:admin@assuredpixel.com", type: "email" },
+  { label: "Phone",          value: "+234 903 097 7669",               href: "tel:+2349030977669",            type: "phone" },
+  { label: "Location",       value: "Remote studio — global clients",  href: null,                            type: null   },
+  { label: "Hours",          value: "Mon–Fri, 9 AM–6 PM WAT (UTC+1)", href: null,                            type: null   },
+];
+
+const NEXT_STEPS = [
+  { n: "01", title: "We review your request",   body: "Every submission is read carefully. You'll hear back within 24 hours." },
+  { n: "02", title: "Discovery call",           body: "A short call to understand your goals, timeline and budget." },
+  { n: "03", title: "Proposal & kickoff",       body: "Clear scope and price in writing. Once approved, we start immediately." },
+];
+
+const SERVICES = [
+  "Website Design & Development",
+  "Brand Identity Design",
+  "SEO & Search Visibility",
+  "Paid Advertising (Google & Meta)",
+  "Content & Copywriting",
+  "Digital Strategy & Consulting",
+  "Cloud Migration",
+  "Cloud Security",
+];
 
 const EMPTY_FORM = {
-  name: "",
-  email: "",
-  company: "",
-  phone: "",
-  message: "",
-  service: "Website Design & Development",
-  website_hp: "", // Honeypot field for bot spam detection
+  name: "", email: "", company: "", phone: "",
+  message: "", service: SERVICES[0], website_hp: "",
 };
 
 function validate(data) {
-  // If the honeypot field is filled, it's a bot submission
-  if (data.website_hp && data.website_hp.trim() !== "") {
-    return "Bot submission detected.";
-  }
-  if (!data.name.trim())    return "Please enter your full name.";
-  if (!data.email.trim())   return "Please enter your email address.";
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRe.test(data.email)) return "Please enter a valid email address.";
-  if (!data.company.trim()) return "Please enter your company name.";
+  if (data.website_hp?.trim()) return "Bot submission detected.";
+  if (!data.name.trim())       return "Please enter your full name.";
+  if (!data.email.trim())      return "Please enter your email address.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return "Please enter a valid email address.";
+  if (!data.company.trim())    return "Please enter your company name.";
   return null;
+}
+
+/* ── Shared input style ─────────────────────────────────────── */
+const INPUT_STYLE = {
+  width: "100%",
+  padding: "13px 16px",
+  background: "#0F1419",
+  border: "1px solid #1E262D",
+  borderRadius: 8,
+  color: "#E6EDF3",
+  fontFamily: "'Inter', system-ui, sans-serif",
+  fontSize: 15,
+  outline: "none",
+  boxSizing: "border-box",
+  transition: "border-color 0.2s",
+};
+
+function Field({ label, required, children }) {
+  return (
+    <div>
+      <label
+        style={{
+          display: "block",
+          marginBottom: 8,
+          fontSize: 13,
+          fontWeight: 500,
+          color: "#8B98A5",
+          fontFamily: "'JetBrains Mono', monospace",
+          letterSpacing: "0.06em",
+        }}
+      >
+        {label}{required && <span style={{ color: "#F5A524", marginLeft: 4 }}>*</span>}
+      </label>
+      {children}
+    </div>
+  );
 }
 
 export const ContactSection = () => {
   const [formData, setFormData]     = useState(EMPTY_FORM);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [visibleItems, setVisibleItems] = useState(new Set());
-  const sectionRef  = useRef(null);
-  const observerRef = useRef(null);
+  const [submitted, setSubmitted]   = useState(false);
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible]   = useState(false);
 
-  const services = [
-    { value: "Website Design & Development",  label: "Website Design & Development" },
-    { value: "Brand Identity Design",          label: "Brand Identity Design" },
-    { value: "SEO & Search Visibility",        label: "SEO & Search Visibility" },
-    { value: "Paid Advertising",               label: "Paid Advertising (Google & Meta)" },
-    { value: "Content & Copywriting",          label: "Content & Copywriting" },
-    { value: "Digital Strategy & Consulting",  label: "Digital Strategy & Consulting" },
-    { value: "Cloud Migration",                label: "Cloud Migration" },
-    { value: "Cloud Security",                 label: "Cloud Security" },
-  ];
-
-  // Load EmailJS SDK once via CDN
+  /* Load EmailJS once */
   useEffect(() => {
     if (document.getElementById("emailjs-sdk")) return;
-    const script = document.createElement("script");
-    script.id  = "emailjs-sdk";
-    script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
-    script.async = true;
-    script.onload = () => {
-      if (window.emailjs) {
-        window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-      }
-    };
-    document.head.appendChild(script);
+    const s = document.createElement("script");
+    s.id = "emailjs-sdk";
+    s.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+    s.async = true;
+    s.onload = () => window.emailjs?.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    document.head.appendChild(s);
   }, []);
 
-  // Scoped IntersectionObserver — only watches elements inside this section
+  /* Scroll-in animation */
   useEffect(() => {
-    if (!sectionRef.current) return;
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleItems((prev) => new Set([...prev, entry.target.dataset.index]));
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "50px" }
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setIsVisible(true); obs.disconnect(); } },
+      { threshold: 0.06 }
     );
-    const elements = sectionRef.current.querySelectorAll("[data-animate]");
-    elements.forEach((el) => observerRef.current.observe(el));
-    return () => { if (observerRef.current) observerRef.current.disconnect(); };
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
   }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const sendWithEmailJS = async (templateParams) => {
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("EmailJS network timeout")), 4000)
-    );
+  const focusStyle = (e) => (e.currentTarget.style.borderColor = "#F5A524");
+  const blurStyle  = (e) => (e.currentTarget.style.borderColor = "#1E262D");
 
-    const sendPromise = (async () => {
-      if (window.emailjs) {
-        return await window.emailjs.send(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          templateParams,
-          EMAILJS_PUBLIC_KEY
-        );
-      } else {
-        const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+  /* ── Send helpers ── */
+  const sendEmailJS = async (params) => {
+    const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 4000));
+    const send = window.emailjs
+      ? window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params, EMAILJS_PUBLIC_KEY)
+      : fetch("https://api.emailjs.com/api/v1.0/email/send", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            service_id: EMAILJS_SERVICE_ID,
-            template_id: EMAILJS_TEMPLATE_ID,
-            user_id: EMAILJS_PUBLIC_KEY,
-            template_params: templateParams,
-          }),
-        });
-        if (!response.ok) throw new Error("EmailJS API failed");
-        return response;
-      }
-    })();
-
-    return await Promise.race([sendPromise, timeoutPromise]);
+          body: JSON.stringify({ service_id: EMAILJS_SERVICE_ID, template_id: EMAILJS_TEMPLATE_ID, user_id: EMAILJS_PUBLIC_KEY, template_params: params }),
+        }).then((r) => { if (!r.ok) throw new Error("EmailJS API failed"); return r; });
+    return Promise.race([send, timeout]);
   };
 
-  const sendWithFormSubmit = async () => {
-    const response = await fetch("https://formsubmit.co/ajax/admin@assuredpixel.com", {
+  const sendFormSubmit = () =>
+    fetch("https://formsubmit.co/ajax/admin@assuredpixel.com", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        company: formData.company,
-        phone: formData.phone || "Not provided",
-        service: formData.service,
+        name: formData.name, email: formData.email, company: formData.company,
+        phone: formData.phone || "Not provided", service: formData.service,
         message: formData.message || "No message provided",
         _subject: `New Inquiry from ${formData.name} (${formData.company})`,
       }),
-    });
+    }).then((r) => { if (!r.ok) throw new Error("FormSubmit failed"); return r; });
 
-    if (!response.ok) {
-      throw new Error("FormSubmit failed");
-    }
-    return response;
-  };
-
-  const handleSubmit = async () => {
-    // Silent discard for bots
-    if (formData.website_hp && formData.website_hp.trim() !== "") {
-      setFormData(EMPTY_FORM);
-      toast.success("Thank you! We've received your message and will respond within 24 hours.");
-      return;
-    }
-
-    const error = validate(formData);
-    if (error) { toast.error(error); return; }
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
+    if (formData.website_hp?.trim()) { setFormData(EMPTY_FORM); return; }
+    const err = validate(formData);
+    if (err) { toast.error(err); return; }
 
     setIsSubmitting(true);
-
-    const templateParams = {
-      from_name:  formData.name,
-      from_email: formData.email,
-      company:    formData.company,
-      phone:      formData.phone || "Not provided",
-      service:    formData.service,
-      message:    formData.message || "No message provided",
+    const params = {
+      from_name: formData.name, from_email: formData.email,
+      company: formData.company, phone: formData.phone || "Not provided",
+      service: formData.service, message: formData.message || "No message provided",
     };
 
-    let sentSuccessfully = false;
+    let ok = false;
+    try { await sendEmailJS(params); ok = true; }
+    catch { try { await sendFormSubmit(); ok = true; } catch { /* both failed */ } }
 
-    // Try EmailJS first
-    try {
-      await sendWithEmailJS(templateParams);
-      sentSuccessfully = true;
-    } catch (emailjsError) {
-      console.warn("EmailJS failed/timed out, attempting FormSubmit fallback:", emailjsError);
-      // Fallback to FormSubmit
-      try {
-        await sendWithFormSubmit();
-        sentSuccessfully = true;
-      } catch (formSubmitError) {
-        console.error("FormSubmit fallback error:", formSubmitError);
-      }
-    }
-
-    if (sentSuccessfully) {
+    if (ok) {
       trackLeadSubmission(formData.service);
-      toast.success("Thank you! We've received your message and will respond within 24 hours.", {
-        duration: 6000,
-      });
-      // Clear form inputs on successful send
+      setSubmitted(true);
       setFormData(EMPTY_FORM);
+      toast.success("Message sent! We'll reply within 24 hours.", { duration: 6000 });
     } else {
-      toast.error("Oops! Something went wrong sending your message. Please email admin@assuredpixel.com directly.");
+      toast.error("Something went wrong. Email us directly at admin@assuredpixel.com");
     }
-
     setIsSubmitting(false);
   };
-
-  const inputClass =
-    "w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400 focus:border-transparent transition-all duration-300";
 
   return (
     <section
       ref={sectionRef}
       id="contact"
-      className="py-20 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
+      style={{
+        background: "#0C0C0B",
+        borderTop: "1px solid #21201E",
+        color: "#F3F1EC",
+        fontFamily: "'Inter', system-ui, sans-serif",
+      }}
     >
-      {/* Keyframe animations — plain <style> tag, no jsx prop */}
-      <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(2rem); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(-3rem); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideInRight {
-          from { opacity: 0; transform: translateX(3rem); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-      `}</style>
+      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "110px 32px" }}>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        {/* ── Header ── */}
         <div
-          className="text-center mb-16 opacity-0 translate-y-8"
-          data-animate
-          data-index="header"
-          style={{ animation: visibleItems.has("header") ? "fadeInUp 0.8s ease-out forwards" : "none" }}
+          style={{
+            marginBottom: 72,
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.6s ease, transform 0.6s ease",
+          }}
         >
-          <div className="inline-flex items-center px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 rounded-full text-sm font-medium mb-4 transition-colors duration-300">
-            Get Started Today
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-6 transition-colors duration-300">
-            Let's Build Something Great
-          </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed transition-colors duration-300">
-            Tell us about your project and we'll get back to you within 24 hours with a clear plan forward.
+          <p
+            style={{
+              margin: "0 0 18px",
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 13,
+              letterSpacing: "0.28em",
+              color: "#F5A524",
+            }}
+          >
+            // GET IN TOUCH
+          </p>
+          <h1
+            className="font-tight font-semibold"
+            style={{
+              margin: "0 0 20px",
+              fontSize: "clamp(36px, 5vw, 72px)",
+              lineHeight: 1.04,
+              letterSpacing: "-0.035em",
+              maxWidth: 820,
+            }}
+          >
+            Tell us what you're building.
+          </h1>
+          <p style={{ margin: 0, fontSize: 18, lineHeight: 1.65, color: "#A8A6A0", maxWidth: 560 }}>
+            We read every message and reply within 24 hours with a clear, honest answer — not a sales pitch.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Contact Form */}
+        {/* ── Two-column grid ── */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 64,
+            alignItems: "flex-start",
+          }}
+        >
+          {/* LEFT — Form */}
           <div
-            className="lg:col-span-2 opacity-0 -translate-x-12"
-            data-animate
-            data-index="form"
-            style={{ animation: visibleItems.has("form") ? "slideInLeft 0.8s ease-out 0.2s forwards" : "none" }}
+            style={{
+              flex: "2 1 520px",
+              minWidth: 0,
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(28px)",
+              transition: "opacity 0.65s ease 0.1s, transform 0.65s ease 0.1s",
+            }}
           >
-            <Card className="bg-white dark:bg-slate-800 shadow-xl dark:shadow-teal-900/10 border-slate-200 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl dark:hover:shadow-teal-900/20 hover:scale-[1.01]">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-50 transition-colors duration-300">
-                  Start a Project
-                </CardTitle>
-                <CardDescription className="text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                  Fill out the form below and we'll reach out to discuss your project, timeline, and budget.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  {/* Honeypot field for bot spam detection — invisible to real users */}
-                  <div
-                    aria-hidden="true"
-                    style={{
-                      opacity: 0,
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      height: 0,
-                      width: 0,
-                      zIndex: -1,
-                      overflow: "hidden",
-                    }}
-                  >
-                    <label htmlFor="website_hp">Do not fill this field</label>
-                    <input
-                      type="text"
-                      id="website_hp"
-                      name="website_hp"
-                      tabIndex={-1}
-                      autoComplete="off"
-                      value={formData.website_hp}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="transform hover:scale-105 transition-transform duration-300">
-                      <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300">
-                        Full Name *
-                      </label>
-                      <input type="text" id="name" name="name" required value={formData.name} onChange={handleInputChange} className={inputClass} placeholder="John Smith" />
-                    </div>
-                    <div className="transform hover:scale-105 transition-transform duration-300">
-                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300">
-                        Email Address *
-                      </label>
-                      <input type="email" id="email" name="email" required value={formData.email} onChange={handleInputChange} className={inputClass} placeholder="john@company.com" />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="transform hover:scale-105 transition-transform duration-300">
-                      <label htmlFor="company" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300">
-                        Company Name *
-                      </label>
-                      <input type="text" id="company" name="company" required value={formData.company} onChange={handleInputChange} className={inputClass} placeholder="Your Company LLC" />
-                    </div>
-                    <div className="transform hover:scale-105 transition-transform duration-300">
-                      <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300">
-                        Phone Number
-                      </label>
-                      <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} className={inputClass} placeholder="+1 (555) 123-4567" />
-                    </div>
-                  </div>
-
-                  <div className="transform hover:scale-105 transition-transform duration-300">
-                    <label htmlFor="service" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300">
-                      Primary Interest *
-                    </label>
-                    <select id="service" name="service" required value={formData.service} onChange={handleInputChange} className={inputClass}>
-                      {services.map((s) => (
-                        <option key={s.value} value={s.value}>{s.label}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="transform hover:scale-105 transition-transform duration-300">
-                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300">
-                      Tell us about your goals (Optional)
-                    </label>
-                    <textarea id="message" name="message" rows={4} value={formData.message} onChange={handleInputChange} className={`${inputClass} resize-none`} placeholder="Tell us about your current challenges and what you'd like to achieve..." />
-                  </div>
-
-                  <button
-                    onClick={handleSubmit}
-                    disabled={isSubmitting}
-                    aria-label="Send contact message"
-                    className="w-full bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-teal-500/30 dark:hover:shadow-teal-400/30 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-                  >
-                    {isSubmitting ? (
-                      <span className="animate-pulse">Sending...</span>
-                    ) : (
-                      <>
-                        <span>Send Message</span>
-                        <ArrowRight className="w-5 h-5 transition-transform duration-300" />
-                      </>
-                    )}
-                  </button>
-
-                  <p className="text-xs text-slate-600 dark:text-slate-400 text-center transition-colors duration-300">
-                    We respond to every inquiry within 24 hours. Your information is never shared with third parties.
-                  </p>
+            {submitted ? (
+              /* ── Success state ── */
+              <div
+                style={{
+                  padding: "64px 40px",
+                  border: "1px solid #1E3A2E",
+                  borderRadius: 16,
+                  background: "#070E09",
+                  textAlign: "center",
+                }}
+              >
+                <div
+                  style={{
+                    width: 56, height: 56, borderRadius: "50%",
+                    background: "#0A2018", border: "1px solid #3DDC97",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    margin: "0 auto 24px",
+                    fontSize: 24, color: "#3DDC97",
+                  }}
+                >
+                  ✓
                 </div>
-              </CardContent>
-            </Card>
+                <h3
+                  className="font-tight font-semibold"
+                  style={{ margin: "0 0 12px", fontSize: 26, color: "#F3F1EC" }}
+                >
+                  Message received.
+                </h3>
+                <p style={{ margin: "0 0 32px", fontSize: 16, color: "#A8A6A0", lineHeight: 1.65 }}>
+                  We'll review your project and get back to you within 24 hours with a clear, honest response.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  style={{
+                    padding: "12px 28px",
+                    border: "1px solid #2E2D2B",
+                    borderRadius: 8,
+                    background: "none",
+                    color: "#A8A6A0",
+                    fontSize: 14,
+                    cursor: "pointer",
+                    fontFamily: "'JetBrains Mono', monospace",
+                  }}
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              /* ── Contact form ── */
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 24,
+                  padding: "40px",
+                  border: "1px solid #1E262D",
+                  borderRadius: 16,
+                  background: "#070B0E",
+                }}
+              >
+                {/* Honeypot — invisible to real users */}
+                <div aria-hidden="true" style={{ opacity: 0, position: "absolute", top: 0, left: 0, height: 0, width: 0, zIndex: -1, overflow: "hidden" }}>
+                  <label htmlFor="website_hp">Do not fill this field</label>
+                  <input type="text" id="website_hp" name="website_hp" tabIndex={-1} autoComplete="off" value={formData.website_hp} onChange={handleChange} />
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 20 }}>
+                  <Field label="Full Name" required>
+                    <input
+                      type="text" id="name" name="name" required
+                      value={formData.name} onChange={handleChange}
+                      onFocus={focusStyle} onBlur={blurStyle}
+                      placeholder="Jane Smith"
+                      style={INPUT_STYLE}
+                    />
+                  </Field>
+                  <Field label="Email Address" required>
+                    <input
+                      type="email" id="email" name="email" required
+                      value={formData.email} onChange={handleChange}
+                      onFocus={focusStyle} onBlur={blurStyle}
+                      placeholder="jane@company.com"
+                      style={INPUT_STYLE}
+                    />
+                  </Field>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 20 }}>
+                  <Field label="Company Name" required>
+                    <input
+                      type="text" id="company" name="company" required
+                      value={formData.company} onChange={handleChange}
+                      onFocus={focusStyle} onBlur={blurStyle}
+                      placeholder="Your Company LLC"
+                      style={INPUT_STYLE}
+                    />
+                  </Field>
+                  <Field label="Phone Number">
+                    <input
+                      type="tel" id="phone" name="phone"
+                      value={formData.phone} onChange={handleChange}
+                      onFocus={focusStyle} onBlur={blurStyle}
+                      placeholder="+1 555 123 4567"
+                      style={INPUT_STYLE}
+                    />
+                  </Field>
+                </div>
+
+                <Field label="Primary Interest" required>
+                  <select
+                    id="service" name="service"
+                    value={formData.service} onChange={handleChange}
+                    onFocus={focusStyle} onBlur={blurStyle}
+                    style={{ ...INPUT_STYLE, appearance: "none", cursor: "pointer" }}
+                  >
+                    {SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </Field>
+
+                <Field label="Tell us about your goals">
+                  <textarea
+                    id="message" name="message" rows={5}
+                    value={formData.message} onChange={handleChange}
+                    onFocus={focusStyle} onBlur={blurStyle}
+                    placeholder="What are you building, what's breaking, what do you need?"
+                    style={{ ...INPUT_STYLE, resize: "vertical", lineHeight: 1.65 }}
+                  />
+                </Field>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                    width: "100%",
+                    minHeight: 54,
+                    borderRadius: 8,
+                    border: "none",
+                    background: isSubmitting ? "#2A1F00" : "#F5A524",
+                    color: isSubmitting ? "#A8A6A0" : "#1A1100",
+                    fontWeight: 700,
+                    fontSize: 15,
+                    cursor: isSubmitting ? "wait" : "pointer",
+                    fontFamily: "'JetBrains Mono', monospace",
+                    letterSpacing: "0.04em",
+                    transition: "background 0.2s, transform 0.15s",
+                    opacity: isSubmitting ? 0.7 : 1,
+                  }}
+                  onMouseEnter={(e) => { if (!isSubmitting) e.currentTarget.style.transform = "scale(1.01)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span
+                        style={{
+                          width: 16, height: 16,
+                          border: "2px solid #4A4845",
+                          borderTopColor: "#F5A524",
+                          borderRadius: "50%",
+                          animation: "ap-ct-spin 0.7s linear infinite",
+                          display: "inline-block",
+                          flexShrink: 0,
+                        }}
+                      />
+                      Sending…
+                      <style>{`@keyframes ap-ct-spin { to { transform: rotate(360deg); } }`}</style>
+                    </>
+                  ) : (
+                    "Send Message →"
+                  )}
+                </button>
+
+                <p style={{ margin: 0, fontSize: 13, color: "#4A4845", textAlign: "center", fontFamily: "'JetBrains Mono', monospace" }}>
+                  We respond within 24 hours · your data is never shared
+                </p>
+              </form>
+            )}
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-8">
-            {/* Contact Info */}
-            <div
-              className="opacity-0 translate-x-12"
-              data-animate
-              data-index="info"
-              style={{ animation: visibleItems.has("info") ? "slideInRight 0.8s ease-out 0.3s forwards" : "none" }}
-            >
-              <Card className="bg-white dark:bg-slate-800 shadow-xl dark:shadow-teal-900/10 border-slate-200 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl dark:hover:shadow-teal-900/20 hover:scale-105">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-slate-900 dark:text-slate-50 transition-colors duration-300">Get In Touch</CardTitle>
-                  <CardDescription className="text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                    Prefer to talk directly? Reach out using any of the methods below.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {[
-                    { icon: Mail,   label: "Email",          value: contactInfo.email, type: "email" },
-                    { icon: Phone,  label: "Phone",          value: contactInfo.phone, type: "phone" },
-                    { icon: MapPin, label: "Address",        value: contactInfo.address, type: null },
-                    { icon: Clock,  label: "Business Hours", value: contactInfo.hours, type: null },
-                  ].map((item) => {
-                    const ItemIcon = item.icon;
-                    return (
-                      <div
-                        key={item.label}
-                        onClick={() => item.type && trackContactMethod(item.type, item.value)}
-                        className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all duration-300 hover:translate-x-2 cursor-pointer group"
+          {/* RIGHT — Contact info + What happens next */}
+          <div
+            style={{
+              flex: "1 1 280px",
+              minWidth: 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 40,
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(28px)",
+              transition: "opacity 0.65s ease 0.25s, transform 0.65s ease 0.25s",
+            }}
+          >
+            {/* Contact details */}
+            <div>
+              <p
+                style={{
+                  margin: "0 0 20px",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 12,
+                  letterSpacing: "0.2em",
+                  color: "#4A4845",
+                  textTransform: "uppercase",
+                }}
+              >
+                Direct contact
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                {CONTACT_INFO.map((item) => (
+                  <div
+                    key={item.label}
+                    onClick={() => item.type && trackContactMethod(item.type, item.value)}
+                    style={{ display: "flex", flexDirection: "column", gap: 3, cursor: item.href ? "pointer" : "default" }}
+                  >
+                    <span style={{ fontSize: 12, color: "#4A4845", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.1em" }}>
+                      {item.label}
+                    </span>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        style={{ fontSize: 15, color: "#F3F1EC", textDecoration: "none", transition: "color 0.2s" }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = "#F5A524")}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = "#F3F1EC")}
                       >
-                        <div className="p-2 bg-teal-100 dark:bg-teal-900/30 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                          <ItemIcon className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-slate-900 dark:text-slate-100 transition-colors duration-300">{item.label}</div>
-                          <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">{item.value}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </CardContent>
-              </Card>
+                        {item.value}
+                      </a>
+                    ) : (
+                      <span style={{ fontSize: 15, color: "#A8A6A0" }}>{item.value}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* What Happens Next */}
-            <div
-              className="opacity-0 translate-x-12"
-              data-animate
-              data-index="steps"
-              style={{ animation: visibleItems.has("steps") ? "slideInRight 0.8s ease-out 0.5s forwards" : "none" }}
-            >
-              <Card className="bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-slate-800 dark:to-slate-800 border-teal-200 dark:border-slate-700 shadow-lg dark:shadow-teal-900/10 transition-all duration-300 hover:shadow-2xl dark:hover:shadow-teal-900/20 hover:scale-105">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-slate-900 dark:text-slate-50 transition-colors duration-300">
-                    What Happens Next?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {[
-                    { step: 1, title: "We Review Your Request",  body: "We read every submission carefully and respond within 24 hours" },
-                    { step: 2, title: "Discovery Call",          body: "A short call to understand your goals, timeline, and budget" },
-                    { step: 3, title: "Proposal & Kickoff",      body: "We send a clear proposal. Once approved, we get to work immediately" },
-                  ].map(({ step, title, body }) => (
-                    <div key={step} className="flex items-start space-x-3 group hover:translate-x-2 transition-transform duration-300">
-                      <div className="w-8 h-8 bg-teal-600 dark:bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-md">
-                        {step}
-                      </div>
-                      <div>
-                        <div className="font-semibold text-slate-900 dark:text-slate-100 transition-colors duration-300">{title}</div>
-                        <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">{body}</div>
-                      </div>
+            {/* Divider */}
+            <div style={{ height: "1px", background: "#21201E" }} />
+
+            {/* What happens next */}
+            <div>
+              <p
+                style={{
+                  margin: "0 0 24px",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 12,
+                  letterSpacing: "0.2em",
+                  color: "#4A4845",
+                  textTransform: "uppercase",
+                }}
+              >
+                What happens next
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                {NEXT_STEPS.map(({ n, title, body }) => (
+                  <div key={n} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: 13,
+                        color: "#F5A524",
+                        marginTop: 2,
+                        minWidth: 28,
+                      }}
+                    >
+                      {n}
+                    </span>
+                    <div>
+                      <p style={{ margin: "0 0 4px", fontWeight: 600, fontSize: 15, color: "#F3F1EC" }}>{title}</p>
+                      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "#6B6964" }}>{body}</p>
                     </div>
-                  ))}
-                </CardContent>
-              </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Book a call nudge */}
+            <div style={{ padding: "20px 24px", border: "1px solid #1E262D", borderRadius: 12, background: "#070B0E" }}>
+              <p style={{ margin: "0 0 6px", fontSize: 14, fontWeight: 600, color: "#F3F1EC" }}>Prefer to talk first?</p>
+              <p style={{ margin: "0 0 14px", fontSize: 13, color: "#6B6964", lineHeight: 1.55 }}>
+                Book a free 30-minute discovery call — no pitch, just an honest conversation.
+              </p>
+              <a
+                href="/#book-call"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "10px 18px",
+                  borderRadius: 7,
+                  border: "1px solid #2E2D2B",
+                  color: "#F3F1EC",
+                  fontSize: 13,
+                  textDecoration: "none",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  transition: "border-color 0.2s, color 0.2s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#F5A524"; e.currentTarget.style.color = "#F5A524"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#2E2D2B"; e.currentTarget.style.color = "#F3F1EC"; }}
+              >
+                Book a call →
+              </a>
             </div>
           </div>
         </div>
