@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 upgrade-design/unpacked/
+upgrade-design/scratch/
 # Environment Variables
 .env
 .env.local
