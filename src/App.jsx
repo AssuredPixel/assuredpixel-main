@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { Suspense, lazy } from "react";
-import { HelmetProvider } from "react-helmet-async";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { ClientMarquee } from "./components/ClientMarquee";
@@ -37,6 +37,16 @@ const ShopPage = lazy(() => import("./components/ShopPage").then(m => ({ default
 const Home = () => {
   return (
     <div className="min-h-screen bg-[#0C0C0B] text-[#F3F1EC]">
+      <Helmet>
+        <title>AssuredPixel — Digital Product Studio &amp; Cloud Architecture</title>
+        <meta
+          name="description"
+          content="We build websites and cloud systems that keep your business moving. Remote studio working with clients globally."
+        />
+        <meta property="og:title" content="AssuredPixel — Digital Product Studio &amp; Cloud Architecture" />
+        <meta property="og:description" content="We build websites and cloud systems that keep your business moving." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Header />
       <main>
         <HeroSection />

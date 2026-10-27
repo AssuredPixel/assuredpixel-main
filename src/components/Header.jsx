@@ -37,6 +37,7 @@ export const Header = () => {
     { name: "Work", href: "/#work" },
     { name: "Services", href: "/#services" },
     { name: "Cloud & DevOps", href: "/cloud-devops" },
+    { name: "Shop", href: "/shop" },
     { name: "About", href: "/about" },
   ];
 
