@@ -1,238 +1,503 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { CheckCircle, Target, Users, Award } from "lucide-react";
-
-// Mock data for demo
-const mockData = {
-  companyInfo: {
-    description:
-      "AssuredPixel is a remote-first digital studio that designs and builds high-quality websites and digital experiences for ambitious businesses. We combine strong design with clean development to deliver work that performs.",
-    founded: "2024",
-    clientsServed: "4",
+const PRINCIPLES = [
+  {
+    num: '01',
+    title: 'Quality Over Volume',
+    body: 'We deliberately cap client intake to 2–3 active projects at a time. That means your build gets obsessive attention, daily momentum, and partner-level execution — not an overworked junior queue.',
+    badge: 'Capped intake',
   },
-};
+  {
+    num: '02',
+    title: 'Design, Code & Cloud',
+    body: 'Most agencies either make pretty mockups that take months to code, or write code without an eye for typography and brand. We do design, frontend engineering, and AWS cloud infrastructure under one roof.',
+    badge: 'Under one roof',
+  },
+  {
+    num: '03',
+    title: '100% Client Ownership',
+    body: 'No proprietary CMS locks, no hidden license fees. Once final delivery is made, you own every repository, design token, domain account, and cloud pipeline completely. Zero lock-in, ever.',
+    badge: 'Zero lock-in',
+  },
+];
 
-export const AboutSection = () => {
-  const { companyInfo } = mockData;
-  const navigate = useNavigate();
+const METRICS = [
+  { value: '5+', label: 'Live Projects Delivered', note: 'Across healthcare, clinical research, LMS, and marine' },
+  { value: '2', label: 'Countries Served', note: 'Including clients in the United States and Nigeria' },
+  { value: '100%', label: 'Care Plan Retention', note: 'Clients who launch with us stay with us for updates' },
+  { value: '99.9%', label: 'Cloud Uptime Standard', note: 'Automated CI/CD pipelines & resilient AWS setups' },
+];
 
-  const values = [
-    {
-      icon: Target,
-      title: "Quality Over Volume",
-      description:
-        "We take on a limited number of projects each month so every client gets our full attention and best work.",
-    },
-    {
-      icon: Users,
-      title: "Direct Partnership",
-      description:
-        "You work directly with the people building your product. No handoffs, no miscommunication, no surprises.",
-    },
-    {
-      icon: Award,
-      title: "Built to Last",
-      description:
-        "We build with clean code, solid architecture, and proper deployment — so your site holds up long after launch.",
-    },
-  ];
-
-  const achievements = [
-    "Real projects delivered for real businesses",
-    "Clients across Nigeria and the United States",
-    "Full-stack delivery — design, development, and deployment",
-    "Direct communication — no account managers, no middlemen",
-  ];
-
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const fadeInLeft = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.7,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const fadeInRight = {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.7,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-
+export function AboutSection() {
   return (
-    <section
-      id="about"
-      className="py-20 bg-slate-50 dark:bg-slate-900 transition-colors duration-500"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Content - Left Side */}
-          <motion.div
-            className="space-y-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={staggerContainer}
+    <div className="w-full text-[#F3F1EC]">
+      {/* ── 1. Hero Section ── */}
+      <section
+        style={{
+          maxWidth: 1360,
+          margin: '0 auto',
+          padding: '80px 40px 100px',
+        }}
+      >
+        <p
+          className="font-mono text-[14px] uppercase"
+          style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
+        >
+          01 · The Studio
+        </p>
+
+        <h1
+          className="font-tight font-medium"
+          style={{
+            margin: '0 0 32px',
+            fontSize: 'clamp(40px, 6vw, 84px)',
+            lineHeight: 1.05,
+            letterSpacing: '-0.035em',
+            maxWidth: 1080,
+          }}
+        >
+          A senior digital studio with zero bloat.{' '}
+          <span style={{ color: '#6F6D69' }}>
+            No account managers, no handoff friction, no excuses.
+          </span>
+        </h1>
+
+        <div
+          className="flex flex-wrap gap-12 justify-between items-start"
+          style={{ marginTop: 40 }}
+        >
+          <p
+            style={{
+              margin: 0,
+              maxWidth: 640,
+              fontSize: 19,
+              lineHeight: 1.65,
+              color: '#BDBBB5',
+            }}
+          >
+            AssuredPixel was created to solve the biggest frustration in hiring digital agencies: paying high fees to talk to middlemen while junior freelancers build your site. At AssuredPixel, you work directly with the founders who architect your design, write your code, and maintain your cloud.
+          </p>
+
+          <div
+            className="flex flex-wrap gap-4"
+            style={{ alignSelf: 'flex-start' }}
+          >
+            <a
+              href="#contact"
+              className="inline-flex items-center text-[15px] font-semibold no-underline"
+              style={{
+                minHeight: 50,
+                padding: '0 26px',
+                borderRadius: 999,
+                background: '#F3F1EC',
+                color: '#0C0C0B',
+              }}
+            >
+              Book a discovery call
+            </a>
+            <Link
+              to="/#work"
+              className="inline-flex items-center text-[15px] no-underline"
+              style={{
+                minHeight: 50,
+                padding: '0 24px',
+                borderRadius: 999,
+                border: '1px solid #3B3A37',
+                color: '#F3F1EC',
+              }}
+            >
+              See our work →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2. Studio Principles ── */}
+      <section
+        style={{
+          borderTop: '1px solid #21201E',
+          borderBottom: '1px solid #21201E',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1360,
+            margin: '0 auto',
+            padding: '110px 40px',
+          }}
+        >
+          <p
+            className="font-mono text-[14px] uppercase"
+            style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
+          >
+            02 · How We Operate
+          </p>
+
+          <h2
+            className="font-tight font-medium"
+            style={{
+              margin: '0 0 64px',
+              fontSize: 'clamp(34px, 4.4vw, 56px)',
+              letterSpacing: '-0.03em',
+              maxWidth: 800,
+            }}
+          >
+            Three commitments we make to every client.
+          </h2>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: 32,
+            }}
+          >
+            {PRINCIPLES.map((p) => (
+              <div
+                key={p.num}
+                className="ap-card flex flex-col justify-between"
+                style={{
+                  padding: 36,
+                  borderRadius: 16,
+                  border: '1px solid #21201E',
+                  background: '#121211',
+                }}
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[13px]" style={{ color: '#8E8C87' }}>
+                      {p.num}
+                    </span>
+                    <span
+                      className="font-mono text-[11px] px-2.5 py-1 rounded-full"
+                      style={{ background: '#0F2A24', color: '#2CC3A5' }}
+                    >
+                      {p.badge}
+                    </span>
+                  </div>
+
+                  <h3
+                    className="font-tight font-semibold text-[22px]"
+                    style={{ margin: '20px 0 12px', color: '#F3F1EC' }}
+                  >
+                    {p.title}
+                  </h3>
+
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 15,
+                      lineHeight: 1.6,
+                      color: '#A8A6A0',
+                    }}
+                  >
+                    {p.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. Leadership & Founders ── */}
+      <section
+        id="leadership"
+        style={{
+          maxWidth: 1360,
+          margin: '0 auto',
+          padding: '110px 40px',
+        }}
+      >
+        <p
+          className="font-mono text-[14px] uppercase"
+          style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
+        >
+          03 · Leadership
+        </p>
+
+        <h2
+          className="font-tight font-medium"
+          style={{
+            margin: '0 0 64px',
+            fontSize: 'clamp(34px, 4.4vw, 56px)',
+            letterSpacing: '-0.03em',
+          }}
+        >
+          The founders behind the work.
+        </h2>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+            gap: 28,
+          }}
+        >
+          {/* Nsikak Ekpo */}
+          <div
+            className="ap-card flex flex-col justify-between"
+            style={{
+              padding: 40,
+              borderRadius: 16,
+              border: '1px solid #21201E',
+              background: '#121211',
+              gap: 32,
+            }}
           >
             <div>
-              <motion.div
-                variants={fadeInUp}
-                className="inline-flex items-center px-4 py-2 bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300 rounded-full text-sm font-medium mb-4"
-              >
-                About Assuredpixel
-              </motion.div>
+              <div className="flex items-center gap-4">
+                <div
+                  className="font-mono font-semibold text-[17px] flex items-center justify-center shrink-0"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: '50%',
+                    background: '#1B1B19',
+                    border: '1px solid #2B2A27',
+                    color: '#2CC3A5',
+                  }}
+                >
+                  NE
+                </div>
+                <div>
+                  <h3
+                    className="font-tight font-semibold text-[22px]"
+                    style={{ margin: 0, color: '#F3F1EC' }}
+                  >
+                    Nsikak Ekpo
+                  </h3>
+                  <div
+                    className="font-mono text-[13px]"
+                    style={{ color: '#2CC3A5', marginTop: 4 }}
+                  >
+                    Founder &amp; CEO
+                  </div>
+                </div>
+              </div>
 
-              <motion.h2
-                variants={fadeInUp}
-                className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6"
+              <p
+                style={{
+                  margin: '24px 0 0',
+                  fontSize: 16,
+                  lineHeight: 1.65,
+                  color: '#A8A6A0',
+                }}
               >
-                Your Digital Presence, Done Right
-              </motion.h2>
-
-              <motion.p
-                variants={fadeInUp}
-                className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-6"
-              >
-                {companyInfo.description}
-              </motion.p>
-
-              <motion.p
-                variants={fadeInUp}
-                className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed"
-              >
-                Founded in {companyInfo.founded}, we are a lean, focused studio
-                built around one principle: every client gets our best work.
-                We don't take on more than we can deliver, and we don't
-                disappear after launch.
-              </motion.p>
+                Nsikak drives product strategy, high-converting digital architecture, and client partnerships. With a background spanning commercial design, brand positioning, and digital growth, he ensures every project directly advances the client's business metrics.
+              </p>
             </div>
 
-            {/* Achievements */}
-            <motion.div className="space-y-4" variants={fadeInUp}>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                Why Choose Us?
-              </h3>
-              <motion.div
-                className="grid grid-cols-1 gap-3"
-                variants={staggerContainer}
-              >
-                {achievements.map((achievement, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-center space-x-3"
-                    variants={fadeInLeft}
-                    whileHover={{ x: 5, transition: { duration: 0.2 } }}
-                  >
-                    <CheckCircle className="w-5 h-5 text-teal-600 dark:text-teal-400 flex-shrink-0" />
-                    <span className="text-slate-700 dark:text-slate-300 font-medium">
-                      {achievement}
-                    </span>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div className="pt-4" variants={fadeInUp}>
-              <motion.button
-                onClick={() => navigate("/#book-call")}
-                className="bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Partner With Us Today
-              </motion.button>
-            </motion.div>
-          </motion.div>
-
-          {/* Values Cards - Right Side */}
-          <motion.div
-            className="space-y-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={staggerContainer}
-          >
-            <motion.h3
-              variants={fadeInUp}
-              className="text-2xl font-bold text-slate-900 dark:text-white text-center lg:text-left"
+            <div
+              className="pt-6 border-t border-[#21201E] flex flex-wrap gap-2 font-mono text-[12px]"
+              style={{ color: '#8E8C87' }}
             >
-              Our Core Values
-            </motion.h3>
+              <span className="px-3 py-1 rounded bg-[#1B1B19] border border-[#262523]">
+                Product Strategy
+              </span>
+              <span className="px-3 py-1 rounded bg-[#1B1B19] border border-[#262523]">
+                Brand Architecture
+              </span>
+              <span className="px-3 py-1 rounded bg-[#1B1B19] border border-[#262523]">
+                Conversion UX
+              </span>
+            </div>
+          </div>
 
-            {values.map((value, index) => {
-              const IconComponent = value.icon;
-              return (
-                <motion.div
-                  key={index}
-                  variants={fadeInRight}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
+          {/* Chiebuka Lawrence */}
+          <div
+            className="ap-card flex flex-col justify-between"
+            style={{
+              padding: 40,
+              borderRadius: 16,
+              border: '1px solid #21201E',
+              background: '#121211',
+              gap: 32,
+            }}
+          >
+            <div>
+              <div className="flex items-center gap-4">
+                <div
+                  className="font-mono font-semibold text-[17px] flex items-center justify-center shrink-0"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: '50%',
+                    background: '#1B1B19',
+                    border: '1px solid #2B2A27',
+                    color: '#2CC3A5',
                   }}
-                  className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:border-teal-200 dark:hover:border-teal-600 group cursor-pointer"
                 >
-                  <div className="flex items-start space-x-4">
-                    <motion.div
-                      className="w-12 h-12 bg-teal-100 dark:bg-teal-900/50 rounded-xl flex items-center justify-center group-hover:bg-teal-600 dark:group-hover:bg-teal-500 transition-colors duration-300 flex-shrink-0"
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <IconComponent className="w-6 h-6 text-teal-600 dark:text-teal-400 group-hover:text-white transition-colors duration-300" />
-                    </motion.div>
-                    <div>
-                      <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-teal-900 dark:group-hover:text-teal-300 transition-colors duration-300">
-                        {value.title}
-                      </h4>
-                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {value.description}
-                      </p>
-                    </div>
+                  CL
+                </div>
+                <div>
+                  <h3
+                    className="font-tight font-semibold text-[22px]"
+                    style={{ margin: 0, color: '#F3F1EC' }}
+                  >
+                    Chiebuka Lawrence
+                  </h3>
+                  <div
+                    className="font-mono text-[13px]"
+                    style={{ color: '#2CC3A5', marginTop: 4 }}
+                  >
+                    Co-Founder
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </div>
 
-          </motion.div>
+              <p
+                style={{
+                  margin: '24px 0 0',
+                  fontSize: 16,
+                  lineHeight: 1.65,
+                  color: '#A8A6A0',
+                }}
+              >
+                Chiebuka oversees full-stack engineering, systems architecture, and automated cloud infrastructure. He specializes in designing clean codebases, multi-tenant SaaS environments, automated deployment pipelines, and HIPAA-compliant AWS architectures.
+              </p>
+            </div>
+
+            <div
+              className="pt-6 border-t border-[#21201E] flex flex-wrap gap-2 font-mono text-[12px]"
+              style={{ color: '#8E8C87' }}
+            >
+              <span className="px-3 py-1 rounded bg-[#1B1B19] border border-[#262523]">
+                Full-Stack Systems
+              </span>
+              <span className="px-3 py-1 rounded bg-[#1B1B19] border border-[#262523]">
+                AWS &amp; DevOps
+              </span>
+              <span className="px-3 py-1 rounded bg-[#1B1B19] border border-[#262523]">
+                Infrastructure as Code
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* ── 4. Proven Track Record (Metrics Grid) ── */}
+      <section
+        style={{
+          borderTop: '1px solid #21201E',
+          background: '#0E0E0D',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1360,
+            margin: '0 auto',
+            padding: '110px 40px',
+          }}
+        >
+          <p
+            className="font-mono text-[14px] uppercase"
+            style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
+          >
+            04 · Track Record
+          </p>
+
+          <h2
+            className="font-tight font-medium"
+            style={{
+              margin: '0 0 64px',
+              fontSize: 'clamp(34px, 4.4vw, 56px)',
+              letterSpacing: '-0.03em',
+            }}
+          >
+            Measured in results, not agency slide decks.
+          </h2>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gap: 32,
+            }}
+          >
+            {METRICS.map((m, i) => (
+              <div
+                key={i}
+                style={{
+                  borderTop: '2px solid #2CC3A5',
+                  paddingTop: 24,
+                }}
+              >
+                <div
+                  className="font-tight font-semibold"
+                  style={{
+                    fontSize: 'clamp(48px, 5.5vw, 76px)',
+                    lineHeight: 1,
+                    letterSpacing: '-0.04em',
+                    color: '#2CC3A5',
+                  }}
+                >
+                  {m.value}
+                </div>
+                <div
+                  className="font-tight font-semibold text-[18px]"
+                  style={{ margin: '14px 0 6px', color: '#F3F1EC' }}
+                >
+                  {m.label}
+                </div>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: '#8E8C87' }}>
+                  {m.note}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. Closing Call to Action ── */}
+      <section
+        style={{
+          borderTop: '1px solid #21201E',
+          textAlign: 'center',
+          padding: '130px 40px',
+        }}
+      >
+        <div style={{ maxWidth: 880, margin: '0 auto' }}>
+          <h2
+            className="font-tight font-medium"
+            style={{
+              margin: '0 auto 24px',
+              fontSize: 'clamp(36px, 5vw, 68px)',
+              lineHeight: 1.08,
+              letterSpacing: '-0.035em',
+            }}
+          >
+            Ready to work directly with the people building your product?
+          </h2>
+          <p
+            style={{
+              margin: '0 auto 36px',
+              maxWidth: 540,
+              fontSize: 18,
+              lineHeight: 1.6,
+              color: '#A8A6A0',
+            }}
+          >
+            Book a 30-minute discovery call. We'll listen to what you're building, see if we're a match, and outline next steps in plain English.
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex items-center text-[16px] font-semibold no-underline transition-transform hover:scale-[1.03]"
+            style={{
+              minHeight: 54,
+              padding: '0 32px',
+              borderRadius: 999,
+              background: '#F3F1EC',
+              color: '#0C0C0B',
+            }}
+          >
+            Let's work together
+          </a>
+        </div>
+      </section>
+    </div>
   );
-};
+}
+
+export default AboutSection;
