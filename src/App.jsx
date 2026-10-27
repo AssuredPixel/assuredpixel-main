@@ -9,6 +9,7 @@ import { WhoWeAreSection } from "./components/WhoWeAreSection";
 import { SelectedWorkSection } from "./components/SelectedWorkSection";
 import { WhatWeDoSection } from "./components/WhatWeDoSection";
 import { CloudDevOpsTeaser } from "./components/CloudDevOpsTeaser";
+import { HowWeWorkSection } from "./components/HowWeWorkSection";
 import { Footer } from "./components/Footer";
 import { Toaster } from "./components/ui/sonner";
 import { BackToTop } from "./components/BackToTop";
@@ -39,6 +40,7 @@ const Home = () => {
         <SelectedWorkSection />
         <WhatWeDoSection />
         <CloudDevOpsTeaser />
+        <HowWeWorkSection />
         <Suspense fallback={<div className="py-20 text-center">Loading section...</div>}>
           <ServicesSection />
           <CalendlyForm />
