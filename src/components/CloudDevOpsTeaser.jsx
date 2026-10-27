@@ -91,6 +91,17 @@ export function CloudDevOpsTeaser() {
             minWidth: 0,
             border: '1px solid #1E262D',
             background: '#0A0F13',
+            transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = '#2A3540';
+            e.currentTarget.style.transform = 'translateY(-4px)';
+            e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.5)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = '#1E262D';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
           }}
         >
           {/* title bar */}

@@ -58,6 +58,17 @@ function HeroCard() {
         background: '#121211',
         color: '#F3F1EC',
         textDecoration: 'none',
+        transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = '#3B3A37';
+        e.currentTarget.style.transform = 'translateY(-3px)';
+        e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.4)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = '#21201E';
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
       }}
     >
       {/* browser chrome */}
@@ -138,6 +149,17 @@ function StatCard() {
         background: '#121211',
         padding: 32,
         gap: 32,
+        transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = '#3B3A37';
+        e.currentTarget.style.transform = 'translateY(-3px)';
+        e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.4)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = '#21201E';
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
       }}
     >
       {/* live badge */}
@@ -205,6 +227,17 @@ function ProjectCard({ domain, imgSrc, imgAlt, imgBg, name, tags, placeholder })
         background: '#121211',
         color: '#F3F1EC',
         textDecoration: 'none',
+        transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = '#3B3A37';
+        e.currentTarget.style.transform = 'translateY(-3px)';
+        e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.4)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = '#21201E';
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
       }}
     >
       {/* browser chrome */}

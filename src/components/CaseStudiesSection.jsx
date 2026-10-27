@@ -104,6 +104,17 @@ export function CaseStudiesSection() {
                   minWidth: 0,
                   border: '1px solid #272624',
                   background: '#121211',
+                  transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#3B3A37';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.45)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#272624';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
                 {/* browser chrome */}

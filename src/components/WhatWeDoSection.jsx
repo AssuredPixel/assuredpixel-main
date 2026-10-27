@@ -80,17 +80,26 @@ function ServiceCard({ num, title, body, href, isNew }) {
     display: 'block',
     textDecoration: 'none',
     color: '#F3F1EC',
+    transition: 'color 0.2s',
+    cursor: href ? 'pointer' : 'default',
   };
+
+  const handleEnter = (e) => { e.currentTarget.style.color = '#F5A524'; };
+  const handleLeave = (e) => { e.currentTarget.style.color = '#F3F1EC'; };
 
   if (href) {
     return (
-      <a href={href} style={sharedStyle}>
+      <a href={href} style={sharedStyle} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
         {inner}
       </a>
     );
   }
 
-  return <div style={sharedStyle}>{inner}</div>;
+  return (
+    <div style={sharedStyle} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      {inner}
+    </div>
+  );
 }
 
 export function WhatWeDoSection() {

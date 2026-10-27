@@ -162,6 +162,17 @@ export function AboutSection() {
                   borderRadius: 16,
                   border: '1px solid #21201E',
                   background: '#121211',
+                  transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#3B3A37';
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#21201E';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
                 <div>
@@ -244,6 +255,17 @@ export function AboutSection() {
               border: '1px solid #21201E',
               background: '#121211',
               gap: 32,
+              transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#3B3A37';
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = '#21201E';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
             }}
           >
             <div>
@@ -314,6 +336,17 @@ export function AboutSection() {
               border: '1px solid #21201E',
               background: '#121211',
               gap: 32,
+              transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#3B3A37';
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = '#21201E';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
             }}
           >
             <div>
@@ -422,7 +455,11 @@ export function AboutSection() {
                 style={{
                   borderTop: '2px solid #2CC3A5',
                   paddingTop: 24,
+                  transition: 'transform 0.2s ease',
+                  cursor: 'default',
                 }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
               >
                 <div
                   className="font-tight font-semibold"
