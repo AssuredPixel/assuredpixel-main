@@ -1,183 +1,205 @@
-import React, { useRef, useState, useEffect } from "react";
-import { ExternalLink } from "lucide-react";
+import React from 'react';
 
-const projects = [
+const CASES = [
   {
-    id: 1,
-    name: "Seasteel Marine & Offshore Services",
-    category: "Corporate Website",
-    country: "Nigeria",
-    description:
-      "Full website design and development for Nigeria's premier marine and offshore services company. Built to establish credibility with major oil sector clients including ExxonMobil, Chevron, and NLNG.",
-    stack: ["Next.js", "Tailwind CSS", "Framer Motion", "Vercel"],
-    url: "https://www.seasteelsmarine.com",
-    image: "/portfolio/seasteelmarin-homepage.JPG",
-    accent: "#00AEEF",
+    domain: 'rekrutklin.com · retention health',
+    imgSrc: '/images/clients/7a898ada-5080-4088-902d-dafbc620823a.jpg',
+    imgAlt: 'RekrutKlin retention health dashboard',
+    imgBg: '#FFFFFF',
+    scrollable: false,
+    client: 'RekrutKlin · USA',
+    title: 'A clinical trial platform, built secure from day one.',
+    body: "RekrutKlin needed one platform for many research sites, with each site's patient data kept apart. We worked with them from idea to build, covering the product, a multi-tenant setup and the AWS infrastructure that keeps it HIPAA compliant.",
+    href: '/case-studies',
+    reverse: false,
   },
   {
-    id: 2,
-    name: "Adar Limited",
-    category: "Landing Page & Waitlist",
-    country: "Nigeria",
-    description:
-      "Conversion-focused landing page for a career coaching startup targeting young African professionals. Designed to drive waitlist signups for their quarterly Mastery Pod cohort.",
-    stack: ["Next.js", "Tailwind CSS", "Vercel"],
-    url: "https://ada-limited.vercel.app",
-    image: "/portfolio/Adar-landing-page.JPG",
-    accent: "#10B981",
+    domain: 'farashacrp.com',
+    imgSrc: '/images/clients/a54b3b20-05a8-4386-bb1b-33bbd0bb54f8.jpg',
+    imgAlt: 'Full FarashaCRP homepage',
+    imgBg: '#F5F2EC',
+    scrollable: true,
+    client: 'FarashaCRP · USA',
+    title: 'One site for sponsors, research sites and talent.',
+    body: 'Farasha Clinical Research Partners works with three very different audiences: sponsors and CROs, research sites, and clinical professionals looking for their next role. We designed and built a site that gives each group a clear path in, with a calm, boutique feel that matches how Farasha works.',
+    href: '/case-studies',
+    reverse: true,
   },
   {
-    id: 3,
-    name: "RekrutKlin",
-    category: "SaaS Platform",
-    country: "United States",
-    description:
-      "Clinical trial recruitment platform for a US-based doctor. Built for both web and mobile with a focus on professional credibility and clean UX for medical industry users.",
-    stack: ["Next.js", "Tailwind CSS", "MongoDB", "Vercel", "AWS", "Cloudflare", "Twilio", "AGORA"],
-    url: "https://rekrutklin.com",
-    image: "/portfolio/Rekrutklin-home.JPG",
-    accent: "#6366F1",
+    domain: 'primesiteacademy.com',
+    imgSrc: '/images/clients/c8abcbf6-f3b1-4b44-b86a-f21a1c9b4fcf.jpg',
+    imgAlt: 'Prime Site Academy homepage',
+    imgBg: '#FFFFFF',
+    scrollable: false,
+    client: 'Prime Site Academy · USA',
+    title: 'Courses, students and progress, all in one place.',
+    body: 'Prime Site Academy sells self-paced clinical research courses written by a PI who runs real trials. We built the whole platform: the public site, sign-up with a free trial, a student portal with video lessons, quizzes and certificates, plus admin and staff dashboards to run it all.',
+    href: '/case-studies',
+    reverse: false,
   },
 ];
 
-export const CaseStudiesSection = () => {
-  const [visibleItems, setVisibleItems] = useState(new Set());
-  const observerRef = useRef(null);
+function BrowserDots() {
+  return (
+    <div className="flex items-center gap-1.5">
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          style={{ width: 8, height: 8, borderRadius: '50%', background: '#3B3A37', display: 'block' }}
+        />
+      ))}
+    </div>
+  );
+}
 
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleItems((prev) => new Set([...prev, entry.target.dataset.index]));
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = document.querySelectorAll("[data-animate]");
-    elements.forEach((el) => observerRef.current.observe(el));
-
-    return () => observerRef.current?.disconnect();
-  }, []);
-
+export function CaseStudiesSection() {
   return (
     <section
       id="case-studies"
-      className="py-20 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
+      style={{ borderTop: '1px solid #21201E' }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        style={{
+          maxWidth: 1360,
+          margin: '0 auto',
+          padding: '120px 40px',
+        }}
+      >
+        {/* section label */}
+        <p
+          className="font-mono text-[14px] uppercase"
+          style={{ margin: '0 0 20px', color: '#8E8C87', letterSpacing: '0.12em' }}
+        >
+          06 · Case studies
+        </p>
 
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 rounded-full text-sm font-medium mb-4">
-            Our Work
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-6">
-            Projects We've Built
-          </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Every project gets our full attention. Here's what we've delivered for real clients.
-          </p>
-        </div>
+        {/* headline */}
+        <h2
+          className="font-tight font-medium"
+          style={{
+            margin: '0 0 72px',
+            fontSize: 'clamp(36px, 4.6vw, 64px)',
+            lineHeight: 1.08,
+            letterSpacing: '-0.03em',
+            maxWidth: 900,
+          }}
+        >
+          Real problems. <span style={{ color: '#6F6D69' }}>Real builds.</span> Real results.
+        </h2>
 
-        {/* Portfolio Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        {/* case items stack */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 96 }}>
+          {CASES.map((item) => (
             <div
-              key={project.id}
-              data-animate
-              data-index={`card-${index}`}
-              className={`group transition-all duration-700 ${visibleItems.has(`card-${index}`)
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-                }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
+              key={item.client}
+              className={`flex flex-wrap items-center gap-12 ${
+                item.reverse ? 'flex-row-reverse' : ''
+              }`}
             >
-              <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-teal-300 dark:hover:border-teal-600 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col">
+              {/* mockup preview column */}
+              <div
+                className="rounded-xl overflow-hidden"
+                style={{
+                  flex: '1 1 480px',
+                  minWidth: 0,
+                  border: '1px solid #272624',
+                  background: '#121211',
+                }}
+              >
+                {/* browser chrome */}
+                <div
+                  className="flex items-center gap-1.5 px-3 py-2.5"
+                  style={{ borderBottom: '1px solid #21201E' }}
+                >
+                  <BrowserDots />
+                  <span
+                    className="ml-2 px-2.5 py-1 rounded-md font-mono text-[11px]"
+                    style={{ background: '#1B1B19', color: '#8E8C87' }}
+                  >
+                    {item.domain}
+                  </span>
+                  {item.scrollable && (
+                    <span
+                      className="ml-auto font-mono text-[11px]"
+                      style={{ color: '#8E8C87' }}
+                    >
+                      hover to scroll
+                    </span>
+                  )}
+                </div>
 
-                {/* Image */}
-                <div className="relative h-52 overflow-hidden bg-slate-100 dark:bg-slate-700">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                      e.target.nextElementSibling.style.display = "flex";
-                    }}
-                  />
-                  {/* Fallback if image missing */}
+                {/* image body */}
+                {item.scrollable ? (
                   <div
-                    className="absolute inset-0 hidden items-center justify-center"
-                    style={{ backgroundColor: project.accent + "15" }}
+                    className="ap-scroll"
+                    style={{
+                      height: 440,
+                      overflow: 'hidden',
+                      background: item.imgBg,
+                    }}
                   >
-                    <span className="text-4xl font-bold" style={{ color: project.accent }}>
-                      {project.name.charAt(0)}
-                    </span>
+                    <img
+                      src={item.imgSrc}
+                      alt={item.imgAlt}
+                      className="block w-full h-auto"
+                    />
                   </div>
-
-                  {/* Category badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-xs font-medium">
-                      {project.category}
-                    </span>
-                  </div>
-
-                  {/* Country badge */}
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-xs font-medium">
-                      {project.country}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
-                    {project.name}
-                  </h3>
-
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-1">
-                    {project.description}
-                  </p>
-
-                  {/* Stack */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 rounded-md text-xs font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* CTA */}
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-semibold text-sm hover:gap-3 transition-all duration-300"
+                ) : (
+                  <div
+                    style={{
+                      height: 'clamp(240px, 26vw, 400px)',
+                      overflow: 'hidden',
+                      background: item.imgBg,
+                    }}
                   >
-                    View Live Site
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+                    <img
+                      src={item.imgSrc}
+                      alt={item.imgAlt}
+                      className="block w-full h-full object-cover object-top"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* info text column */}
+              <div style={{ flex: '1 1 400px', minWidth: 0 }}>
+                <div
+                  className="font-mono text-[13px]"
+                  style={{ color: '#2CC3A5' }}
+                >
+                  {item.client}
                 </div>
+                <h3
+                  className="font-tight font-semibold"
+                  style={{
+                    margin: '14px 0 16px',
+                    fontSize: 'clamp(28px, 2.8vw, 40px)',
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  className="text-[17px] leading-[1.65]"
+                  style={{ margin: 0, color: '#A8A6A0' }}
+                >
+                  {item.body}
+                </p>
+                <a
+                  href={item.href}
+                  className="inline-block text-[15px] underline-offset-[5px] underline hover:text-[#2CC3A5] transition-colors"
+                  style={{ marginTop: 22, color: '#F3F1EC' }}
+                >
+                  Read the case study →
+                </a>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Bottom note */}
-        <div className="text-center mt-12">
-          <p className="text-slate-500 dark:text-slate-400 text-sm">
-            More projects coming soon. We take on a limited number of clients each month to ensure quality.
-          </p>
-        </div>
       </div>
-    </section >
+    </section>
   );
-};
+}
+
+export default CaseStudiesSection;
