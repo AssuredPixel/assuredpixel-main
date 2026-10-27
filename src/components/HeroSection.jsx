@@ -72,13 +72,18 @@ export const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isStopped, setIsStopped] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState(() => {
+    return new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date());
+  });
   const timerRef = useRef(null);
 
   const totalSlides = SHOWCASE_SLIDES.length;
   const currentSlide = SHOWCASE_SLIDES[currentIndex];
 
-  // Dynamic booking month (e.g. "November")
-  const currentMonth = new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date());
+  useEffect(() => {
+    const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date());
+    setCurrentMonth(month);
+  }, []);
 
   const goToSlide = useCallback((index, manual = false) => {
     const nextIdx = ((index % totalSlides) + totalSlides) % totalSlides;
@@ -118,11 +123,6 @@ export const HeroSection = () => {
     };
   }, [currentIndex, isHovered, isStopped, goToSlide]);
 
-  const formatCounter = (idx, total) => {
-    const pad = (n) => (n < 10 ? `0${n}` : `${n}`);
-    return `${pad(idx + 1)} / ${pad(total)}`;
-  };
-
   const handleCtaClick = (targetId, label) => {
     trackCtaClick(label, "HeroSection");
     const el = document.querySelector(targetId);
@@ -141,11 +141,11 @@ export const HeroSection = () => {
           Booking new projects for {currentMonth}
         </div>
 
-        {/* High-Impact Editorial Heading */}
+        {/* High-Impact Editorial Heading with Apple-style progressive glow sweep */}
         <h1 className="font-tight font-medium text-[42px] sm:text-[62px] lg:text-[88px] leading-[1.05] tracking-[-0.035em] max-w-[1180px] text-[#F3F1EC]">
-          <span className="text-[#6F6D69]">We build</span> websites{" "}
-          <span className="text-[#6F6D69]">and</span> cloud systems{" "}
-          <span className="text-[#6F6D69]">that keep</span> your business moving.
+          <span className="glow-phrase-1">We build</span> websites{" "}
+          <span className="glow-phrase-2">and</span> cloud systems{" "}
+          <span className="glow-phrase-3">that keep</span> your business moving.
         </h1>
 
         {/* Subtitle & Dual Action Buttons */}
@@ -210,10 +210,7 @@ export const HeroSection = () => {
         {/* Carousel Meta & Navigation Controls */}
         <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-between gap-5">
           {/* Slide Details */}
-          <div aria-live="polite" className="flex items-baseline gap-4 sm:gap-5 min-w-0">
-            <span className="font-mono text-xs sm:text-[13px] text-[#8E8C87] tracking-wider">
-              {formatCounter(currentIndex, totalSlides)}
-            </span>
+          <div aria-live="polite" className="flex items-baseline gap-3 sm:gap-4 min-w-0">
             <span className="font-tight text-lg sm:text-[22px] font-semibold text-[#F3F1EC] tracking-[-0.01em]">
               {currentSlide.name}
             </span>

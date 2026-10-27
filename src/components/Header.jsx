@@ -58,9 +58,9 @@ export const Header = () => {
   };
 
   return (
-    <div className="w-full bg-[#0C0C0B] text-[#F3F1EC] z-50">
+    <div className="sticky top-0 w-full z-50 bg-[#0C0C0B]/95 backdrop-blur-md border-b border-[#21201E]/80 transition-all">
       {/* 1.1 Top Announcement Bar */}
-      <div className="border-b border-[#21201E] px-6 py-2.5 text-center text-[13px] text-[#A8A6A0]">
+      <div className="border-b border-[#21201E]/70 px-6 py-2 text-center text-[13px] text-[#A8A6A0]">
         Remote studio, working with clients globally.{" "}
         <Link
           to="/cloud-devops"
@@ -72,7 +72,7 @@ export const Header = () => {
       </div>
 
       {/* Main Navigation Header */}
-      <header className="max-w-[1360px] mx-auto px-6 sm:px-10 py-6 sm:py-7 flex items-center justify-between gap-5">
+      <header className="max-w-[1360px] mx-auto px-6 sm:px-10 py-4 sm:py-5 flex items-center justify-between gap-5">
         {/* Brand Logo */}
         <Link
           to="/"
@@ -89,7 +89,7 @@ export const Header = () => {
             <button
               key={item.name}
               onClick={() => handleNavClick(item.href, item.name)}
-              className="py-2.5 hover:text-[#2CC3A5] transition-colors bg-transparent border-0 cursor-pointer text-[15px]"
+              className="py-2 hover:text-[#2CC3A5] transition-colors bg-transparent border-0 cursor-pointer text-[15px]"
             >
               {item.name}
             </button>
@@ -121,7 +121,7 @@ export const Header = () => {
 
       {/* Mobile Menu Drawer */}
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[105px] bottom-0 bg-[#0C0C0B]/98 backdrop-blur-xl border-t border-[#21201E] z-50 flex flex-col justify-between p-8 animate-in fade-in duration-200">
+        <div className="md:hidden fixed inset-x-0 top-full bottom-0 h-[calc(100vh-100%)] bg-[#0C0C0B]/98 backdrop-blur-xl border-t border-[#21201E] z-50 flex flex-col justify-between p-8 animate-in fade-in duration-200">
           <nav className="flex flex-col gap-6 text-xl font-tight text-[#F3F1EC]">
             {navLinks.map((item) => (
               <button
