@@ -1,43 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-
-/* ─── Terminal Command Evaluator ────────────────────────────── */
-const COMMAND_MAP = {
-  help: [
-    ['plain', 'commands:'],
-    ['dim', '  services   what we set up for clients'],
-    ['dim', '  stack      tools we use'],
-    ['dim', '  status     current availability'],
-    ['dim', '  work       recent cloud project'],
-    ['dim', '  contact    how to reach us'],
-    ['dim', '  clear      clear the screen'],
-  ],
-  services: [
-    ['green', '> AWS setup        accounts, networking, permissions'],
-    ['green', '> Terraform        your whole setup written as code'],
-    ['green', '> CI/CD            deploy on every push, safely'],
-    ['green', '> Monitoring       alerts, logs, backups, uptime'],
-  ],
-  stack: [
-    ['plain', 'aws · terraform · docker · kubernetes'],
-    ['plain', 'github actions · cloudwatch · grafana'],
-  ],
-  status: [
-    ['ok', 'availability: taking new projects'],
-    ['ok', 'response time: within one working day'],
-    ['dim', 'timezone: WAT (UTC+1), working with clients globally'],
-  ],
-  work: [
-    ['plain', 'RekrutKlin'],
-    ['dim', 'clinical trial recruitment platform · multi-tenant · HIPAA aware'],
-    ['dim', 'infra as code · automated pipeline · per-tenant isolation'],
-  ],
-  contact: [
-    ['green', 'email  support@assuredpixel.com'],
-    ['green', 'phone  +234 903 097 7669'],
-  ],
-};
+import {
+  executeConsoleCommand,
+  getCloudStatus,
+  getCloudMetrics,
+} from '../services/cloudConsoleApi';
 
 const INITIAL_LINES = [
   { t: 'ok', text: 'mounting /dev/assuredpixel …' },
@@ -51,41 +19,69 @@ export function CloudPage() {
   const [input, setInput] = useState('');
   const [lines, setLines] = useState(INITIAL_LINES);
   const [latency, setLatency] = useState(24);
-  const consoleBottomRef = useRef(null);
+  const [cloudStatus, setCloudStatus] = useState(null);
+  const [cloudMetrics, setCloudMetrics] = useState(null);
+  const [isLoadingCmd, setIsLoadingCmd] = useState(false);
+  const terminalBodyRef = useRef(null);
 
+  // Fetch status and architecture metrics from backend API (or fallback)
   useEffect(() => {
-    // Scroll console smoothly to bottom when new lines appear
-    if (consoleBottomRef.current) {
-      consoleBottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    let mounted = true;
+    getCloudStatus().then((status) => {
+      if (mounted && status) setCloudStatus(status);
+    });
+    getCloudMetrics().then((metrics) => {
+      if (mounted && metrics) setCloudMetrics(metrics);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  // Internal terminal container auto-scroll (does NOT scroll the outer browser window)
+  useEffect(() => {
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
     }
   }, [lines]);
 
   useEffect(() => {
-    // Subtle realistic latency fluctuation
+    // Subtle realistic latency fluctuation when idle
     const interval = setInterval(() => {
       setLatency(Math.floor(21 + Math.random() * 8));
     }, 4000);
     return () => clearInterval(interval);
   }, []);
 
-  const runCommand = (cmdText) => {
-    const trimmed = cmdText.trim().toLowerCase();
+  const runCommand = async (cmdText) => {
+    const trimmed = cmdText.trim();
     if (!trimmed) return;
 
-    if (trimmed === 'clear') {
+    if (trimmed.toLowerCase() === 'clear') {
       setLines([]);
       setInput('');
       return;
     }
 
-    const echoLine = { t: 'prompt', text: `ops@assuredpixel.com:~$ ${cmdText.trim()}` };
-    const matched = COMMAND_MAP[trimmed];
-    const outputRows = matched
-      ? matched.map(([t, text]) => ({ t, text }))
-      : [{ t: 'dim', text: `command not found: ${trimmed}. Try "help".` }];
-
-    setLines((prev) => [...prev, echoLine, ...outputRows].slice(-40));
+    const echoLine = { t: 'prompt', text: `ops@assuredpixel.com:~$ ${trimmed}` };
+    setLines((prev) => [...prev, echoLine]);
     setInput('');
+    setIsLoadingCmd(true);
+
+    try {
+      const result = await executeConsoleCommand(trimmed);
+      if (result.latency) {
+        setLatency(result.latency);
+      }
+      setLines((prev) => [...prev, ...result.lines].slice(-40));
+    } catch (err) {
+      setLines((prev) => [
+        ...prev,
+        { t: 'dim', text: `command execution error: ${err.message}` },
+      ].slice(-40));
+    } finally {
+      setIsLoadingCmd(false);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -236,7 +232,7 @@ export function CloudPage() {
               boxShadow: '0 0 8px rgba(61, 220, 151, 0.6)',
             }}
           />
-          SYSTEMS ONLINE · TAKING NEW CLOUD PROJECTS
+          {cloudStatus?.statusText || 'SYSTEMS ONLINE · TAKING NEW CLOUD PROJECTS'}
         </div>
 
         {/* Headline */}
@@ -399,6 +395,9 @@ export function CloudPage() {
               background: '#070B0E',
               overflow: 'hidden',
               boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
+              position: 'sticky',
+              top: '90px',
+              zIndex: 20,
             }}
           >
             {/* Title Bar */}
@@ -452,6 +451,7 @@ export function CloudPage() {
 
             {/* Output screen */}
             <div
+              ref={terminalBodyRef}
               style={{
                 padding: '22px 24px 8px',
                 minHeight: 340,
@@ -504,7 +504,6 @@ export function CloudPage() {
                   }}
                 />
               </div>
-              <div ref={consoleBottomRef} />
             </div>
 
             {/* Quick Action Chips */}
@@ -522,7 +521,11 @@ export function CloudPage() {
                 <button
                   key={chip}
                   type="button"
-                  onClick={() => runCommand(chip)}
+                  disabled={isLoadingCmd}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    runCommand(chip);
+                  }}
                   style={{
                     minHeight: 40,
                     padding: '0 16px',
@@ -532,16 +535,21 @@ export function CloudPage() {
                     color: '#E6EDF3',
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: 13,
-                    cursor: 'pointer',
+                    cursor: isLoadingCmd ? 'wait' : 'pointer',
+                    opacity: isLoadingCmd ? 0.6 : 1,
                     transition: 'border-color 0.2s, background 0.2s',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#F5A524';
-                    e.currentTarget.style.background = '#1A1408';
+                    if (!isLoadingCmd) {
+                      e.currentTarget.style.borderColor = '#F5A524';
+                      e.currentTarget.style.background = '#1A1408';
+                    }
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#2A343D';
-                    e.currentTarget.style.background = '#0F161B';
+                    if (!isLoadingCmd) {
+                      e.currentTarget.style.borderColor = '#2A343D';
+                      e.currentTarget.style.background = '#0F161B';
+                    }
                   }}
                 >
                   {chip}
@@ -559,7 +567,7 @@ export function CloudPage() {
               color: '#8B98A5',
             }}
           >
-            backend: api gateway → lambda → dynamodb · region us-east-1 · latency{' '}
+            backend: api gateway → lambda → dynamodb · region {cloudStatus?.region || 'us-east-1'} · latency{' '}
             <span style={{ color: '#3DDC97' }}>{latency}ms</span>
           </p>
         </div>
@@ -823,19 +831,19 @@ export function CloudPage() {
               }}
             >
               <div style={{ padding: 20, border: '1px solid #1E262D', borderRadius: 10, background: '#070B0E' }}>
-                <div style={{ fontSize: 28, color: '#3DDC97' }}>3</div>
+                <div style={{ fontSize: 28, color: '#3DDC97' }}>{cloudMetrics?.environments || '3'}</div>
                 <div style={{ marginTop: 6, fontSize: 12, color: '#8B98A5' }}>environments</div>
               </div>
               <div style={{ padding: 20, border: '1px solid #1E262D', borderRadius: 10, background: '#070B0E' }}>
-                <div style={{ fontSize: 28, color: '#3DDC97' }}>99.9%</div>
+                <div style={{ fontSize: 28, color: '#3DDC97' }}>{cloudMetrics?.uptime || '99.9%'}</div>
                 <div style={{ marginTop: 6, fontSize: 12, color: '#8B98A5' }}>uptime</div>
               </div>
               <div style={{ padding: 20, border: '1px solid #1E262D', borderRadius: 10, background: '#070B0E' }}>
-                <div style={{ fontSize: 28, color: '#3DDC97' }}>3.2 min</div>
+                <div style={{ fontSize: 28, color: '#3DDC97' }}>{cloudMetrics?.pushToLive || '3.2 min'}</div>
                 <div style={{ marginTop: 6, fontSize: 12, color: '#8B98A5' }}>push to live</div>
               </div>
               <div style={{ padding: 20, border: '1px solid #1E262D', borderRadius: 10, background: '#070B0E' }}>
-                <div style={{ fontSize: 28, color: '#3DDC97' }}>12+</div>
+                <div style={{ fontSize: 28, color: '#3DDC97' }}>{cloudMetrics?.tenants || '12+'}</div>
                 <div style={{ marginTop: 6, fontSize: 12, color: '#8B98A5' }}>tenants</div>
               </div>
             </div>
