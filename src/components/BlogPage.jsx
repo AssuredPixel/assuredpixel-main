@@ -1,172 +1,387 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import {
-    Clock,
-    User,
-    ArrowRight,
-    ChevronRight,
-    Search,
-} from "lucide-react";
+import { Search, User, Clock, ArrowUpRight } from "lucide-react";
 import blogPosts from "../data/remoteBlogPosts.json";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/card";
-import { Button } from "./ui/button";
 import { trackBlogPostClick } from "../lib/analytics";
 
 export const BlogPage = () => {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-    // Ensure posts is always a valid array even if fetch returned empty
-    const posts = Array.isArray(blogPosts) ? blogPosts : [];
+  // Ensure posts is always a valid array even if fetch returned empty
+  const posts = Array.isArray(blogPosts) ? blogPosts : [];
 
-    // Extract all unique tags to act as categories
-    const allTags = posts.flatMap(post => post?.tags || []);
-    const uniqueTags = [...new Set(allTags)].slice(0, 6); // Limit to top 6 tags
-    const categories = ["All", ...uniqueTags];
+  // Extract all unique tags to act as categories
+  const allTags = posts.flatMap((post) => post?.tags || []);
+  const uniqueTags = [...new Set(allTags)].slice(0, 6); // Limit to top 6 tags
+  const categories = ["All", ...uniqueTags];
 
-    const filteredPosts = posts.filter(post => {
-        if (!post || !post.title) return false;
-        const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (post.description && post.description.toLowerCase().includes(searchTerm.toLowerCase()));
-        const matchesCategory = selectedCategory === "All" || (post.tags && post.tags.includes(selectedCategory));
-        return matchesSearch && matchesCategory;
-    });
+  const filteredPosts = posts.filter((post) => {
+    if (!post || !post.title) return false;
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (post.description && post.description.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesCategory =
+      selectedCategory === "All" || (post.tags && post.tags.includes(selectedCategory));
+    return matchesSearch && matchesCategory;
+  });
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    return (
-        <>
-            <Helmet>
-                <title>Blog & Insights | AssuredPixel Digital Marketing</title>
-                <meta name="description" content="Stay ahead with the latest digital marketing insights, branding strategies, and technical SEO tips from the AssuredPixel growth team." />
-            </Helmet>
+  return (
+    <>
+      <Helmet>
+        <title>Blog & Engineering Dispatches — AssuredPixel</title>
+        <meta
+          name="description"
+          content="Practical notes on design, full-stack systems, technical SEO, and AWS cloud architecture from the AssuredPixel team."
+        />
+        <link rel="canonical" href="https://assuredpixel.com/blog" />
+      </Helmet>
 
-            <div className="min-h-screen pt-24 pb-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Breadcrumbs */}
-                    <nav className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
-                        <Link to="/" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</Link>
-                        <ChevronRight className="w-4 h-4" />
-                        <span className="text-slate-900 dark:text-slate-100 font-medium">Blog</span>
-                    </nav>
+      <div
+        style={{
+          background: "#0C0C0B",
+          color: "#F3F1EC",
+          minHeight: "100vh",
+          padding: "60px 0 120px",
+          fontFamily: "'Inter', system-ui, sans-serif",
+        }}
+      >
+        <div style={{ maxWidth: 1360, margin: "0 auto", padding: "0 32px" }}>
+          {/* Header */}
+          <div style={{ marginBottom: 64, maxWidth: 840 }}>
+            <p
+              style={{
+                margin: "0 0 18px",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 13,
+                letterSpacing: "0.28em",
+                color: "#F5A524",
+              }}
+            >
+              // WRITING & DISPATCHES
+            </p>
+            <h1
+              className="font-tight font-semibold"
+              style={{
+                margin: "0 0 20px",
+                fontSize: "clamp(38px, 5.5vw, 76px)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.035em",
+                color: "#F3F1EC",
+              }}
+            >
+              Design, code, and cloud in practice.
+            </h1>
+            <p style={{ margin: 0, fontSize: 18, lineHeight: 1.65, color: "#A8A6A0" }}>
+              Practical architectural teardowns, technical SEO benchmarks, and notes from our daily builds. Pulled directly from our engineering pipelines.
+            </p>
+          </div>
 
-                    {/* Header */}
-                    <div className="mb-12">
-                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-                            Digital Growth & <span className="text-teal-600 dark:text-teal-400">Industry Insights</span>
-                        </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl">
-                            Actionable strategies, deep-dive guides, and the latest trends
-                            pulled directly from our Dev.to engineering pipeline.
-                        </p>
-                    </div>
-
-                    {/* Filters & Search */}
-                    <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between">
-                        <div className="flex flex-wrap gap-2">
-                            {categories.map(category => (
-                                <button
-                                    key={category}
-                                    onClick={() => setSelectedCategory(category)}
-                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category
-                                        ? "bg-teal-600 text-white shadow-lg"
-                                        : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700"
-                                        }`}
-                                >
-                                    {category}
-                                </button>
-                            ))}
-                        </div>
-
-                        <div className="relative w-full md:w-80">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                            <input
-                                type="text"
-                                placeholder="Search articles..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all font-medium placeholder:font-normal"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Blog Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {filteredPosts.length > 0 ? (
-                            filteredPosts.map((post) => (
-                                <a key={post.id} href={post.url} target="_blank" rel="noopener noreferrer" className="group block" onClick={() => trackBlogPostClick(post)}>
-                                    <Card className="h-full hover:shadow-2xl dark:hover:shadow-teal-900/10 transition-all duration-500 hover:-translate-y-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 overflow-hidden">
-                                        <div className="relative h-56 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                                            {post.coverImage ? (
-                                                <img
-                                                    src={post.coverImage}
-                                                    alt={post.title}
-                                                    loading="lazy"
-                                                    className="w-full h-full object-cover group-hover:scale-110 group-hover:brightness-110 transition-all duration-700"
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full bg-gradient-to-br from-teal-500/20 to-slate-800/20 group-hover:scale-110 transition-all duration-700" />
-                                            )}
-                                            {post.tags && post.tags[0] && (
-                                                <div className="absolute top-4 left-4">
-                                                    <span className="bg-teal-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg uppercase tracking-wide">
-                                                        {post.tags[0]}
-                                                    </span>
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <CardHeader className="p-8 pb-4">
-                                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-50 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300 line-clamp-2 leading-tight">
-                                                {post.title}
-                                            </CardTitle>
-                                            <CardDescription className="text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 mt-4 text-base">
-                                                {post.description}
-                                            </CardDescription>
-                                        </CardHeader>
-
-                                        <CardContent className="px-8 pb-8">
-                                            <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-500 pt-6 border-t border-slate-100 dark:border-slate-800">
-                                                <div className="flex items-center gap-6">
-                                                    <span className="flex items-center gap-1.5 font-medium">
-                                                        {post.author?.profileImage ? (
-                                                            <img src={post.author.profileImage} alt={post.author.name} className="w-5 h-5 rounded-full" />
-                                                        ) : (
-                                                            <User className="w-4 h-4 text-teal-600/50" />
-                                                        )}
-                                                        {post.author?.name ? post.author.name.split(' ')[0] : 'Author'}
-                                                    </span>
-                                                    <span className="flex items-center gap-1.5 font-medium">
-                                                        <Clock className="w-4 h-4 text-teal-600/50" />
-                                                        {post.readTime}
-                                                    </span>
-                                                </div>
-                                                <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-teal-600 dark:text-teal-400 group-hover:bg-teal-600 group-hover:text-white transition-all duration-300">
-                                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-rotate-45 transition-transform" />
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </a>
-                            ))
-                        ) : (
-                            <div className="col-span-full py-20 text-center">
-                                <p className="text-xl text-slate-500">No articles found matching your criteria.</p>
-                                <Button
-                                    onClick={() => { setSearchTerm(""); setSelectedCategory("All"); }}
-                                    variant="outline"
-                                    className="mt-4"
-                                >
-                                    Clear all filters
-                                </Button>
-                            </div>
-                        )}
-                    </div>
-                </div>
+          {/* Search & Category Filter Bar */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 20,
+              paddingBottom: 32,
+              marginBottom: 48,
+              borderBottom: "1px solid #21201E",
+            }}
+          >
+            {/* Category Tags */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {categories.map((category) => {
+                const isActive = selectedCategory === category;
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    style={{
+                      padding: "8px 16px",
+                      borderRadius: 999,
+                      border: `1px solid ${isActive ? "#F5A524" : "#21201E"}`,
+                      background: isActive ? "#F5A524" : "#121211",
+                      color: isActive ? "#1A1100" : "#A8A6A0",
+                      fontWeight: isActive ? 700 : 500,
+                      fontSize: 13,
+                      fontFamily: "'JetBrains Mono', monospace",
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.borderColor = "#3B3A37";
+                        e.currentTarget.style.color = "#F3F1EC";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.borderColor = "#21201E";
+                        e.currentTarget.style.color = "#A8A6A0";
+                      }
+                    }}
+                  >
+                    {category}
+                  </button>
+                );
+              })}
             </div>
-        </>
-    );
+
+            {/* Search Input */}
+            <div style={{ position: "relative", minWidth: 260, flex: "0 1 340px" }}>
+              <Search
+                style={{
+                  position: "absolute",
+                  left: 14,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: 16,
+                  height: 16,
+                  color: "#6F6D69",
+                  pointerEvents: "none",
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Search dispatches…"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "10px 14px 10px 40px",
+                  background: "#0F1419",
+                  border: "1px solid #1E262D",
+                  borderRadius: 8,
+                  color: "#E6EDF3",
+                  fontFamily: "'Inter', system-ui, sans-serif",
+                  fontSize: 14,
+                  outline: "none",
+                  boxSizing: "border-box",
+                  transition: "border-color 0.2s",
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#F5A524")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "#1E262D")}
+              />
+            </div>
+          </div>
+
+          {/* Posts Grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+              gap: 32,
+            }}
+          >
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
+                <a
+                  key={post.id}
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackBlogPostClick(post)}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    textDecoration: "none",
+                    color: "inherit",
+                    border: "1px solid #21201E",
+                    borderRadius: 16,
+                    background: "#121211",
+                    overflow: "hidden",
+                    transition:
+                      "transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-4px)";
+                    e.currentTarget.style.borderColor = "#3B3A37";
+                    e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.45)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.borderColor = "#21201E";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  {/* Card Cover */}
+                  <div
+                    style={{
+                      height: 200,
+                      position: "relative",
+                      background: "#070B0E",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {post.coverImage ? (
+                      <img
+                        src={post.coverImage}
+                        alt={post.title}
+                        loading="lazy"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          transition: "transform 0.4s ease",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          background:
+                            "linear-gradient(135deg, rgba(245,165,36,0.1) 0%, rgba(44,195,165,0.05) 100%)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontFamily: "'JetBrains Mono', monospace",
+                          fontSize: 12,
+                          color: "#6F6D69",
+                        }}
+                      >
+                        // ASSUREDPad / DEV.TO
+                      </div>
+                    )}
+                    {post.tags && post.tags[0] && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: 14,
+                          left: 14,
+                          padding: "4px 10px",
+                          borderRadius: 999,
+                          background: "rgba(10, 24, 18, 0.85)",
+                          backdropFilter: "blur(6px)",
+                          color: "#2CC3A5",
+                          fontFamily: "'JetBrains Mono', monospace",
+                          fontSize: 11,
+                          letterSpacing: "0.08em",
+                          border: "1px solid rgba(44, 195, 165, 0.3)",
+                        }}
+                      >
+                        {post.tags[0]}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Card Body */}
+                  <div
+                    style={{
+                      padding: "24px",
+                      display: "flex",
+                      flexDirection: "column",
+                      flex: 1,
+                    }}
+                  >
+                    <h2
+                      className="font-tight font-semibold"
+                      style={{
+                        margin: "0 0 12px",
+                        fontSize: 20,
+                        lineHeight: 1.3,
+                        color: "#F3F1EC",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {post.title}
+                    </h2>
+
+                    <p
+                      style={{
+                        margin: "0 0 24px",
+                        fontSize: 14,
+                        lineHeight: 1.6,
+                        color: "#A8A6A0",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        flex: 1,
+                      }}
+                    >
+                      {post.description}
+                    </p>
+
+                    {/* Metadata Footer */}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        paddingTop: 16,
+                        borderTop: "1px solid #1E262D",
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: 12,
+                        color: "#6F6D69",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                          <User className="w-3.5 h-3.5" />
+                          {post.author?.name ? post.author.name.split(" ")[0] : "Author"}
+                        </span>
+                        {post.readTime && (
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+                            <Clock className="w-3.5 h-3.5" />
+                            {post.readTime}
+                          </span>
+                        )}
+                      </div>
+                      <span style={{ color: "#F5A524", display: "inline-flex", alignItems: "center" }}>
+                        <ArrowUpRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              ))
+            ) : (
+              <div
+                style={{
+                  gridColumn: "1 / -1",
+                  padding: "80px 20px",
+                  textAlign: "center",
+                  border: "1px dashed #21201E",
+                  borderRadius: 16,
+                }}
+              >
+                <p style={{ margin: "0 0 16px", color: "#A8A6A0", fontSize: 16 }}>
+                  No dispatches found matching your search.
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedCategory("All");
+                  }}
+                  style={{
+                    padding: "8px 18px",
+                    borderRadius: 6,
+                    border: "1px solid #21201E",
+                    background: "#121211",
+                    color: "#F5A524",
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: 13,
+                    cursor: "pointer",
+                  }}
+                >
+                  Reset filters
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
+
+export default BlogPage;

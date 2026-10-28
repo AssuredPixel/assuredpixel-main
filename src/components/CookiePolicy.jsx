@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Cookie, Info, Settings, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const CookiePolicy = () => {
@@ -11,71 +11,168 @@ export const CookiePolicy = () => {
   return (
     <>
       <Helmet>
-        <title>Cookie Policy | AssuredPixel Digital Marketing</title>
-        <meta name="description" content="Learn about how we use cookies to improve your experience on AssuredPixel." />
+        <title>Cookie Policy — AssuredPixel</title>
+        <meta
+          name="description"
+          content="Learn how AssuredPixel uses cookies and minimal analytics to improve browsing and digital performance."
+        />
+        <link rel="canonical" href="https://assuredpixel.com/cookies" />
       </Helmet>
 
-      <div className="min-h-screen pt-24 pb-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        style={{
+          background: "#0C0C0B",
+          color: "#F3F1EC",
+          minHeight: "100vh",
+          padding: "60px 0 120px",
+          fontFamily: "'Inter', system-ui, sans-serif",
+        }}
+      >
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 32px" }}>
           {/* Breadcrumbs */}
-          <nav className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
-            <Link to="/" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-slate-900 dark:text-slate-100 font-medium">Cookie Policy</span>
+          <nav
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              fontSize: 13,
+              fontFamily: "'JetBrains Mono', monospace",
+              color: "#8E8C87",
+              marginBottom: 40,
+            }}
+          >
+            <Link
+              to="/"
+              style={{ color: "#A8A6A0", textDecoration: "none" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#F5A524")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#A8A6A0")}
+            >
+              Home
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span style={{ color: "#F3F1EC" }}>Cookie Policy</span>
           </nav>
 
           {/* Header */}
-          <div className="mb-12">
-            <div className="inline-flex items-center justify-center p-3 mb-6 bg-amber-100 dark:bg-amber-900/30 rounded-2xl text-amber-600 dark:text-amber-400">
-              <Cookie className="w-8 h-8" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-              Cookie <span className="text-amber-600 dark:text-amber-400">Policy</span>
+          <div style={{ marginBottom: 48 }}>
+            <p
+              style={{
+                margin: "0 0 16px",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 13,
+                letterSpacing: "0.24em",
+                color: "#F5A524",
+              }}
+            >
+              // TELEMETRY &amp; SESSION POLICY
+            </p>
+            <h1
+              className="font-tight font-semibold"
+              style={{
+                margin: "0 0 16px",
+                fontSize: "clamp(36px, 5vw, 64px)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                color: "#F3F1EC",
+              }}
+            >
+              Cookie Policy
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
-              Last updated: April 6, 2026
+            <p
+              style={{
+                margin: 0,
+                fontSize: 14,
+                fontFamily: "'JetBrains Mono', monospace",
+                color: "#8E8C87",
+              }}
+            >
+              Last updated: October 2026
             </p>
           </div>
 
-          {/* Content */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-sm space-y-10">
+          {/* Document Content Box */}
+          <div
+            style={{
+              background: "#121211",
+              border: "1px solid #21201E",
+              borderRadius: 16,
+              padding: "48px 40px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 40,
+            }}
+          >
             <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
-                <Info className="w-6 h-6 text-amber-600" />
-                1. What are Cookies?
+              <h2
+                className="font-tight font-semibold"
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: 22,
+                  color: "#F3F1EC",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <span style={{ color: "#F5A524", fontFamily: "'JetBrains Mono', monospace", fontSize: 16 }}>
+                  01
+                </span>
+                What are Cookies?
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                Cookies are small text files that are placed on your computer or mobile device when you browse websites. We use them to make our website work effectively and to provide session information to ourselves.
+              <p style={{ margin: 0, fontSize: 16, lineHeight: 1.7, color: "#A8A6A0" }}>
+                Cookies are small data files placed on your device to maintain session states, remember shop cart items, and ensure seamless navigation across our web application.
               </p>
             </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
-                <Settings className="w-6 h-6 text-amber-600" />
-                2. Types of Cookies We Use
+            <section style={{ borderTop: "1px solid #1E262D", paddingTop: 36 }}>
+              <h2
+                className="font-tight font-semibold"
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: 22,
+                  color: "#F3F1EC",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <span style={{ color: "#F5A524", fontFamily: "'JetBrains Mono', monospace", fontSize: 16 }}>
+                  02
+                </span>
+                How We Use Cookies
               </h2>
-              <div className="text-slate-600 dark:text-slate-300 space-y-6 leading-relaxed">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-slate-900 dark:text-white">Essential Cookies</h3>
-                  <p>Necessary for the website to function, such as security and routing. They cannot be switched off.</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-slate-900 dark:text-white">Analytics Cookies</h3>
-                  <p>Used to collect information about how visitors use our site, allowing us to improve browsing and performance.</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-slate-900 dark:text-white">Functionality Cookies</h3>
-                  <p>Used to recognize you when you return to our website and remember your preferences.</p>
-                </div>
+              <div style={{ fontSize: 16, lineHeight: 1.7, color: "#A8A6A0" }}>
+                <p style={{ margin: "0 0 14px" }}>We use cookies strictly for practical utility:</p>
+                <ul style={{ margin: 0, paddingLeft: 24, display: "flex", flexDirection: "column", gap: 12 }}>
+                  <li>
+                    <strong style={{ color: "#F3F1EC" }}>Essential Operations:</strong> Preserving cart contents in our shop drawer, maintaining session security, and caching theme settings.
+                  </li>
+                  <li>
+                    <strong style={{ color: "#F3F1EC" }}>Performance Metrics:</strong> Aggregating anonymous visitor insights to identify load latency and enhance user experience.
+                  </li>
+                </ul>
               </div>
             </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-                3. Managing Cookies
+            <section style={{ borderTop: "1px solid #1E262D", paddingTop: 36 }}>
+              <h2
+                className="font-tight font-semibold"
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: 22,
+                  color: "#F3F1EC",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <span style={{ color: "#F5A524", fontFamily: "'JetBrains Mono', monospace", fontSize: 16 }}>
+                  03
+                </span>
+                Managing Your Preferences
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                You can set your browser to refuse all or some cookies, or to alert you when websites set or access cookies. Note that if you disable or refuse cookies, some parts of this website may become inaccessible or not function properly.
+              <p style={{ margin: 0, fontSize: 16, lineHeight: 1.7, color: "#A8A6A0" }}>
+                You may configure your browser to reject cookies or notify you whenever cookies are requested. Note that certain features such as persistent shop cart items rely on local storage to function as designed.
               </p>
             </section>
           </div>
@@ -84,3 +181,5 @@ export const CookiePolicy = () => {
     </>
   );
 };
+
+export default CookiePolicy;

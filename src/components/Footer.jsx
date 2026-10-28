@@ -247,6 +247,7 @@ export function Footer() {
             <a href="/#work" style={{ color: '#BDBBB5', textDecoration: 'none' }}>Work</a>
             <Link to="/about" style={{ color: '#BDBBB5', textDecoration: 'none' }}>About</Link>
             <Link to="/contact" style={{ color: '#BDBBB5', textDecoration: 'none' }}>Contact</Link>
+            <Link to="/blog" style={{ color: '#BDBBB5', textDecoration: 'none' }}>Blog</Link>
             <a href="/shop" style={{ color: '#BDBBB5', textDecoration: 'none' }}>Shop</a>
           </div>
         </div>

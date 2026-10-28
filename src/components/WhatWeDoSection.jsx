@@ -1,39 +1,40 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SERVICES = [
   {
     num: '01',
-    title: 'Websites',
+    title: 'Websites →',
     body: 'Custom sites built around what you sell and who you sell to. Fast, easy to update, and written to turn visits into enquiries.',
-    href: null,
+    href: '/services/web-design',
     isNew: false,
   },
   {
     num: '02',
-    title: 'Brand identity',
+    title: 'Brand identity →',
     body: 'Logo, type, colour and a voice that sounds like you. Everything you need to show up the same way everywhere.',
-    href: null,
+    href: '/services/branding-strategy',
     isNew: false,
   },
   {
     num: '03',
-    title: 'Apps & products',
+    title: 'Apps & products →',
     body: 'Web and mobile apps, from the first clickable prototype to a product real users log into every day.',
-    href: null,
+    href: '/services/lead-generation',
     isNew: false,
   },
   {
     num: '04',
-    title: 'SEO & search visibility',
+    title: 'SEO & search visibility →',
     body: 'Technical audits and steady on-page work so the people already searching for you can actually find you.',
-    href: null,
+    href: '/services/seo-ranking',
     isNew: false,
   },
   {
     num: '05',
-    title: 'Ads & content',
+    title: 'Ads & content →',
     body: 'Google and Meta campaigns plus the copy behind them, tracked properly so you know what each naira or dollar brought back.',
-    href: null,
+    href: '/services/google-facebook-ads',
     isNew: false,
   },
   {
@@ -89,9 +90,9 @@ function ServiceCard({ num, title, body, href, isNew }) {
 
   if (href) {
     return (
-      <a href={href} style={sharedStyle} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <Link to={href} style={sharedStyle} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
         {inner}
-      </a>
+      </Link>
     );
   }
 

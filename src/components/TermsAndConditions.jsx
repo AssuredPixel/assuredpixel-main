@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Scale, CheckCircle, AlertCircle, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const TermsAndConditions = () => {
@@ -11,75 +11,201 @@ export const TermsAndConditions = () => {
   return (
     <>
       <Helmet>
-        <title>Terms & Conditions | AssuredPixel Digital Marketing</title>
-        <meta name="description" content="View the terms and conditions for using AssuredPixel's services and website." />
+        <title>Terms & Conditions — AssuredPixel</title>
+        <meta
+          name="description"
+          content="Terms and conditions governing the use of AssuredPixel services, websites, and engagements."
+        />
+        <link rel="canonical" href="https://assuredpixel.com/terms" />
       </Helmet>
 
-      <div className="min-h-screen pt-24 pb-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        style={{
+          background: "#0C0C0B",
+          color: "#F3F1EC",
+          minHeight: "100vh",
+          padding: "60px 0 120px",
+          fontFamily: "'Inter', system-ui, sans-serif",
+        }}
+      >
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 32px" }}>
           {/* Breadcrumbs */}
-          <nav className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
-            <Link to="/" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-slate-900 dark:text-slate-100 font-medium">Terms & Conditions</span>
+          <nav
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              fontSize: 13,
+              fontFamily: "'JetBrains Mono', monospace",
+              color: "#8E8C87",
+              marginBottom: 40,
+            }}
+          >
+            <Link
+              to="/"
+              style={{ color: "#A8A6A0", textDecoration: "none" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#F5A524")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#A8A6A0")}
+            >
+              Home
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span style={{ color: "#F3F1EC" }}>Terms &amp; Conditions</span>
           </nav>
 
           {/* Header */}
-          <div className="mb-12">
-            <div className="inline-flex items-center justify-center p-3 mb-6 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl text-emerald-600 dark:text-emerald-400">
-              <Scale className="w-8 h-8" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-              Terms & <span className="text-emerald-600 dark:text-emerald-400">Conditions</span>
+          <div style={{ marginBottom: 48 }}>
+            <p
+              style={{
+                margin: "0 0 16px",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 13,
+                letterSpacing: "0.24em",
+                color: "#F5A524",
+              }}
+            >
+              // CLIENT ENGAGEMENT &amp; TERMS
+            </p>
+            <h1
+              className="font-tight font-semibold"
+              style={{
+                margin: "0 0 16px",
+                fontSize: "clamp(36px, 5vw, 64px)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                color: "#F3F1EC",
+              }}
+            >
+              Terms &amp; Conditions
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
-              Last updated: April 6, 2026
+            <p
+              style={{
+                margin: 0,
+                fontSize: 14,
+                fontFamily: "'JetBrains Mono', monospace",
+                color: "#8E8C87",
+              }}
+            >
+              Last updated: October 2026
             </p>
           </div>
 
-          {/* Content */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-sm space-y-10">
+          {/* Document Content Box */}
+          <div
+            style={{
+              background: "#121211",
+              border: "1px solid #21201E",
+              borderRadius: 16,
+              padding: "48px 40px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 40,
+            }}
+          >
             <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-emerald-600" />
-                1. Acceptance of Terms
+              <h2
+                className="font-tight font-semibold"
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: 22,
+                  color: "#F3F1EC",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <span style={{ color: "#F5A524", fontFamily: "'JetBrains Mono', monospace", fontSize: 16 }}>
+                  01
+                </span>
+                Acceptance of Terms
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                By accessing or using our website and services, you agree to comply with and be bound by these Terms and Conditions. If you do not agree to these terms, please refrain from using our site.
+              <p style={{ margin: 0, fontSize: 16, lineHeight: 1.7, color: "#A8A6A0" }}>
+                By accessing or using our websites, digital services, or entering into an engineering engagement with AssuredPixel, you agree to comply with and be bound by these Terms and Conditions.
               </p>
             </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
-                <AlertCircle className="w-6 h-6 text-emerald-600" />
-                2. Use of Services
+            <section style={{ borderTop: "1px solid #1E262D", paddingTop: 36 }}>
+              <h2
+                className="font-tight font-semibold"
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: 22,
+                  color: "#F3F1EC",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <span style={{ color: "#F5A524", fontFamily: "'JetBrains Mono', monospace", fontSize: 16 }}>
+                  02
+                </span>
+                Project Engagements &amp; Deliverables
               </h2>
-              <div className="text-slate-600 dark:text-slate-300 space-y-4 leading-relaxed">
-                <p>You agree to use our services only for lawful purposes. You are prohibited from:</p>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Violating any local, state, or federal laws.</li>
-                  <li>Attempting to interfere with the network security of AssuredPixel.</li>
-                  <li>Using automated systems (bots) to scrape data from our site.</li>
+              <div style={{ fontSize: 16, lineHeight: 1.7, color: "#A8A6A0" }}>
+                <p style={{ margin: "0 0 14px" }}>
+                  All projects are governed by written milestone agreements defining scope, budget, and delivery timelines:
+                </p>
+                <ul style={{ margin: 0, paddingLeft: 24, display: "flex", flexDirection: "column", gap: 8 }}>
+                  <li>We commit to transparent pricing with no hidden licensing or account management fees.</li>
+                  <li>Clients receive weekly progress milestones and interactive preview links.</li>
+                  <li>Scope revisions are agreed upon mutually in writing before additional work commences.</li>
                 </ul>
               </div>
             </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-                3. Intellectual Property
+            <section style={{ borderTop: "1px solid #1E262D", paddingTop: 36 }}>
+              <h2
+                className="font-tight font-semibold"
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: 22,
+                  color: "#F3F1EC",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <span style={{ color: "#F5A524", fontFamily: "'JetBrains Mono', monospace", fontSize: 16 }}>
+                  03
+                </span>
+                100% Client Ownership
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                All content on this website, including text, graphics, logos, and software, is the property of AssuredPixel Digital and is protected by intellectual property laws.
+              <p style={{ margin: 0, fontSize: 16, lineHeight: 1.7, color: "#A8A6A0" }}>
+                Upon settlement of project fees, all intellectual property, source code repositories, design assets, and cloud configurations transfer entirely to you. We do not enforce proprietary locks or vendor lock-in of any kind.
               </p>
             </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-                4. Limitation of Liability
+            <section style={{ borderTop: "1px solid #1E262D", paddingTop: 36 }}>
+              <h2
+                className="font-tight font-semibold"
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: 22,
+                  color: "#F3F1EC",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <span style={{ color: "#F5A524", fontFamily: "'JetBrains Mono', monospace", fontSize: 16 }}>
+                  04
+                </span>
+                Limitation of Liability
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                AssuredPixel will not be held liable for any indirect, incidental, or consequential damages resulting from the use of our services or website.
+              <p style={{ margin: "0 0 16px", fontSize: 16, lineHeight: 1.7, color: "#A8A6A0" }}>
+                While we build to rigorous industry standards including uptime monitoring and secure configurations, AssuredPixel will not be liable for indirect, incidental, or consequential disruptions caused by third-party infrastructure outages.
               </p>
+              <a
+                href="mailto:admin@assuredpixel.com"
+                style={{
+                  color: "#F5A524",
+                  textDecoration: "none",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 14,
+                }}
+              >
+                admin@assuredpixel.com
+              </a>
             </section>
           </div>
         </div>
@@ -87,3 +213,5 @@ export const TermsAndConditions = () => {
     </>
   );
 };
+
+export default TermsAndConditions;
