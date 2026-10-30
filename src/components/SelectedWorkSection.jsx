@@ -383,8 +383,8 @@ export function SelectedWorkSection() {
         />
         <ProjectCard
           domain="adarlimited.com"
-          imgSrc={null}
-          imgAlt=""
+          imgSrc="https://ada-limited.vercel.app/images/photo-2.jpg"
+          imgAlt="Adar Limited website hero preview"
           imgBg="#151514"
           name="Adar Limited"
           tags="WEBSITE"
