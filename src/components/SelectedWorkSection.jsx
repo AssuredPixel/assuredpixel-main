@@ -49,7 +49,9 @@ function Arrow() {
 function HeroCard() {
   return (
     <a
-      href="#case-studies"
+      href="https://rekrutklin.com/"
+      target="_blank"
+      rel="noopener noreferrer"
       className="ap-card flex flex-col rounded-2xl overflow-hidden no-underline"
       style={{
         flex: '2 1 560px',
@@ -81,7 +83,7 @@ function HeroCard() {
           className="ml-2.5 px-3 py-1 rounded-md font-mono text-[12px]"
           style={{ background: '#1B1B19', color: '#8E8C87' }}
         >
-          rekrutklin.com
+          rekrutklin.com ↗
         </span>
       </div>
 
@@ -215,10 +217,12 @@ function StatCard() {
 }
 
 /* ─── small project card ─────────────────────────────────────── */
-function ProjectCard({ domain, imgSrc, imgAlt, imgBg, name, tags, placeholder }) {
+function ProjectCard({ domain, imgSrc, imgAlt, imgBg, name, tags, previewUrl }) {
   return (
     <a
-      href="#case-studies"
+      href={previewUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       className="ap-card flex flex-col rounded-2xl overflow-hidden no-underline"
       style={{
         flex: '1 1 260px',
@@ -250,7 +254,7 @@ function ProjectCard({ domain, imgSrc, imgAlt, imgBg, name, tags, placeholder })
           className="ml-2 px-2.5 py-1 rounded-md font-mono text-[11px]"
           style={{ background: '#1B1B19', color: '#8E8C87' }}
         >
-          {domain}
+          {domain} ↗
         </span>
       </div>
 
@@ -357,6 +361,7 @@ export function SelectedWorkSection() {
           imgBg="#F5F2EC"
           name="FarashaCRP"
           tags="USA · CLINICAL RESEARCH · WEBSITE"
+          previewUrl="https://farasha-project.vercel.app/"
         />
         <ProjectCard
           domain="primesiteacademy.com"
@@ -365,6 +370,7 @@ export function SelectedWorkSection() {
           imgBg="#0F2A4A"
           name="Prime Site Academy"
           tags="USA · EDUCATION · LMS"
+          previewUrl="https://staging.primesiteacademy.com/"
         />
         <ProjectCard
           domain="seasteelmarine.com"
@@ -373,6 +379,7 @@ export function SelectedWorkSection() {
           imgBg="#0D1117"
           name="Seasteel Marine"
           tags="NIGERIA · MARINE & OFFSHORE · WEBSITE"
+          previewUrl="https://www.seasteelsmarine.com/"
         />
         <ProjectCard
           domain="adarlimited.com"
@@ -381,6 +388,7 @@ export function SelectedWorkSection() {
           imgBg="#151514"
           name="Adar Limited"
           tags="WEBSITE"
+          previewUrl="https://ada-limited.vercel.app/"
         />
       </div>
     </section>

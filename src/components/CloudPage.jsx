@@ -805,19 +805,32 @@ export function CloudPage() {
               <p style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: '#A7B3BF' }}>
                 A clinical trial recruitment platform that handles patient data, so it had to be secure and separated per customer from the start. We designed the cloud setup, wrote it as code and put every release through an automated pipeline.
               </p>
-              <Link
-                to="/case-studies"
-                style={{
-                  display: 'inline-block',
-                  marginTop: 22,
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: 14,
-                  color: '#F5A524',
-                  textDecoration: 'none',
-                }}
-              >
-                Read the case study →
-              </Link>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'center', marginTop: 22 }}>
+                <Link
+                  to="/case-studies"
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: 14,
+                    color: '#F5A524',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Read the case study →
+                </Link>
+                <a
+                  href="https://rekrutklin.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: 14,
+                    color: '#3DDC97',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Live site ↗
+                </a>
+              </div>
             </div>
 
             <div
